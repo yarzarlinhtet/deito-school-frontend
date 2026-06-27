@@ -1,0 +1,24 @@
+{
+  "projectName": "deito-school-frontend",
+  "mode": "file-router",
+  "typescript": true,
+  "packageManager": "npm",
+  "includeExamples": true,
+  "tailwind": true,
+  "addOnOptions": {},
+  "envVarValues": {},
+  "git": true,
+  "install": true,
+  "routerOnly": false,
+  "version": 1,
+  "framework": "react",
+  "chosenAddOns": [
+    "sentry",
+    "form",
+    "paraglide",
+    "shadcn",
+    "t3env",
+    "table",
+    "tanstack-query"
+  ]
+}
