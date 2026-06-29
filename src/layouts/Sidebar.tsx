@@ -9,13 +9,11 @@ import {
   ChevronLeft,
   ChevronRight,
   LogOut,
-  GraduationCap,
   FileText,
   ReceiptText,
-  BarChart3,
-  ShieldCheck,
   Building2,
   ChevronDown,
+  GraduationCap,
   type LucideIcon,
 } from 'lucide-react'
 import { Button } from '#/components/ui/button'
@@ -55,26 +53,22 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   {
+    href: '/academic',
+    label: 'Academic',
+    icon: GraduationCap,
+    children: [
+      { href: '/academic/programs', label: 'Programs' },
+      { href: '/academic/levels', label: 'Program Levels' },
+      { href: '/academic/classes', label: 'Classes' },
+    ],
+  },
+  {
     href: '/enrollment',
     label: 'Enrollment',
     icon: BookOpen,
     children: [
       { href: '/enrollment/academic-years', label: 'Academic Years' },
       { href: '/enrollment/intake-batch', label: 'Intake & Batch' },
-      { href: '/enrollment/class-assignment', label: 'Class Assignment' },
-      { href: '/enrollment/history', label: 'History' },
-      { href: '/enrollment/major-assignment', label: 'Major Assignment' },
-    ],
-  },
-  {
-    href: '/majors',
-    label: 'Majors',
-    icon: GraduationCap,
-    children: [
-      { href: '/majors', label: 'Overview' },
-      { href: '/majors/analytics', label: 'Analytics' },
-      { href: '/majors/transfers', label: 'Transfers' },
-      { href: '/majors/fee-mapping', label: 'Fee Mapping' },
     ],
   },
   {
@@ -82,11 +76,8 @@ const NAV_ITEMS: NavItem[] = [
     label: 'Fees',
     icon: FileText,
     children: [
-      { href: '/fees/categories', label: 'Categories' },
-      { href: '/fees/collection', label: 'Payment Collection' },
+      { href: '/fees/categories', label: 'Categories & Templates' },
       { href: '/fees/discounts', label: 'Discounts' },
-      { href: '/fees/installments', label: 'Installments' },
-      { href: '/fees/ledger', label: 'Ledger' },
     ],
   },
   {
@@ -94,59 +85,23 @@ const NAV_ITEMS: NavItem[] = [
     label: 'Billing',
     icon: ReceiptText,
     children: [
-      { href: '/billing/fee-account', label: 'Fee Account' },
-      { href: '/billing/invoices', label: 'Invoices' },
-      { href: '/billing/installments', label: 'Installments' },
-      { href: '/billing/schedule', label: 'Schedule' },
+      { href: '/billing/fee-mappings', label: 'Fee Template Mapping' },
     ],
   },
   {
     href: '/finance',
     label: 'Finance',
     icon: DollarSign,
-    children: [
-      { href: '/finance', label: 'Dashboard' },
-      { href: '/finance/daily-collection', label: 'Daily Collection' },
-      { href: '/finance/outstanding', label: 'Outstanding' },
-      { href: '/finance/revenue', label: 'Revenue' },
-      { href: '/finance/export', label: 'Export' },
-    ],
-  },
-  {
-    href: '/users',
-    label: 'Users & Access',
-    icon: ShieldCheck,
-    children: [
-      { href: '/users', label: 'Overview' },
-      { href: '/users/list', label: 'User Directory' },
-      { href: '/users/roles', label: 'Roles' },
-      { href: '/users/permissions', label: 'Permissions' },
-    ],
   },
   {
     href: '/admin',
     label: 'Administration',
     icon: Building2,
-    children: [
-      { href: '/admin', label: 'Dashboard' },
-      { href: '/admin/school-config', label: 'School Config' },
-      { href: '/admin/audit-logs', label: 'Audit Logs' },
-      { href: '/admin/settings', label: 'Settings' },
-    ],
   },
   {
     href: '/settings',
     label: 'Settings',
     icon: Settings,
-  },
-  {
-    href: '/reports',
-    label: 'Reports',
-    icon: BarChart3,
-    children: [
-      { href: '/finance/enrollment-report', label: 'Enrollment Report' },
-      { href: '/finance/revenue', label: 'Revenue Report' },
-    ],
   },
 ]
 

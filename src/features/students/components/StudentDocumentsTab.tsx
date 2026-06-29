@@ -1,45 +1,15 @@
-import { DocumentUploadItem } from '#/components/shared/document-upload'
-import { useStudentDocuments, useUploadDocument } from '../hooks/useStudentDocuments'
+import { FileText } from 'lucide-react'
 
-interface StudentDocumentsTabProps {
-  studentId: string
-}
-
-export function StudentDocumentsTab({ studentId }: StudentDocumentsTabProps) {
-  const { data: documents, isLoading } = useStudentDocuments(studentId)
-  const upload = useUploadDocument(studentId)
-
-  if (isLoading) {
-    return (
-      <div className="space-y-3">
-        {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="h-16 rounded-lg border bg-muted animate-pulse" />
-        ))}
-      </div>
-    )
-  }
-
-  if (!documents?.length) {
-    return (
-      <p className="text-sm text-muted-foreground py-8 text-center">
-        No documents on file.
-      </p>
-    )
-  }
-
+export function StudentDocumentsTab() {
   return (
-    <div className="space-y-2 max-w-2xl">
-      {documents.map((doc) => (
-        <DocumentUploadItem
-          key={doc.id}
-          label={doc.label}
-          required={doc.required}
-          status={doc.status}
-          fileName={doc.fileName}
-          fileSize={doc.fileSize}
-          onUpload={(file) => upload.mutate({ docId: doc.id, file })}
-        />
-      ))}
+    <div className="flex flex-col items-center gap-4 py-16 text-center rounded-lg border border-dashed">
+      <FileText className="size-10 text-muted-foreground/40" />
+      <div>
+        <p className="text-sm font-medium text-muted-foreground">Document management coming soon</p>
+        <p className="text-xs text-muted-foreground/70 mt-1">
+          Document uploads will be available in a future update.
+        </p>
+      </div>
     </div>
   )
 }

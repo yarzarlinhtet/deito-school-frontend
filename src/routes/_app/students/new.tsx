@@ -1,99 +1,49 @@
-import { useRef } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
-import { WizardLayout, type WizardStep } from '#/components/shared/wizard'
-import { Step1Personal } from '#/features/students/components/EnrollmentWizard/Step1Personal'
-import { Step2Contact } from '#/features/students/components/EnrollmentWizard/Step2Contact'
-import { Step3Parents } from '#/features/students/components/EnrollmentWizard/Step3Parents'
-import { Step4Emergency } from '#/features/students/components/EnrollmentWizard/Step4Emergency'
-import { Step5Academic } from '#/features/students/components/EnrollmentWizard/Step5Academic'
-import { Step6Documents } from '#/features/students/components/EnrollmentWizard/Step6Documents'
-import { Step7Review } from '#/features/students/components/EnrollmentWizard/Step7Review'
-import { useEnrollWizard } from '#/features/students/hooks/useEnrollWizard'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { ArrowLeft } from 'lucide-react'
+import { Link } from '@tanstack/react-router'
+import { Button } from '#/components/ui/button'
+import { PageContainer } from '#/components/shared/page-layout'
+import { PageHeader } from '#/components/shared/page-layout'
+import { StudentForm } from '#/features/students/components/StudentForm'
+import { useCreateStudent } from '#/features/students/hooks/useStudents'
+import type { CreateStudentRequest } from '#/generated/model'
 
 export const Route = createFileRoute('/_app/students/new')({
-  component: EnrollStudentPage,
+  component: CreateStudentPage,
 })
 
-const STEPS: WizardStep[] = [
-  { label: 'Personal Info', description: 'Basic details & photo' },
-  { label: 'Contact', description: 'Address & phone' },
-  { label: 'Parent & Guardian', description: 'Father & mother details' },
-  { label: 'Emergency Contact', description: 'Emergency contacts' },
-  { label: 'Academic Info', description: 'Program & enrollment' },
-  { label: 'Documents', description: 'Upload documents' },
-  { label: 'Review & Submit', description: 'Confirm and enroll' },
-]
+function CreateStudentPage() {
+  const navigate = useNavigate()
+  const createStudent = useCreateStudent()
 
-function EnrollStudentPage() {
-  const wizard = useEnrollWizard()
-  const stepFormRef = useRef<{ submit: () => void } | null>(null)
-
-  function handleNext() {
-    if (wizard.state.currentStep < 6) {
-      stepFormRef.current?.submit()
-    } else {
-      wizard.submit()
-    }
+  function handleSubmit(data: CreateStudentRequest) {
+    createStudent.mutate(data, {
+      onSuccess: (student) => {
+        navigate({ to: '/students/$studentId/profile' as any, params: { studentId: student.id! } as any })
+      },
+    })
   }
 
-  const { currentStep } = wizard.state
-
   return (
-    <WizardLayout
-      title="Student Enrollment"
-      steps={STEPS}
-      currentStep={currentStep}
-      onNext={handleNext}
-      onBack={wizard.back}
-      onSaveDraft={wizard.saveDraftNow}
-      isSubmitting={wizard.isSubmitting}
-      isLastStep={currentStep === 6}
-    >
-      {currentStep === 0 && (
-        <Step1Personal
-          defaultValues={wizard.state.step1}
-          formRef={stepFormRef}
-          onSubmit={(data) => { wizard.update('step1', data); wizard.next() }}
-        />
-      )}
-      {currentStep === 1 && (
-        <Step2Contact
-          defaultValues={wizard.state.step2}
-          formRef={stepFormRef}
-          onSubmit={(data) => { wizard.update('step2', data); wizard.next() }}
-        />
-      )}
-      {currentStep === 2 && (
-        <Step3Parents
-          defaultValues={wizard.state.step3}
-          formRef={stepFormRef}
-          onSubmit={(data) => { wizard.update('step3', data); wizard.next() }}
-        />
-      )}
-      {currentStep === 3 && (
-        <Step4Emergency
-          defaultValues={wizard.state.step4}
-          formRef={stepFormRef}
-          onSubmit={(data) => { wizard.update('step4', data); wizard.next() }}
-        />
-      )}
-      {currentStep === 4 && (
-        <Step5Academic
-          defaultValues={wizard.state.step5}
-          formRef={stepFormRef}
-          onSubmit={(data) => { wizard.update('step5', data); wizard.next() }}
-        />
-      )}
-      {currentStep === 5 && (
-        <Step6Documents
-          defaultValues={wizard.state.step6}
-          formRef={stepFormRef}
-          onSubmit={(data) => { wizard.update('step6', data); wizard.next() }}
-        />
-      )}
-      {currentStep === 6 && (
-        <Step7Review state={wizard.state} />
-      )}
-    </WizardLayout>
+    <PageContainer>
+      <Button variant="ghost" size="sm" className="mb-4 -ml-2 gap-1.5 text-muted-foreground" asChild>
+        <Link to="/students">
+          <ArrowLeft className="size-4" />
+          Back to Students
+        </Link>
+      </Button>
+
+      <PageHeader
+        title="Add Student"
+        description="Create a new student record with personal and contact information"
+      />
+
+      <StudentForm
+        mode="create"
+        onSubmit={(data) => handleSubmit(data as CreateStudentRequest)}
+        onCancel={() => navigate({ to: '/students' as any })}
+        isLoading={createStudent.isPending}
+      />
+    </PageContainer>
   )
 }

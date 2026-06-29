@@ -1,9 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import {
-  search3,
-  create3,
-  update3,
+  intakeControllerSearch,
+  intakeControllerCreate,
+  intakeControllerUpdate,
 } from '#/generated/intake-controller/intake-controller'
 import type {
   IntakeRequest,
@@ -17,14 +17,14 @@ const QK = 'intakes'
 export function useIntakes(searchRequest: SearchRequest = {}) {
   return useQuery({
     queryKey: [QK, searchRequest],
-    queryFn: ({ signal }) => search3(searchRequest, signal),
+    queryFn: ({ signal }) => intakeControllerSearch(searchRequest, signal),
   })
 }
 
 export function useCreateIntake() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (req: IntakeRequest) => create3(req),
+    mutationFn: (req: IntakeRequest) => intakeControllerCreate(req),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: [QK] })
       toast.success('Intake created')
@@ -37,7 +37,7 @@ export function useUpdateIntake() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, req }: { id: string; req: UpdateIntakeRequest }) =>
-      update3(id, req),
+      intakeControllerUpdate(id, req),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: [QK] })
       toast.success('Intake updated')
@@ -50,7 +50,7 @@ export function useActivateIntake() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, existing }: { id: string; existing: IntakeResponse }) =>
-      update3(id, {
+      intakeControllerUpdate(id, {
         name: existing.name ?? '',
         startDate: existing.startDate ?? '',
         endDate: existing.endDate ?? '',

@@ -1,9 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import {
-  search5,
-  create5,
-  update5,
+  batchControllerSearch,
+  batchControllerCreate,
+  batchControllerUpdate,
 } from '#/generated/batch-controller/batch-controller'
 import type {
   BatchRequest,
@@ -16,14 +16,14 @@ const QK = 'batches'
 export function useBatches(searchRequest: SearchRequest = {}) {
   return useQuery({
     queryKey: [QK, searchRequest],
-    queryFn: ({ signal }) => search5(searchRequest, signal),
+    queryFn: ({ signal }) => batchControllerSearch(searchRequest, signal),
   })
 }
 
 export function useCreateBatch() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (req: BatchRequest) => create5(req),
+    mutationFn: (req: BatchRequest) => batchControllerCreate(req),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: [QK] })
       toast.success('Batch created')
@@ -36,7 +36,7 @@ export function useUpdateBatch() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, req }: { id: string; req: UpdateBatchRequest }) =>
-      update5(id, req),
+      batchControllerUpdate(id, req),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: [QK] })
       toast.success('Batch updated')

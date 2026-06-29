@@ -1,6 +1,5 @@
 import { EntitySelector } from '#/components/shared/entity-selector'
-import { axiosInstance } from '#/lib/axios'
-import type { Student } from '../../types'
+import { studentControllerSearch } from '#/generated/student-controller/student-controller'
 
 interface StudentSelectorProps {
   value: string
@@ -16,13 +15,14 @@ export function StudentSelector({
   className,
 }: StudentSelectorProps) {
   async function fetchStudents(query: string) {
-    const res = await axiosInstance.get<{ data: Student[] }>('/students', {
-      params: { search: query, pageSize: 20 },
+    const res = await studentControllerSearch({
+      filters: query ? [{ field: 'fullName', operator: 'CONTAINS', value: query }] : [],
+      pagination: { page: 0, size: 20 },
     })
-    return res.data.data.map((s) => ({
-      value: s.id,
-      label: s.fullName,
-      sublabel: s.studentId,
+    return (res.items ?? []).map((s) => ({
+      value: s.id!,
+      label: s.fullName ?? '',
+      sublabel: s.studentNo,
     }))
   }
 

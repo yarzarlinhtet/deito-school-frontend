@@ -51,7 +51,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const getById4 = (
+export const classControllerGetById = (
     classId: string,
  signal?: AbortSignal
 ) => {
@@ -65,11 +65,11 @@ export const getById4 = (
 
 
 
-export const getGetById4MutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById4>>, TError,{classId: string}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof getById4>>, TError,{classId: string}, TContext> => {
+export const getClassControllerGetByIdMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof classControllerGetById>>, TError,{classId: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof classControllerGetById>>, TError,{classId: string}, TContext> => {
 
-const mutationKey = ['getById4'];
+const mutationKey = ['classControllerGetById'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -79,10 +79,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof getById4>>, {classId: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof classControllerGetById>>, {classId: string}> = (props) => {
           const {classId} = props ?? {};
 
-          return  getById4(classId,)
+          return  classControllerGetById(classId,)
         }
 
 
@@ -92,21 +92,21 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type GetById4MutationResult = NonNullable<Awaited<ReturnType<typeof getById4>>>
+    export type ClassControllerGetByIdMutationResult = NonNullable<Awaited<ReturnType<typeof classControllerGetById>>>
 
-    export type GetById4MutationError = unknown
+    export type ClassControllerGetByIdMutationError = unknown
 
-    export const useGetById4 = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById4>>, TError,{classId: string}, TContext>, }
+    export const useClassControllerGetById = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof classControllerGetById>>, TError,{classId: string}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof getById4>>,
+        Awaited<ReturnType<typeof classControllerGetById>>,
         TError,
         {classId: string},
         TContext
       > => {
-      return useMutation(getGetById4MutationOptions(options), queryClient);
+      return useMutation(getClassControllerGetByIdMutationOptions(options), queryClient);
     }
-    export const update4 = (
+    export const classControllerUpdate = (
     classId: string,
     updateClassRequest: UpdateClassRequest,
  signal?: AbortSignal
@@ -124,7 +124,7 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getUpdate4QueryKey = (classId: string,
+export const getClassControllerUpdateQueryKey = (classId: string,
     updateClassRequest?: UpdateClassRequest,) => {
     return [
     'PUT', `/api/v1/enrollments/classes/${classId}`, updateClassRequest
@@ -132,64 +132,64 @@ export const getUpdate4QueryKey = (classId: string,
     }
 
 
-export const getUpdate4QueryOptions = <TData = Awaited<ReturnType<typeof update4>>, TError = unknown>(classId: string,
-    updateClassRequest: UpdateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update4>>, TError, TData>>, }
+export const getClassControllerUpdateQueryOptions = <TData = Awaited<ReturnType<typeof classControllerUpdate>>, TError = unknown>(classId: string,
+    updateClassRequest: UpdateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerUpdate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getUpdate4QueryKey(classId,updateClassRequest);
+  const queryKey =  queryOptions?.queryKey ?? getClassControllerUpdateQueryKey(classId,updateClassRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof update4>>> = ({ signal }) => update4(classId,updateClassRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof classControllerUpdate>>> = ({ signal }) => classControllerUpdate(classId,updateClassRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: classId !== null && classId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof update4>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: classId !== null && classId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof classControllerUpdate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Update4QueryResult = NonNullable<Awaited<ReturnType<typeof update4>>>
-export type Update4QueryError = unknown
+export type ClassControllerUpdateQueryResult = NonNullable<Awaited<ReturnType<typeof classControllerUpdate>>>
+export type ClassControllerUpdateQueryError = unknown
 
 
-export function useUpdate4<TData = Awaited<ReturnType<typeof update4>>, TError = unknown>(
+export function useClassControllerUpdate<TData = Awaited<ReturnType<typeof classControllerUpdate>>, TError = unknown>(
  classId: string,
-    updateClassRequest: UpdateClassRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof update4>>, TError, TData>> & Pick<
+    updateClassRequest: UpdateClassRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerUpdate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update4>>,
+          Awaited<ReturnType<typeof classControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update4>>
+          Awaited<ReturnType<typeof classControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate4<TData = Awaited<ReturnType<typeof update4>>, TError = unknown>(
+export function useClassControllerUpdate<TData = Awaited<ReturnType<typeof classControllerUpdate>>, TError = unknown>(
  classId: string,
-    updateClassRequest: UpdateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update4>>, TError, TData>> & Pick<
+    updateClassRequest: UpdateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerUpdate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update4>>,
+          Awaited<ReturnType<typeof classControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update4>>
+          Awaited<ReturnType<typeof classControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate4<TData = Awaited<ReturnType<typeof update4>>, TError = unknown>(
+export function useClassControllerUpdate<TData = Awaited<ReturnType<typeof classControllerUpdate>>, TError = unknown>(
  classId: string,
-    updateClassRequest: UpdateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update4>>, TError, TData>>, }
+    updateClassRequest: UpdateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useUpdate4<TData = Awaited<ReturnType<typeof update4>>, TError = unknown>(
+export function useClassControllerUpdate<TData = Awaited<ReturnType<typeof classControllerUpdate>>, TError = unknown>(
  classId: string,
-    updateClassRequest: UpdateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update4>>, TError, TData>>, }
+    updateClassRequest: UpdateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getUpdate4QueryOptions(classId,updateClassRequest,options)
+  const queryOptions = getClassControllerUpdateQueryOptions(classId,updateClassRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -201,7 +201,7 @@ export function useUpdate4<TData = Awaited<ReturnType<typeof update4>>, TError =
 
 
 
-export const create4 = (
+export const classControllerCreate = (
     createClassRequest: CreateClassRequest,
  signal?: AbortSignal
 ) => {
@@ -218,66 +218,66 @@ export const create4 = (
 
 
 
-export const getCreate4QueryKey = (createClassRequest?: CreateClassRequest,) => {
+export const getClassControllerCreateQueryKey = (createClassRequest?: CreateClassRequest,) => {
     return [
     'POST', `/api/v1/enrollments/classes`, createClassRequest
     ] as const;
     }
 
 
-export const getCreate4QueryOptions = <TData = Awaited<ReturnType<typeof create4>>, TError = unknown>(createClassRequest: CreateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create4>>, TError, TData>>, }
+export const getClassControllerCreateQueryOptions = <TData = Awaited<ReturnType<typeof classControllerCreate>>, TError = unknown>(createClassRequest: CreateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerCreate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getCreate4QueryKey(createClassRequest);
+  const queryKey =  queryOptions?.queryKey ?? getClassControllerCreateQueryKey(createClassRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof create4>>> = ({ signal }) => create4(createClassRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof classControllerCreate>>> = ({ signal }) => classControllerCreate(createClassRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof create4>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof classControllerCreate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Create4QueryResult = NonNullable<Awaited<ReturnType<typeof create4>>>
-export type Create4QueryError = unknown
+export type ClassControllerCreateQueryResult = NonNullable<Awaited<ReturnType<typeof classControllerCreate>>>
+export type ClassControllerCreateQueryError = unknown
 
 
-export function useCreate4<TData = Awaited<ReturnType<typeof create4>>, TError = unknown>(
- createClassRequest: CreateClassRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof create4>>, TError, TData>> & Pick<
+export function useClassControllerCreate<TData = Awaited<ReturnType<typeof classControllerCreate>>, TError = unknown>(
+ createClassRequest: CreateClassRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerCreate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create4>>,
+          Awaited<ReturnType<typeof classControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create4>>
+          Awaited<ReturnType<typeof classControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate4<TData = Awaited<ReturnType<typeof create4>>, TError = unknown>(
- createClassRequest: CreateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create4>>, TError, TData>> & Pick<
+export function useClassControllerCreate<TData = Awaited<ReturnType<typeof classControllerCreate>>, TError = unknown>(
+ createClassRequest: CreateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerCreate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create4>>,
+          Awaited<ReturnType<typeof classControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create4>>
+          Awaited<ReturnType<typeof classControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate4<TData = Awaited<ReturnType<typeof create4>>, TError = unknown>(
- createClassRequest: CreateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create4>>, TError, TData>>, }
+export function useClassControllerCreate<TData = Awaited<ReturnType<typeof classControllerCreate>>, TError = unknown>(
+ createClassRequest: CreateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useCreate4<TData = Awaited<ReturnType<typeof create4>>, TError = unknown>(
- createClassRequest: CreateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create4>>, TError, TData>>, }
+export function useClassControllerCreate<TData = Awaited<ReturnType<typeof classControllerCreate>>, TError = unknown>(
+ createClassRequest: CreateClassRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getCreate4QueryOptions(createClassRequest,options)
+  const queryOptions = getClassControllerCreateQueryOptions(createClassRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -289,7 +289,7 @@ export function useCreate4<TData = Awaited<ReturnType<typeof create4>>, TError =
 
 
 
-export const search4 = (
+export const classControllerSearch = (
     searchRequest: SearchRequest,
  signal?: AbortSignal
 ) => {
@@ -306,66 +306,66 @@ export const search4 = (
 
 
 
-export const getSearch4QueryKey = (searchRequest?: SearchRequest,) => {
+export const getClassControllerSearchQueryKey = (searchRequest?: SearchRequest,) => {
     return [
     'POST', `/api/v1/enrollments/classes/search`, searchRequest
     ] as const;
     }
 
 
-export const getSearch4QueryOptions = <TData = Awaited<ReturnType<typeof search4>>, TError = unknown>(searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search4>>, TError, TData>>, }
+export const getClassControllerSearchQueryOptions = <TData = Awaited<ReturnType<typeof classControllerSearch>>, TError = unknown>(searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerSearch>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getSearch4QueryKey(searchRequest);
+  const queryKey =  queryOptions?.queryKey ?? getClassControllerSearchQueryKey(searchRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof search4>>> = ({ signal }) => search4(searchRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof classControllerSearch>>> = ({ signal }) => classControllerSearch(searchRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof search4>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof classControllerSearch>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Search4QueryResult = NonNullable<Awaited<ReturnType<typeof search4>>>
-export type Search4QueryError = unknown
+export type ClassControllerSearchQueryResult = NonNullable<Awaited<ReturnType<typeof classControllerSearch>>>
+export type ClassControllerSearchQueryError = unknown
 
 
-export function useSearch4<TData = Awaited<ReturnType<typeof search4>>, TError = unknown>(
- searchRequest: SearchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof search4>>, TError, TData>> & Pick<
+export function useClassControllerSearch<TData = Awaited<ReturnType<typeof classControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerSearch>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof search4>>,
+          Awaited<ReturnType<typeof classControllerSearch>>,
           TError,
-          Awaited<ReturnType<typeof search4>>
+          Awaited<ReturnType<typeof classControllerSearch>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSearch4<TData = Awaited<ReturnType<typeof search4>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search4>>, TError, TData>> & Pick<
+export function useClassControllerSearch<TData = Awaited<ReturnType<typeof classControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerSearch>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof search4>>,
+          Awaited<ReturnType<typeof classControllerSearch>>,
           TError,
-          Awaited<ReturnType<typeof search4>>
+          Awaited<ReturnType<typeof classControllerSearch>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSearch4<TData = Awaited<ReturnType<typeof search4>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search4>>, TError, TData>>, }
+export function useClassControllerSearch<TData = Awaited<ReturnType<typeof classControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerSearch>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useSearch4<TData = Awaited<ReturnType<typeof search4>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search4>>, TError, TData>>, }
+export function useClassControllerSearch<TData = Awaited<ReturnType<typeof classControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof classControllerSearch>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getSearch4QueryOptions(searchRequest,options)
+  const queryOptions = getClassControllerSearchQueryOptions(searchRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

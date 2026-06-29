@@ -1,12 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from '@tanstack/react-router'
-import type { ColumnDef, PaginationState, SortingState, RowSelectionState, OnChangeFn } from '@tanstack/react-table'
-import { MoreHorizontal, Eye, UserX, Trash2, UserCheck } from 'lucide-react'
+import type { ColumnDef, PaginationState, SortingState, OnChangeFn } from '@tanstack/react-table'
+import { MoreHorizontal, Eye, Pencil, UserX, UserCheck } from 'lucide-react'
 import { ServerTable } from '#/components/shared/data-table'
-import { BulkActionsBar } from '#/components/shared/data-table'
 import { StatusBadge } from '#/components/shared/status-badge'
-import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
-import { Badge } from '#/components/ui/badge'
+import { Avatar, AvatarFallback } from '#/components/ui/avatar'
 import { Button } from '#/components/ui/button'
 import {
   DropdownMenu,
@@ -15,127 +13,147 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '#/components/ui/dropdown-menu'
-import { Checkbox } from '#/components/ui/checkbox'
 import { PermissionGuard } from '#/components/shared/permission-guard'
 import { PERMISSIONS } from '#/constants/permissions'
-import { useStudents, useDeactivateStudent, useDeleteStudent } from '../hooks/useStudents'
-import type { Student, StudentListParams } from '../types'
+import type { FilterCriteria, SearchRequest, StudentResponse } from '#/generated/model'
+import { useStudents, useUpdateStudentStatus } from '../hooks/useStudents'
+import type { StudentFilterValues } from './StudentFilters'
+
+const STATUS_MAP: Record<string, string> = {
+  ACTIVE: 'active',
+  SUSPENDED: 'suspended',
+  NEW: 'pending',
+  GRADUATED: 'completed',
+  TRANSFERRED: 'info',
+  WITHDRAWN: 'inactive',
+}
+
+function getInitials(fullName?: string | null) {
+  if (!fullName) return '??'
+  return fullName
+    .split(' ')
+    .map((w) => w[0])
+    .join('')
+    .substring(0, 2)
+    .toUpperCase()
+}
 
 interface StudentTableProps {
-  filters: StudentListParams
-  onPaginationChange: OnChangeFn<PaginationState>
+  filters: StudentFilterValues
+  appliedFilters: StudentFilterValues
   pagination: PaginationState
+  onPaginationChange: OnChangeFn<PaginationState>
 }
 
-const STATUS_MAP: Record<Student['status'], string> = {
-  active: 'active',
-  enrolled: 'pending',
-  inactive: 'inactive',
-  suspended: 'suspended',
-  graduated: 'completed',
-}
-
-export function StudentTable({ filters, pagination, onPaginationChange }: StudentTableProps) {
+export function StudentTable({ appliedFilters, pagination, onPaginationChange }: StudentTableProps) {
   const [sorting, setSorting] = useState<SortingState>([])
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+  const [debouncedFilters, setDebouncedFilters] = useState(appliedFilters)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const { data, isLoading } = useStudents({
-    ...filters,
-    page: pagination.pageIndex + 1,
-    pageSize: pagination.pageSize,
-  })
+  useEffect(() => {
+    if (timerRef.current) clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => setDebouncedFilters(appliedFilters), 300)
+    return () => { if (timerRef.current) clearTimeout(timerRef.current) }
+  }, [appliedFilters])
 
-  const deactivate = useDeactivateStudent()
-  const deleteStudent = useDeleteStudent()
+  const filterCriteria: FilterCriteria[] = [
+    ...(debouncedFilters.studentNo ? [{ field: 'studentNo', operator: 'CONTAINS' as const, value: debouncedFilters.studentNo }] : []),
+    ...(debouncedFilters.fullName ? [{ field: 'fullName', operator: 'CONTAINS' as const, value: debouncedFilters.fullName }] : []),
+    ...(debouncedFilters.passportNumber ? [{ field: 'passportNumber', operator: 'CONTAINS' as const, value: debouncedFilters.passportNumber }] : []),
+    ...(debouncedFilters.telephoneNumber ? [{ field: 'telephoneNumber', operator: 'CONTAINS' as const, value: debouncedFilters.telephoneNumber }] : []),
+    ...(debouncedFilters.nationality ? [{ field: 'nationality', operator: 'CONTAINS' as const, value: debouncedFilters.nationality }] : []),
+    ...(debouncedFilters.gender && debouncedFilters.gender !== 'all' ? [{ field: 'gender', operator: 'EQ' as const, value: debouncedFilters.gender }] : []),
+    ...(debouncedFilters.status && debouncedFilters.status !== 'all' ? [{ field: 'status', operator: 'EQ' as const, value: debouncedFilters.status }] : []),
+  ]
 
-  const selectedIds = Object.keys(rowSelection).filter((k) => rowSelection[k])
-
-  const columns: ColumnDef<Student>[] = [
-    {
-      id: 'select',
-      header: ({ table }) => (
-        <Checkbox
-          checked={table.getIsAllPageRowsSelected()}
-          onCheckedChange={(v) => table.toggleAllPageRowsSelected(!!v)}
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(v) => row.toggleSelected(!!v)}
-          aria-label="Select row"
-        />
-      ),
-      enableSorting: false,
+  const searchRequest: SearchRequest = {
+    filters: filterCriteria,
+    pagination: {
+      page: pagination.pageIndex,
+      size: pagination.pageSize,
     },
+  }
+
+  const { data, isLoading } = useStudents(searchRequest)
+  const updateStatus = useUpdateStudentStatus()
+  const columns: ColumnDef<StudentResponse>[] = [
     {
-      accessorKey: 'studentId',
-      header: 'Student ID',
+      accessorKey: 'studentNo',
+      header: 'Student No.',
       cell: ({ getValue }) => (
-        <span className="font-mono text-xs text-muted-foreground">{getValue<string>()}</span>
+        <span className="font-mono text-xs text-muted-foreground">{getValue<string>() ?? '—'}</span>
       ),
     },
     {
-      id: 'name',
-      header: 'Student',
+      id: 'fullName',
+      header: 'Full Name',
       cell: ({ row }) => {
         const s = row.original
-        const initials = `${s.firstName[0]}${s.lastName[0]}`.toUpperCase()
         return (
           <div className="flex items-center gap-3">
             <Avatar className="size-8">
-              <AvatarImage src={s.avatarUrl} />
-              <AvatarFallback className="text-xs">{initials}</AvatarFallback>
+              <AvatarFallback className="text-xs">{getInitials(s.fullName)}</AvatarFallback>
             </Avatar>
             <div>
               <Link
-                to="/students/$studentId/overview"
-                params={{ studentId: s.id }}
+                to="/students/$studentId/profile"
+                params={{ studentId: s.id! }}
                 className="text-sm font-medium hover:underline text-foreground"
               >
-                {s.fullName}
+                {s.fullName ?? '—'}
               </Link>
-              <p className="text-xs text-muted-foreground">{s.email}</p>
+              {s.email && (
+                <p className="text-xs text-muted-foreground">{s.email}</p>
+              )}
             </div>
           </div>
         )
       },
     },
     {
-      accessorKey: 'className',
-      header: 'Class',
-      cell: ({ getValue }) => getValue<string>() ? (
-        <Badge variant="outline" className="text-xs">{getValue<string>()}</Badge>
-      ) : <span className="text-muted-foreground text-xs">—</span>,
-    },
-    {
-      id: 'guardian',
-      header: 'Parent / Guardian',
-      cell: ({ row }) => {
-        const s = row.original
-        const guardian = s.father ?? s.mother
-        return guardian ? (
-          <div>
-            <p className="text-sm">{guardian.fullName}</p>
-            <p className="text-xs text-muted-foreground">{guardian.phone}</p>
-          </div>
-        ) : <span className="text-muted-foreground text-xs">—</span>
-      },
-    },
-    {
-      accessorKey: 'phone',
-      header: 'Phone',
+      accessorKey: 'passportNumber',
+      header: 'Passport No.',
       cell: ({ getValue }) => (
-        <span className="text-sm text-muted-foreground">{getValue<string>() || '—'}</span>
+        <span className="font-mono text-xs">{getValue<string>() ?? '—'}</span>
+      ),
+    },
+    {
+      accessorKey: 'telephoneNumber',
+      header: 'Telephone',
+      cell: ({ getValue }) => (
+        <span className="text-sm text-muted-foreground">{getValue<string>() ?? '—'}</span>
+      ),
+    },
+    {
+      accessorKey: 'nationality',
+      header: 'Nationality',
+      cell: ({ getValue }) => (
+        <span className="text-sm">{getValue<string>() ?? '—'}</span>
       ),
     },
     {
       accessorKey: 'status',
       header: 'Status',
       cell: ({ getValue }) => {
-        const s = getValue<Student['status']>()
-        return <StatusBadge status={STATUS_MAP[s]} label={s.charAt(0).toUpperCase() + s.slice(1)} />
+        const s = getValue<string>() ?? ''
+        return (
+          <StatusBadge
+            status={STATUS_MAP[s] ?? 'inactive'}
+            label={s.charAt(0) + s.slice(1).toLowerCase()}
+          />
+        )
+      },
+    },
+    {
+      accessorKey: 'createdAt',
+      header: 'Created',
+      cell: ({ getValue }) => {
+        const v = getValue<string>()
+        return (
+          <span className="text-xs text-muted-foreground">
+            {v ? new Date(v).toLocaleDateString() : '—'}
+          </span>
+        )
       },
     },
     {
@@ -143,10 +161,11 @@ export function StudentTable({ filters, pagination, onPaginationChange }: Studen
       header: '',
       cell: ({ row }) => {
         const s = row.original
+        const isActive = s.status === 'ACTIVE'
         return (
           <div className="flex items-center gap-1">
             <Button variant="ghost" size="icon" className="size-8" asChild>
-              <Link to="/students/$studentId/overview" params={{ studentId: s.id }}>
+              <Link to="/students/$studentId/profile" params={{ studentId: s.id! }}>
                 <Eye className="size-4" />
               </Link>
             </Button>
@@ -158,38 +177,37 @@ export function StudentTable({ filters, pagination, onPaginationChange }: Studen
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
-                  <Link to="/students/$studentId/overview" params={{ studentId: s.id }}>
+                  <Link to="/students/$studentId/profile" params={{ studentId: s.id! }}>
                     <Eye className="size-4 mr-2" />
                     View Profile
                   </Link>
                 </DropdownMenuItem>
+                <PermissionGuard permission={PERMISSIONS.STUDENT.PROFILE.UPDATE}>
+                  <DropdownMenuItem asChild>
+                    <Link to="/students/$studentId/edit" params={{ studentId: s.id! }}>
+                      <Pencil className="size-4 mr-2" />
+                      Edit Profile
+                    </Link>
+                  </DropdownMenuItem>
+                </PermissionGuard>
                 <DropdownMenuSeparator />
-                {s.status === 'active' || s.status === 'enrolled' ? (
-                  <PermissionGuard permission={PERMISSIONS.STUDENT.PROFILE.UPDATE}>
+                <PermissionGuard permission={PERMISSIONS.STUDENT.PROFILE.UPDATE}>
+                  {isActive ? (
                     <DropdownMenuItem
                       className="text-warning focus:text-warning"
-                      onClick={() => deactivate.mutate(s.id)}
+                      onClick={() => updateStatus.mutate({ id: s.id!, status: 'SUSPENDED' })}
                     >
                       <UserX className="size-4 mr-2" />
                       Deactivate
                     </DropdownMenuItem>
-                  </PermissionGuard>
-                ) : (
-                  <PermissionGuard permission={PERMISSIONS.STUDENT.PROFILE.UPDATE}>
-                    <DropdownMenuItem onClick={() => deactivate.mutate(s.id)}>
+                  ) : s.status === 'SUSPENDED' ? (
+                    <DropdownMenuItem
+                      onClick={() => updateStatus.mutate({ id: s.id!, status: 'ACTIVE' })}
+                    >
                       <UserCheck className="size-4 mr-2" />
                       Activate
                     </DropdownMenuItem>
-                  </PermissionGuard>
-                )}
-                <PermissionGuard permission={PERMISSIONS.STUDENT.PROFILE.DELETE}>
-                  <DropdownMenuItem
-                    className="text-destructive focus:text-destructive"
-                    onClick={() => deleteStudent.mutate(s.id)}
-                  >
-                    <Trash2 className="size-4 mr-2" />
-                    Delete
-                  </DropdownMenuItem>
+                  ) : null}
                 </PermissionGuard>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -200,39 +218,15 @@ export function StudentTable({ filters, pagination, onPaginationChange }: Studen
   ]
 
   return (
-    <div className="space-y-2">
-      <BulkActionsBar
-        selectedCount={selectedIds.length}
-        onClear={() => setRowSelection({})}
-        actions={[
-          {
-            label: 'Export Selected',
-            onClick: () => console.log('export', selectedIds),
-          },
-          {
-            label: 'Change Status',
-            onClick: () => console.log('change status', selectedIds),
-          },
-          {
-            label: 'Delete Selected',
-            variant: 'destructive',
-            onClick: () => console.log('delete', selectedIds),
-          },
-        ]}
-      />
-
-      <ServerTable
-        data={data?.data ?? []}
-        columns={columns}
-        isLoading={isLoading}
-        pagination={pagination}
-        onPaginationChange={onPaginationChange}
-        sorting={sorting}
-        onSortingChange={setSorting}
-        rowCount={data?.total ?? 0}
-        rowSelection={rowSelection}
-        onRowSelectionChange={setRowSelection}
-      />
-    </div>
+    <ServerTable
+      data={data?.items ?? []}
+      columns={columns}
+      isLoading={isLoading}
+      pagination={pagination}
+      onPaginationChange={onPaginationChange}
+      sorting={sorting}
+      onSortingChange={setSorting}
+      rowCount={data?.total ?? 0}
+    />
   )
 }

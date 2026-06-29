@@ -1,30 +1,30 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import {
-  list,
-  create6,
-  update6,
+  academicYearControllerList,
+  academicYearControllerCreate,
+  academicYearControllerUpdate,
 } from '#/generated/academic-year-controller/academic-year-controller'
 import type {
   AcademicYearRequest,
   UpdateAcademicYearRequest,
   AcademicYearResponse,
-  ListParams,
+  AcademicYearControllerListParams,
 } from '#/generated/model'
 
 const QK = 'academic-years'
 
-export function useAcademicYears(params: ListParams = {}) {
+export function useAcademicYears(params: AcademicYearControllerListParams = {}) {
   return useQuery({
     queryKey: [QK, params],
-    queryFn: ({ signal }) => list(params, signal),
+    queryFn: ({ signal }) => academicYearControllerList(params, signal),
   })
 }
 
 export function useCreateAcademicYear() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (req: AcademicYearRequest) => create6(req),
+    mutationFn: (req: AcademicYearRequest) => academicYearControllerCreate(req),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: [QK] })
       toast.success('Academic year created')
@@ -37,7 +37,7 @@ export function useUpdateAcademicYear() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, req }: { id: string; req: UpdateAcademicYearRequest }) =>
-      update6(id, req),
+      academicYearControllerUpdate(id, req),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: [QK] })
       toast.success('Academic year updated')
@@ -50,7 +50,7 @@ export function useActivateAcademicYear() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: ({ id, existing }: { id: string; existing: AcademicYearResponse }) =>
-      update6(id, {
+      academicYearControllerUpdate(id, {
         name: existing.name ?? '',
         startDate: existing.startDate ?? '',
         endDate: existing.endDate ?? '',

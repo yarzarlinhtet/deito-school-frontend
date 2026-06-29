@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from '#/components/ui/select'
 import { cn } from '#/lib/utils'
+import { LookupSelect } from '#/components/shared/form/LookupSelect'
 import { useIntakes } from '../hooks/useIntakes'
 import { useCreateBatch, useUpdateBatch } from '../hooks/useBatches'
 import type { BatchResponse } from '#/generated/model'
@@ -46,7 +47,7 @@ export function BatchModal({ open, onOpenChange, editTarget }: BatchModalProps) 
   const update = useUpdateBatch()
   const isPending = create.isPending || update.isPending
 
-  const { data: intakes } = useIntakes({ pagination: { page: 0, size: 100 } })
+  const { data: intakes, isLoading: isLoadingIntakes } = useIntakes({ pagination: { page: 0, size: 100 } })
 
   const form = useForm({
     defaultValues: {
@@ -125,22 +126,14 @@ export function BatchModal({ open, onOpenChange, editTarget }: BatchModalProps) 
           {(field) => (
             <div className="grid gap-1.5">
               <Label>Intake</Label>
-              <Select
+              <LookupSelect
                 value={field.state.value}
                 onValueChange={(v) => field.handleChange(v)}
+                items={intakes?.items}
+                isLoading={isLoadingIntakes}
+                placeholder="Select intake"
                 disabled={isEdit}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select intake" />
-                </SelectTrigger>
-                <SelectContent>
-                  {intakes?.items?.map((intake) => (
-                    <SelectItem key={intake.id} value={intake.id!}>
-                      {intake.name ?? intake.id}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              />
               {field.state.meta.errors[0] && (
                 <p className="text-xs text-destructive">{String(field.state.meta.errors[0])}</p>
               )}

@@ -27,7 +27,7 @@ import type {
   CreateMappingRequest,
   MappingResponse,
   PageResponseMappingResponse,
-  RecommendParams,
+  ProgramLevelFeeTemplateMappingControllerRecommendParams,
   RecommendationResponse,
   SearchRequest,
   UpdateMappingRequest
@@ -53,7 +53,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const getById6 = (
+export const programLevelFeeTemplateMappingControllerGetById = (
     mappingId: string,
  signal?: AbortSignal
 ) => {
@@ -67,11 +67,11 @@ export const getById6 = (
 
 
 
-export const getGetById6MutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById6>>, TError,{mappingId: string}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof getById6>>, TError,{mappingId: string}, TContext> => {
+export const getProgramLevelFeeTemplateMappingControllerGetByIdMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerGetById>>, TError,{mappingId: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerGetById>>, TError,{mappingId: string}, TContext> => {
 
-const mutationKey = ['getById6'];
+const mutationKey = ['programLevelFeeTemplateMappingControllerGetById'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -81,10 +81,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof getById6>>, {mappingId: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerGetById>>, {mappingId: string}> = (props) => {
           const {mappingId} = props ?? {};
 
-          return  getById6(mappingId,)
+          return  programLevelFeeTemplateMappingControllerGetById(mappingId,)
         }
 
 
@@ -94,21 +94,21 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type GetById6MutationResult = NonNullable<Awaited<ReturnType<typeof getById6>>>
+    export type ProgramLevelFeeTemplateMappingControllerGetByIdMutationResult = NonNullable<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerGetById>>>
 
-    export type GetById6MutationError = unknown
+    export type ProgramLevelFeeTemplateMappingControllerGetByIdMutationError = unknown
 
-    export const useGetById6 = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById6>>, TError,{mappingId: string}, TContext>, }
+    export const useProgramLevelFeeTemplateMappingControllerGetById = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerGetById>>, TError,{mappingId: string}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof getById6>>,
+        Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerGetById>>,
         TError,
         {mappingId: string},
         TContext
       > => {
-      return useMutation(getGetById6MutationOptions(options), queryClient);
+      return useMutation(getProgramLevelFeeTemplateMappingControllerGetByIdMutationOptions(options), queryClient);
     }
-    export const update7 = (
+    export const programLevelFeeTemplateMappingControllerUpdate = (
     mappingId: string,
     updateMappingRequest: UpdateMappingRequest,
  signal?: AbortSignal
@@ -126,7 +126,7 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getUpdate7QueryKey = (mappingId: string,
+export const getProgramLevelFeeTemplateMappingControllerUpdateQueryKey = (mappingId: string,
     updateMappingRequest?: UpdateMappingRequest,) => {
     return [
     'PUT', `/api/v1/billing/program-level-fee-templates/${mappingId}`, updateMappingRequest
@@ -134,64 +134,64 @@ export const getUpdate7QueryKey = (mappingId: string,
     }
 
 
-export const getUpdate7QueryOptions = <TData = Awaited<ReturnType<typeof update7>>, TError = unknown>(mappingId: string,
-    updateMappingRequest: UpdateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update7>>, TError, TData>>, }
+export const getProgramLevelFeeTemplateMappingControllerUpdateQueryOptions = <TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>, TError = unknown>(mappingId: string,
+    updateMappingRequest: UpdateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getUpdate7QueryKey(mappingId,updateMappingRequest);
+  const queryKey =  queryOptions?.queryKey ?? getProgramLevelFeeTemplateMappingControllerUpdateQueryKey(mappingId,updateMappingRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof update7>>> = ({ signal }) => update7(mappingId,updateMappingRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>> = ({ signal }) => programLevelFeeTemplateMappingControllerUpdate(mappingId,updateMappingRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: mappingId !== null && mappingId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof update7>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: mappingId !== null && mappingId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Update7QueryResult = NonNullable<Awaited<ReturnType<typeof update7>>>
-export type Update7QueryError = unknown
+export type ProgramLevelFeeTemplateMappingControllerUpdateQueryResult = NonNullable<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>>
+export type ProgramLevelFeeTemplateMappingControllerUpdateQueryError = unknown
 
 
-export function useUpdate7<TData = Awaited<ReturnType<typeof update7>>, TError = unknown>(
+export function useProgramLevelFeeTemplateMappingControllerUpdate<TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>, TError = unknown>(
  mappingId: string,
-    updateMappingRequest: UpdateMappingRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof update7>>, TError, TData>> & Pick<
+    updateMappingRequest: UpdateMappingRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update7>>,
+          Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update7>>
+          Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate7<TData = Awaited<ReturnType<typeof update7>>, TError = unknown>(
+export function useProgramLevelFeeTemplateMappingControllerUpdate<TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>, TError = unknown>(
  mappingId: string,
-    updateMappingRequest: UpdateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update7>>, TError, TData>> & Pick<
+    updateMappingRequest: UpdateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update7>>,
+          Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update7>>
+          Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate7<TData = Awaited<ReturnType<typeof update7>>, TError = unknown>(
+export function useProgramLevelFeeTemplateMappingControllerUpdate<TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>, TError = unknown>(
  mappingId: string,
-    updateMappingRequest: UpdateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update7>>, TError, TData>>, }
+    updateMappingRequest: UpdateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useUpdate7<TData = Awaited<ReturnType<typeof update7>>, TError = unknown>(
+export function useProgramLevelFeeTemplateMappingControllerUpdate<TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>, TError = unknown>(
  mappingId: string,
-    updateMappingRequest: UpdateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update7>>, TError, TData>>, }
+    updateMappingRequest: UpdateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getUpdate7QueryOptions(mappingId,updateMappingRequest,options)
+  const queryOptions = getProgramLevelFeeTemplateMappingControllerUpdateQueryOptions(mappingId,updateMappingRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -203,7 +203,7 @@ export function useUpdate7<TData = Awaited<ReturnType<typeof update7>>, TError =
 
 
 
-export const create7 = (
+export const programLevelFeeTemplateMappingControllerCreate = (
     createMappingRequest: CreateMappingRequest,
  signal?: AbortSignal
 ) => {
@@ -220,66 +220,66 @@ export const create7 = (
 
 
 
-export const getCreate7QueryKey = (createMappingRequest?: CreateMappingRequest,) => {
+export const getProgramLevelFeeTemplateMappingControllerCreateQueryKey = (createMappingRequest?: CreateMappingRequest,) => {
     return [
     'POST', `/api/v1/billing/program-level-fee-templates`, createMappingRequest
     ] as const;
     }
 
 
-export const getCreate7QueryOptions = <TData = Awaited<ReturnType<typeof create7>>, TError = unknown>(createMappingRequest: CreateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create7>>, TError, TData>>, }
+export const getProgramLevelFeeTemplateMappingControllerCreateQueryOptions = <TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>, TError = unknown>(createMappingRequest: CreateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getCreate7QueryKey(createMappingRequest);
+  const queryKey =  queryOptions?.queryKey ?? getProgramLevelFeeTemplateMappingControllerCreateQueryKey(createMappingRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof create7>>> = ({ signal }) => create7(createMappingRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>> = ({ signal }) => programLevelFeeTemplateMappingControllerCreate(createMappingRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof create7>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Create7QueryResult = NonNullable<Awaited<ReturnType<typeof create7>>>
-export type Create7QueryError = unknown
+export type ProgramLevelFeeTemplateMappingControllerCreateQueryResult = NonNullable<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>>
+export type ProgramLevelFeeTemplateMappingControllerCreateQueryError = unknown
 
 
-export function useCreate7<TData = Awaited<ReturnType<typeof create7>>, TError = unknown>(
- createMappingRequest: CreateMappingRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof create7>>, TError, TData>> & Pick<
+export function useProgramLevelFeeTemplateMappingControllerCreate<TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>, TError = unknown>(
+ createMappingRequest: CreateMappingRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create7>>,
+          Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create7>>
+          Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate7<TData = Awaited<ReturnType<typeof create7>>, TError = unknown>(
- createMappingRequest: CreateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create7>>, TError, TData>> & Pick<
+export function useProgramLevelFeeTemplateMappingControllerCreate<TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>, TError = unknown>(
+ createMappingRequest: CreateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create7>>,
+          Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create7>>
+          Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate7<TData = Awaited<ReturnType<typeof create7>>, TError = unknown>(
- createMappingRequest: CreateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create7>>, TError, TData>>, }
+export function useProgramLevelFeeTemplateMappingControllerCreate<TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>, TError = unknown>(
+ createMappingRequest: CreateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useCreate7<TData = Awaited<ReturnType<typeof create7>>, TError = unknown>(
- createMappingRequest: CreateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create7>>, TError, TData>>, }
+export function useProgramLevelFeeTemplateMappingControllerCreate<TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>, TError = unknown>(
+ createMappingRequest: CreateMappingRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getCreate7QueryOptions(createMappingRequest,options)
+  const queryOptions = getProgramLevelFeeTemplateMappingControllerCreateQueryOptions(createMappingRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -291,7 +291,7 @@ export function useCreate7<TData = Awaited<ReturnType<typeof create7>>, TError =
 
 
 
-export const search6 = (
+export const programLevelFeeTemplateMappingControllerSearch = (
     searchRequest: SearchRequest,
  signal?: AbortSignal
 ) => {
@@ -308,66 +308,66 @@ export const search6 = (
 
 
 
-export const getSearch6QueryKey = (searchRequest?: SearchRequest,) => {
+export const getProgramLevelFeeTemplateMappingControllerSearchQueryKey = (searchRequest?: SearchRequest,) => {
     return [
     'POST', `/api/v1/billing/program-level-fee-templates/search`, searchRequest
     ] as const;
     }
 
 
-export const getSearch6QueryOptions = <TData = Awaited<ReturnType<typeof search6>>, TError = unknown>(searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search6>>, TError, TData>>, }
+export const getProgramLevelFeeTemplateMappingControllerSearchQueryOptions = <TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>, TError = unknown>(searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getSearch6QueryKey(searchRequest);
+  const queryKey =  queryOptions?.queryKey ?? getProgramLevelFeeTemplateMappingControllerSearchQueryKey(searchRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof search6>>> = ({ signal }) => search6(searchRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>> = ({ signal }) => programLevelFeeTemplateMappingControllerSearch(searchRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof search6>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Search6QueryResult = NonNullable<Awaited<ReturnType<typeof search6>>>
-export type Search6QueryError = unknown
+export type ProgramLevelFeeTemplateMappingControllerSearchQueryResult = NonNullable<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>>
+export type ProgramLevelFeeTemplateMappingControllerSearchQueryError = unknown
 
 
-export function useSearch6<TData = Awaited<ReturnType<typeof search6>>, TError = unknown>(
- searchRequest: SearchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof search6>>, TError, TData>> & Pick<
+export function useProgramLevelFeeTemplateMappingControllerSearch<TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof search6>>,
+          Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>,
           TError,
-          Awaited<ReturnType<typeof search6>>
+          Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSearch6<TData = Awaited<ReturnType<typeof search6>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search6>>, TError, TData>> & Pick<
+export function useProgramLevelFeeTemplateMappingControllerSearch<TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof search6>>,
+          Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>,
           TError,
-          Awaited<ReturnType<typeof search6>>
+          Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSearch6<TData = Awaited<ReturnType<typeof search6>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search6>>, TError, TData>>, }
+export function useProgramLevelFeeTemplateMappingControllerSearch<TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useSearch6<TData = Awaited<ReturnType<typeof search6>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search6>>, TError, TData>>, }
+export function useProgramLevelFeeTemplateMappingControllerSearch<TData = Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerSearch>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getSearch6QueryOptions(searchRequest,options)
+  const queryOptions = getProgramLevelFeeTemplateMappingControllerSearchQueryOptions(searchRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -379,8 +379,8 @@ export function useSearch6<TData = Awaited<ReturnType<typeof search6>>, TError =
 
 
 
-export const recommend = (
-    params: RecommendParams,
+export const programLevelFeeTemplateMappingControllerRecommend = (
+    params: ProgramLevelFeeTemplateMappingControllerRecommendParams,
  signal?: AbortSignal
 ) => {
 
@@ -394,11 +394,11 @@ export const recommend = (
 
 
 
-export const getRecommendMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof recommend>>, TError,{params: RecommendParams}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof recommend>>, TError,{params: RecommendParams}, TContext> => {
+export const getProgramLevelFeeTemplateMappingControllerRecommendMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerRecommend>>, TError,{params: ProgramLevelFeeTemplateMappingControllerRecommendParams}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerRecommend>>, TError,{params: ProgramLevelFeeTemplateMappingControllerRecommendParams}, TContext> => {
 
-const mutationKey = ['recommend'];
+const mutationKey = ['programLevelFeeTemplateMappingControllerRecommend'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -408,10 +408,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof recommend>>, {params: RecommendParams}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerRecommend>>, {params: ProgramLevelFeeTemplateMappingControllerRecommendParams}> = (props) => {
           const {params} = props ?? {};
 
-          return  recommend(params,)
+          return  programLevelFeeTemplateMappingControllerRecommend(params,)
         }
 
 
@@ -421,17 +421,17 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type RecommendMutationResult = NonNullable<Awaited<ReturnType<typeof recommend>>>
+    export type ProgramLevelFeeTemplateMappingControllerRecommendMutationResult = NonNullable<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerRecommend>>>
 
-    export type RecommendMutationError = unknown
+    export type ProgramLevelFeeTemplateMappingControllerRecommendMutationError = unknown
 
-    export const useRecommend = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof recommend>>, TError,{params: RecommendParams}, TContext>, }
+    export const useProgramLevelFeeTemplateMappingControllerRecommend = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerRecommend>>, TError,{params: ProgramLevelFeeTemplateMappingControllerRecommendParams}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof recommend>>,
+        Awaited<ReturnType<typeof programLevelFeeTemplateMappingControllerRecommend>>,
         TError,
-        {params: RecommendParams},
+        {params: ProgramLevelFeeTemplateMappingControllerRecommendParams},
         TContext
       > => {
-      return useMutation(getRecommendMutationOptions(options), queryClient);
+      return useMutation(getProgramLevelFeeTemplateMappingControllerRecommendMutationOptions(options), queryClient);
     }

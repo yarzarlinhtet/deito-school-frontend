@@ -24,9 +24,9 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  AcademicYearControllerListParams,
   AcademicYearRequest,
   AcademicYearResponse,
-  ListParams,
   PageResponseAcademicYearResponse,
   UpdateAcademicYearRequest
 } from '../model';
@@ -51,7 +51,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const update6 = (
+export const academicYearControllerUpdate = (
     id: string,
     updateAcademicYearRequest: UpdateAcademicYearRequest,
  signal?: AbortSignal
@@ -69,7 +69,7 @@ export const update6 = (
 
 
 
-export const getUpdate6QueryKey = (id: string,
+export const getAcademicYearControllerUpdateQueryKey = (id: string,
     updateAcademicYearRequest?: UpdateAcademicYearRequest,) => {
     return [
     'PUT', `/api/v1/enrollments/academic-years/${id}`, updateAcademicYearRequest
@@ -77,64 +77,64 @@ export const getUpdate6QueryKey = (id: string,
     }
 
 
-export const getUpdate6QueryOptions = <TData = Awaited<ReturnType<typeof update6>>, TError = unknown>(id: string,
-    updateAcademicYearRequest: UpdateAcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update6>>, TError, TData>>, }
+export const getAcademicYearControllerUpdateQueryOptions = <TData = Awaited<ReturnType<typeof academicYearControllerUpdate>>, TError = unknown>(id: string,
+    updateAcademicYearRequest: UpdateAcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof academicYearControllerUpdate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getUpdate6QueryKey(id,updateAcademicYearRequest);
+  const queryKey =  queryOptions?.queryKey ?? getAcademicYearControllerUpdateQueryKey(id,updateAcademicYearRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof update6>>> = ({ signal }) => update6(id,updateAcademicYearRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof academicYearControllerUpdate>>> = ({ signal }) => academicYearControllerUpdate(id,updateAcademicYearRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof update6>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof academicYearControllerUpdate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Update6QueryResult = NonNullable<Awaited<ReturnType<typeof update6>>>
-export type Update6QueryError = unknown
+export type AcademicYearControllerUpdateQueryResult = NonNullable<Awaited<ReturnType<typeof academicYearControllerUpdate>>>
+export type AcademicYearControllerUpdateQueryError = unknown
 
 
-export function useUpdate6<TData = Awaited<ReturnType<typeof update6>>, TError = unknown>(
+export function useAcademicYearControllerUpdate<TData = Awaited<ReturnType<typeof academicYearControllerUpdate>>, TError = unknown>(
  id: string,
-    updateAcademicYearRequest: UpdateAcademicYearRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof update6>>, TError, TData>> & Pick<
+    updateAcademicYearRequest: UpdateAcademicYearRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof academicYearControllerUpdate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update6>>,
+          Awaited<ReturnType<typeof academicYearControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update6>>
+          Awaited<ReturnType<typeof academicYearControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate6<TData = Awaited<ReturnType<typeof update6>>, TError = unknown>(
+export function useAcademicYearControllerUpdate<TData = Awaited<ReturnType<typeof academicYearControllerUpdate>>, TError = unknown>(
  id: string,
-    updateAcademicYearRequest: UpdateAcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update6>>, TError, TData>> & Pick<
+    updateAcademicYearRequest: UpdateAcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof academicYearControllerUpdate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update6>>,
+          Awaited<ReturnType<typeof academicYearControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update6>>
+          Awaited<ReturnType<typeof academicYearControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate6<TData = Awaited<ReturnType<typeof update6>>, TError = unknown>(
+export function useAcademicYearControllerUpdate<TData = Awaited<ReturnType<typeof academicYearControllerUpdate>>, TError = unknown>(
  id: string,
-    updateAcademicYearRequest: UpdateAcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update6>>, TError, TData>>, }
+    updateAcademicYearRequest: UpdateAcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof academicYearControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useUpdate6<TData = Awaited<ReturnType<typeof update6>>, TError = unknown>(
+export function useAcademicYearControllerUpdate<TData = Awaited<ReturnType<typeof academicYearControllerUpdate>>, TError = unknown>(
  id: string,
-    updateAcademicYearRequest: UpdateAcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update6>>, TError, TData>>, }
+    updateAcademicYearRequest: UpdateAcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof academicYearControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getUpdate6QueryOptions(id,updateAcademicYearRequest,options)
+  const queryOptions = getAcademicYearControllerUpdateQueryOptions(id,updateAcademicYearRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -146,8 +146,8 @@ export function useUpdate6<TData = Awaited<ReturnType<typeof update6>>, TError =
 
 
 
-export const list = (
-    params?: ListParams,
+export const academicYearControllerList = (
+    params?: AcademicYearControllerListParams,
  signal?: AbortSignal
 ) => {
 
@@ -161,11 +161,11 @@ export const list = (
 
 
 
-export const getListMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof list>>, TError,{params?: ListParams}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof list>>, TError,{params?: ListParams}, TContext> => {
+export const getAcademicYearControllerListMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof academicYearControllerList>>, TError,{params?: AcademicYearControllerListParams}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof academicYearControllerList>>, TError,{params?: AcademicYearControllerListParams}, TContext> => {
 
-const mutationKey = ['list'];
+const mutationKey = ['academicYearControllerList'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -175,10 +175,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof list>>, {params?: ListParams}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof academicYearControllerList>>, {params?: AcademicYearControllerListParams}> = (props) => {
           const {params} = props ?? {};
 
-          return  list(params,)
+          return  academicYearControllerList(params,)
         }
 
 
@@ -188,21 +188,21 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type ListMutationResult = NonNullable<Awaited<ReturnType<typeof list>>>
+    export type AcademicYearControllerListMutationResult = NonNullable<Awaited<ReturnType<typeof academicYearControllerList>>>
 
-    export type ListMutationError = unknown
+    export type AcademicYearControllerListMutationError = unknown
 
-    export const useList = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof list>>, TError,{params?: ListParams}, TContext>, }
+    export const useAcademicYearControllerList = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof academicYearControllerList>>, TError,{params?: AcademicYearControllerListParams}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof list>>,
+        Awaited<ReturnType<typeof academicYearControllerList>>,
         TError,
-        {params?: ListParams},
+        {params?: AcademicYearControllerListParams},
         TContext
       > => {
-      return useMutation(getListMutationOptions(options), queryClient);
+      return useMutation(getAcademicYearControllerListMutationOptions(options), queryClient);
     }
-    export const create6 = (
+    export const academicYearControllerCreate = (
     academicYearRequest: AcademicYearRequest,
  signal?: AbortSignal
 ) => {
@@ -219,66 +219,66 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getCreate6QueryKey = (academicYearRequest?: AcademicYearRequest,) => {
+export const getAcademicYearControllerCreateQueryKey = (academicYearRequest?: AcademicYearRequest,) => {
     return [
     'POST', `/api/v1/enrollments/academic-years`, academicYearRequest
     ] as const;
     }
 
 
-export const getCreate6QueryOptions = <TData = Awaited<ReturnType<typeof create6>>, TError = unknown>(academicYearRequest: AcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create6>>, TError, TData>>, }
+export const getAcademicYearControllerCreateQueryOptions = <TData = Awaited<ReturnType<typeof academicYearControllerCreate>>, TError = unknown>(academicYearRequest: AcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof academicYearControllerCreate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getCreate6QueryKey(academicYearRequest);
+  const queryKey =  queryOptions?.queryKey ?? getAcademicYearControllerCreateQueryKey(academicYearRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof create6>>> = ({ signal }) => create6(academicYearRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof academicYearControllerCreate>>> = ({ signal }) => academicYearControllerCreate(academicYearRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof create6>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof academicYearControllerCreate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Create6QueryResult = NonNullable<Awaited<ReturnType<typeof create6>>>
-export type Create6QueryError = unknown
+export type AcademicYearControllerCreateQueryResult = NonNullable<Awaited<ReturnType<typeof academicYearControllerCreate>>>
+export type AcademicYearControllerCreateQueryError = unknown
 
 
-export function useCreate6<TData = Awaited<ReturnType<typeof create6>>, TError = unknown>(
- academicYearRequest: AcademicYearRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof create6>>, TError, TData>> & Pick<
+export function useAcademicYearControllerCreate<TData = Awaited<ReturnType<typeof academicYearControllerCreate>>, TError = unknown>(
+ academicYearRequest: AcademicYearRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof academicYearControllerCreate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create6>>,
+          Awaited<ReturnType<typeof academicYearControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create6>>
+          Awaited<ReturnType<typeof academicYearControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate6<TData = Awaited<ReturnType<typeof create6>>, TError = unknown>(
- academicYearRequest: AcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create6>>, TError, TData>> & Pick<
+export function useAcademicYearControllerCreate<TData = Awaited<ReturnType<typeof academicYearControllerCreate>>, TError = unknown>(
+ academicYearRequest: AcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof academicYearControllerCreate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create6>>,
+          Awaited<ReturnType<typeof academicYearControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create6>>
+          Awaited<ReturnType<typeof academicYearControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate6<TData = Awaited<ReturnType<typeof create6>>, TError = unknown>(
- academicYearRequest: AcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create6>>, TError, TData>>, }
+export function useAcademicYearControllerCreate<TData = Awaited<ReturnType<typeof academicYearControllerCreate>>, TError = unknown>(
+ academicYearRequest: AcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof academicYearControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useCreate6<TData = Awaited<ReturnType<typeof create6>>, TError = unknown>(
- academicYearRequest: AcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create6>>, TError, TData>>, }
+export function useAcademicYearControllerCreate<TData = Awaited<ReturnType<typeof academicYearControllerCreate>>, TError = unknown>(
+ academicYearRequest: AcademicYearRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof academicYearControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getCreate6QueryOptions(academicYearRequest,options)
+  const queryOptions = getAcademicYearControllerCreateQueryOptions(academicYearRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

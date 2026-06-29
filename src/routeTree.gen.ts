@@ -25,16 +25,23 @@ import { Route as AppAdministrationIndexRouteImport } from './routes/_app/admini
 import { Route as AppAcademicIndexRouteImport } from './routes/_app/academic/index'
 import { Route as AppStudentsNewRouteImport } from './routes/_app/students/new'
 import { Route as AppStudentsStudentIdRouteImport } from './routes/_app/students/$studentId'
+import { Route as AppFeesDiscountsIndexRouteImport } from './routes/_app/fees/discounts/index'
+import { Route as AppFeesCategoriesIndexRouteImport } from './routes/_app/fees/categories/index'
 import { Route as AppEnrollmentIntakesIndexRouteImport } from './routes/_app/enrollment/intakes/index'
 import { Route as AppEnrollmentIntakeBatchIndexRouteImport } from './routes/_app/enrollment/intake-batch/index'
 import { Route as AppEnrollmentBatchesIndexRouteImport } from './routes/_app/enrollment/batches/index'
 import { Route as AppEnrollmentAcademicYearsIndexRouteImport } from './routes/_app/enrollment/academic-years/index'
+import { Route as AppBillingFeeMappingsIndexRouteImport } from './routes/_app/billing/fee-mappings/index'
+import { Route as AppAcademicProgramsIndexRouteImport } from './routes/_app/academic/programs/index'
+import { Route as AppAcademicLevelsIndexRouteImport } from './routes/_app/academic/levels/index'
+import { Route as AppAcademicClassesIndexRouteImport } from './routes/_app/academic/classes/index'
 import { Route as AppStudentsStudentIdVisaRouteImport } from './routes/_app/students/$studentId/visa'
-import { Route as AppStudentsStudentIdOverviewRouteImport } from './routes/_app/students/$studentId/overview'
+import { Route as AppStudentsStudentIdProfileRouteImport } from './routes/_app/students/$studentId/profile'
 import { Route as AppStudentsStudentIdFinanceRouteImport } from './routes/_app/students/$studentId/finance'
+import { Route as AppStudentsStudentIdEnrollmentHistoryRouteImport } from './routes/_app/students/$studentId/enrollment-history'
+import { Route as AppStudentsStudentIdEditRouteImport } from './routes/_app/students/$studentId/edit'
 import { Route as AppStudentsStudentIdDocumentsRouteImport } from './routes/_app/students/$studentId/documents'
-import { Route as AppStudentsStudentIdActivityRouteImport } from './routes/_app/students/$studentId/activity'
-import { Route as AppStudentsStudentIdAcademicRouteImport } from './routes/_app/students/$studentId/academic'
+import { Route as AppStudentsStudentIdAuditRouteImport } from './routes/_app/students/$studentId/audit'
 
 const PlatformRoute = PlatformRouteImport.update({
   id: '/platform',
@@ -114,6 +121,16 @@ const AppStudentsStudentIdRoute = AppStudentsStudentIdRouteImport.update({
   path: '/students/$studentId',
   getParentRoute: () => AppRoute,
 } as any)
+const AppFeesDiscountsIndexRoute = AppFeesDiscountsIndexRouteImport.update({
+  id: '/fees/discounts/',
+  path: '/fees/discounts/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppFeesCategoriesIndexRoute = AppFeesCategoriesIndexRouteImport.update({
+  id: '/fees/categories/',
+  path: '/fees/categories/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppEnrollmentIntakesIndexRoute =
   AppEnrollmentIntakesIndexRouteImport.update({
     id: '/enrollment/intakes/',
@@ -138,16 +155,38 @@ const AppEnrollmentAcademicYearsIndexRoute =
     path: '/enrollment/academic-years/',
     getParentRoute: () => AppRoute,
   } as any)
+const AppBillingFeeMappingsIndexRoute =
+  AppBillingFeeMappingsIndexRouteImport.update({
+    id: '/billing/fee-mappings/',
+    path: '/billing/fee-mappings/',
+    getParentRoute: () => AppRoute,
+  } as any)
+const AppAcademicProgramsIndexRoute =
+  AppAcademicProgramsIndexRouteImport.update({
+    id: '/academic/programs/',
+    path: '/academic/programs/',
+    getParentRoute: () => AppRoute,
+  } as any)
+const AppAcademicLevelsIndexRoute = AppAcademicLevelsIndexRouteImport.update({
+  id: '/academic/levels/',
+  path: '/academic/levels/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAcademicClassesIndexRoute = AppAcademicClassesIndexRouteImport.update({
+  id: '/academic/classes/',
+  path: '/academic/classes/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppStudentsStudentIdVisaRoute =
   AppStudentsStudentIdVisaRouteImport.update({
     id: '/visa',
     path: '/visa',
     getParentRoute: () => AppStudentsStudentIdRoute,
   } as any)
-const AppStudentsStudentIdOverviewRoute =
-  AppStudentsStudentIdOverviewRouteImport.update({
-    id: '/overview',
-    path: '/overview',
+const AppStudentsStudentIdProfileRoute =
+  AppStudentsStudentIdProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
     getParentRoute: () => AppStudentsStudentIdRoute,
   } as any)
 const AppStudentsStudentIdFinanceRoute =
@@ -156,22 +195,28 @@ const AppStudentsStudentIdFinanceRoute =
     path: '/finance',
     getParentRoute: () => AppStudentsStudentIdRoute,
   } as any)
+const AppStudentsStudentIdEnrollmentHistoryRoute =
+  AppStudentsStudentIdEnrollmentHistoryRouteImport.update({
+    id: '/enrollment-history',
+    path: '/enrollment-history',
+    getParentRoute: () => AppStudentsStudentIdRoute,
+  } as any)
+const AppStudentsStudentIdEditRoute =
+  AppStudentsStudentIdEditRouteImport.update({
+    id: '/edit',
+    path: '/edit',
+    getParentRoute: () => AppStudentsStudentIdRoute,
+  } as any)
 const AppStudentsStudentIdDocumentsRoute =
   AppStudentsStudentIdDocumentsRouteImport.update({
     id: '/documents',
     path: '/documents',
     getParentRoute: () => AppStudentsStudentIdRoute,
   } as any)
-const AppStudentsStudentIdActivityRoute =
-  AppStudentsStudentIdActivityRouteImport.update({
-    id: '/activity',
-    path: '/activity',
-    getParentRoute: () => AppStudentsStudentIdRoute,
-  } as any)
-const AppStudentsStudentIdAcademicRoute =
-  AppStudentsStudentIdAcademicRouteImport.update({
-    id: '/academic',
-    path: '/academic',
+const AppStudentsStudentIdAuditRoute =
+  AppStudentsStudentIdAuditRouteImport.update({
+    id: '/audit',
+    path: '/audit',
     getParentRoute: () => AppStudentsStudentIdRoute,
   } as any)
 
@@ -190,16 +235,23 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof AppSettingsIndexRoute
   '/students/': typeof AppStudentsIndexRoute
   '/platform/dashboard/': typeof PlatformDashboardIndexRoute
-  '/students/$studentId/academic': typeof AppStudentsStudentIdAcademicRoute
-  '/students/$studentId/activity': typeof AppStudentsStudentIdActivityRoute
+  '/students/$studentId/audit': typeof AppStudentsStudentIdAuditRoute
   '/students/$studentId/documents': typeof AppStudentsStudentIdDocumentsRoute
+  '/students/$studentId/edit': typeof AppStudentsStudentIdEditRoute
+  '/students/$studentId/enrollment-history': typeof AppStudentsStudentIdEnrollmentHistoryRoute
   '/students/$studentId/finance': typeof AppStudentsStudentIdFinanceRoute
-  '/students/$studentId/overview': typeof AppStudentsStudentIdOverviewRoute
+  '/students/$studentId/profile': typeof AppStudentsStudentIdProfileRoute
   '/students/$studentId/visa': typeof AppStudentsStudentIdVisaRoute
+  '/academic/classes/': typeof AppAcademicClassesIndexRoute
+  '/academic/levels/': typeof AppAcademicLevelsIndexRoute
+  '/academic/programs/': typeof AppAcademicProgramsIndexRoute
+  '/billing/fee-mappings/': typeof AppBillingFeeMappingsIndexRoute
   '/enrollment/academic-years/': typeof AppEnrollmentAcademicYearsIndexRoute
   '/enrollment/batches/': typeof AppEnrollmentBatchesIndexRoute
   '/enrollment/intake-batch/': typeof AppEnrollmentIntakeBatchIndexRoute
   '/enrollment/intakes/': typeof AppEnrollmentIntakesIndexRoute
+  '/fees/categories/': typeof AppFeesCategoriesIndexRoute
+  '/fees/discounts/': typeof AppFeesDiscountsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -216,16 +268,23 @@ export interface FileRoutesByTo {
   '/settings': typeof AppSettingsIndexRoute
   '/students': typeof AppStudentsIndexRoute
   '/platform/dashboard': typeof PlatformDashboardIndexRoute
-  '/students/$studentId/academic': typeof AppStudentsStudentIdAcademicRoute
-  '/students/$studentId/activity': typeof AppStudentsStudentIdActivityRoute
+  '/students/$studentId/audit': typeof AppStudentsStudentIdAuditRoute
   '/students/$studentId/documents': typeof AppStudentsStudentIdDocumentsRoute
+  '/students/$studentId/edit': typeof AppStudentsStudentIdEditRoute
+  '/students/$studentId/enrollment-history': typeof AppStudentsStudentIdEnrollmentHistoryRoute
   '/students/$studentId/finance': typeof AppStudentsStudentIdFinanceRoute
-  '/students/$studentId/overview': typeof AppStudentsStudentIdOverviewRoute
+  '/students/$studentId/profile': typeof AppStudentsStudentIdProfileRoute
   '/students/$studentId/visa': typeof AppStudentsStudentIdVisaRoute
+  '/academic/classes': typeof AppAcademicClassesIndexRoute
+  '/academic/levels': typeof AppAcademicLevelsIndexRoute
+  '/academic/programs': typeof AppAcademicProgramsIndexRoute
+  '/billing/fee-mappings': typeof AppBillingFeeMappingsIndexRoute
   '/enrollment/academic-years': typeof AppEnrollmentAcademicYearsIndexRoute
   '/enrollment/batches': typeof AppEnrollmentBatchesIndexRoute
   '/enrollment/intake-batch': typeof AppEnrollmentIntakeBatchIndexRoute
   '/enrollment/intakes': typeof AppEnrollmentIntakesIndexRoute
+  '/fees/categories': typeof AppFeesCategoriesIndexRoute
+  '/fees/discounts': typeof AppFeesDiscountsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -245,16 +304,23 @@ export interface FileRoutesById {
   '/_app/settings/': typeof AppSettingsIndexRoute
   '/_app/students/': typeof AppStudentsIndexRoute
   '/platform/dashboard/': typeof PlatformDashboardIndexRoute
-  '/_app/students/$studentId/academic': typeof AppStudentsStudentIdAcademicRoute
-  '/_app/students/$studentId/activity': typeof AppStudentsStudentIdActivityRoute
+  '/_app/students/$studentId/audit': typeof AppStudentsStudentIdAuditRoute
   '/_app/students/$studentId/documents': typeof AppStudentsStudentIdDocumentsRoute
+  '/_app/students/$studentId/edit': typeof AppStudentsStudentIdEditRoute
+  '/_app/students/$studentId/enrollment-history': typeof AppStudentsStudentIdEnrollmentHistoryRoute
   '/_app/students/$studentId/finance': typeof AppStudentsStudentIdFinanceRoute
-  '/_app/students/$studentId/overview': typeof AppStudentsStudentIdOverviewRoute
+  '/_app/students/$studentId/profile': typeof AppStudentsStudentIdProfileRoute
   '/_app/students/$studentId/visa': typeof AppStudentsStudentIdVisaRoute
+  '/_app/academic/classes/': typeof AppAcademicClassesIndexRoute
+  '/_app/academic/levels/': typeof AppAcademicLevelsIndexRoute
+  '/_app/academic/programs/': typeof AppAcademicProgramsIndexRoute
+  '/_app/billing/fee-mappings/': typeof AppBillingFeeMappingsIndexRoute
   '/_app/enrollment/academic-years/': typeof AppEnrollmentAcademicYearsIndexRoute
   '/_app/enrollment/batches/': typeof AppEnrollmentBatchesIndexRoute
   '/_app/enrollment/intake-batch/': typeof AppEnrollmentIntakeBatchIndexRoute
   '/_app/enrollment/intakes/': typeof AppEnrollmentIntakesIndexRoute
+  '/_app/fees/categories/': typeof AppFeesCategoriesIndexRoute
+  '/_app/fees/discounts/': typeof AppFeesDiscountsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -273,16 +339,23 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/students/'
     | '/platform/dashboard/'
-    | '/students/$studentId/academic'
-    | '/students/$studentId/activity'
+    | '/students/$studentId/audit'
     | '/students/$studentId/documents'
+    | '/students/$studentId/edit'
+    | '/students/$studentId/enrollment-history'
     | '/students/$studentId/finance'
-    | '/students/$studentId/overview'
+    | '/students/$studentId/profile'
     | '/students/$studentId/visa'
+    | '/academic/classes/'
+    | '/academic/levels/'
+    | '/academic/programs/'
+    | '/billing/fee-mappings/'
     | '/enrollment/academic-years/'
     | '/enrollment/batches/'
     | '/enrollment/intake-batch/'
     | '/enrollment/intakes/'
+    | '/fees/categories/'
+    | '/fees/discounts/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -299,16 +372,23 @@ export interface FileRouteTypes {
     | '/settings'
     | '/students'
     | '/platform/dashboard'
-    | '/students/$studentId/academic'
-    | '/students/$studentId/activity'
+    | '/students/$studentId/audit'
     | '/students/$studentId/documents'
+    | '/students/$studentId/edit'
+    | '/students/$studentId/enrollment-history'
     | '/students/$studentId/finance'
-    | '/students/$studentId/overview'
+    | '/students/$studentId/profile'
     | '/students/$studentId/visa'
+    | '/academic/classes'
+    | '/academic/levels'
+    | '/academic/programs'
+    | '/billing/fee-mappings'
     | '/enrollment/academic-years'
     | '/enrollment/batches'
     | '/enrollment/intake-batch'
     | '/enrollment/intakes'
+    | '/fees/categories'
+    | '/fees/discounts'
   id:
     | '__root__'
     | '/'
@@ -327,16 +407,23 @@ export interface FileRouteTypes {
     | '/_app/settings/'
     | '/_app/students/'
     | '/platform/dashboard/'
-    | '/_app/students/$studentId/academic'
-    | '/_app/students/$studentId/activity'
+    | '/_app/students/$studentId/audit'
     | '/_app/students/$studentId/documents'
+    | '/_app/students/$studentId/edit'
+    | '/_app/students/$studentId/enrollment-history'
     | '/_app/students/$studentId/finance'
-    | '/_app/students/$studentId/overview'
+    | '/_app/students/$studentId/profile'
     | '/_app/students/$studentId/visa'
+    | '/_app/academic/classes/'
+    | '/_app/academic/levels/'
+    | '/_app/academic/programs/'
+    | '/_app/billing/fee-mappings/'
     | '/_app/enrollment/academic-years/'
     | '/_app/enrollment/batches/'
     | '/_app/enrollment/intake-batch/'
     | '/_app/enrollment/intakes/'
+    | '/_app/fees/categories/'
+    | '/_app/fees/discounts/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -460,6 +547,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppStudentsStudentIdRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/fees/discounts/': {
+      id: '/_app/fees/discounts/'
+      path: '/fees/discounts'
+      fullPath: '/fees/discounts/'
+      preLoaderRoute: typeof AppFeesDiscountsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/fees/categories/': {
+      id: '/_app/fees/categories/'
+      path: '/fees/categories'
+      fullPath: '/fees/categories/'
+      preLoaderRoute: typeof AppFeesCategoriesIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/enrollment/intakes/': {
       id: '/_app/enrollment/intakes/'
       path: '/enrollment/intakes'
@@ -488,6 +589,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEnrollmentAcademicYearsIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/billing/fee-mappings/': {
+      id: '/_app/billing/fee-mappings/'
+      path: '/billing/fee-mappings'
+      fullPath: '/billing/fee-mappings/'
+      preLoaderRoute: typeof AppBillingFeeMappingsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/academic/programs/': {
+      id: '/_app/academic/programs/'
+      path: '/academic/programs'
+      fullPath: '/academic/programs/'
+      preLoaderRoute: typeof AppAcademicProgramsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/academic/levels/': {
+      id: '/_app/academic/levels/'
+      path: '/academic/levels'
+      fullPath: '/academic/levels/'
+      preLoaderRoute: typeof AppAcademicLevelsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/academic/classes/': {
+      id: '/_app/academic/classes/'
+      path: '/academic/classes'
+      fullPath: '/academic/classes/'
+      preLoaderRoute: typeof AppAcademicClassesIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/students/$studentId/visa': {
       id: '/_app/students/$studentId/visa'
       path: '/visa'
@@ -495,11 +624,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppStudentsStudentIdVisaRouteImport
       parentRoute: typeof AppStudentsStudentIdRoute
     }
-    '/_app/students/$studentId/overview': {
-      id: '/_app/students/$studentId/overview'
-      path: '/overview'
-      fullPath: '/students/$studentId/overview'
-      preLoaderRoute: typeof AppStudentsStudentIdOverviewRouteImport
+    '/_app/students/$studentId/profile': {
+      id: '/_app/students/$studentId/profile'
+      path: '/profile'
+      fullPath: '/students/$studentId/profile'
+      preLoaderRoute: typeof AppStudentsStudentIdProfileRouteImport
       parentRoute: typeof AppStudentsStudentIdRoute
     }
     '/_app/students/$studentId/finance': {
@@ -509,6 +638,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppStudentsStudentIdFinanceRouteImport
       parentRoute: typeof AppStudentsStudentIdRoute
     }
+    '/_app/students/$studentId/enrollment-history': {
+      id: '/_app/students/$studentId/enrollment-history'
+      path: '/enrollment-history'
+      fullPath: '/students/$studentId/enrollment-history'
+      preLoaderRoute: typeof AppStudentsStudentIdEnrollmentHistoryRouteImport
+      parentRoute: typeof AppStudentsStudentIdRoute
+    }
+    '/_app/students/$studentId/edit': {
+      id: '/_app/students/$studentId/edit'
+      path: '/edit'
+      fullPath: '/students/$studentId/edit'
+      preLoaderRoute: typeof AppStudentsStudentIdEditRouteImport
+      parentRoute: typeof AppStudentsStudentIdRoute
+    }
     '/_app/students/$studentId/documents': {
       id: '/_app/students/$studentId/documents'
       path: '/documents'
@@ -516,38 +659,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppStudentsStudentIdDocumentsRouteImport
       parentRoute: typeof AppStudentsStudentIdRoute
     }
-    '/_app/students/$studentId/activity': {
-      id: '/_app/students/$studentId/activity'
-      path: '/activity'
-      fullPath: '/students/$studentId/activity'
-      preLoaderRoute: typeof AppStudentsStudentIdActivityRouteImport
-      parentRoute: typeof AppStudentsStudentIdRoute
-    }
-    '/_app/students/$studentId/academic': {
-      id: '/_app/students/$studentId/academic'
-      path: '/academic'
-      fullPath: '/students/$studentId/academic'
-      preLoaderRoute: typeof AppStudentsStudentIdAcademicRouteImport
+    '/_app/students/$studentId/audit': {
+      id: '/_app/students/$studentId/audit'
+      path: '/audit'
+      fullPath: '/students/$studentId/audit'
+      preLoaderRoute: typeof AppStudentsStudentIdAuditRouteImport
       parentRoute: typeof AppStudentsStudentIdRoute
     }
   }
 }
 
 interface AppStudentsStudentIdRouteChildren {
-  AppStudentsStudentIdAcademicRoute: typeof AppStudentsStudentIdAcademicRoute
-  AppStudentsStudentIdActivityRoute: typeof AppStudentsStudentIdActivityRoute
+  AppStudentsStudentIdAuditRoute: typeof AppStudentsStudentIdAuditRoute
   AppStudentsStudentIdDocumentsRoute: typeof AppStudentsStudentIdDocumentsRoute
+  AppStudentsStudentIdEditRoute: typeof AppStudentsStudentIdEditRoute
+  AppStudentsStudentIdEnrollmentHistoryRoute: typeof AppStudentsStudentIdEnrollmentHistoryRoute
   AppStudentsStudentIdFinanceRoute: typeof AppStudentsStudentIdFinanceRoute
-  AppStudentsStudentIdOverviewRoute: typeof AppStudentsStudentIdOverviewRoute
+  AppStudentsStudentIdProfileRoute: typeof AppStudentsStudentIdProfileRoute
   AppStudentsStudentIdVisaRoute: typeof AppStudentsStudentIdVisaRoute
 }
 
 const AppStudentsStudentIdRouteChildren: AppStudentsStudentIdRouteChildren = {
-  AppStudentsStudentIdAcademicRoute: AppStudentsStudentIdAcademicRoute,
-  AppStudentsStudentIdActivityRoute: AppStudentsStudentIdActivityRoute,
+  AppStudentsStudentIdAuditRoute: AppStudentsStudentIdAuditRoute,
   AppStudentsStudentIdDocumentsRoute: AppStudentsStudentIdDocumentsRoute,
+  AppStudentsStudentIdEditRoute: AppStudentsStudentIdEditRoute,
+  AppStudentsStudentIdEnrollmentHistoryRoute:
+    AppStudentsStudentIdEnrollmentHistoryRoute,
   AppStudentsStudentIdFinanceRoute: AppStudentsStudentIdFinanceRoute,
-  AppStudentsStudentIdOverviewRoute: AppStudentsStudentIdOverviewRoute,
+  AppStudentsStudentIdProfileRoute: AppStudentsStudentIdProfileRoute,
   AppStudentsStudentIdVisaRoute: AppStudentsStudentIdVisaRoute,
 }
 
@@ -565,10 +704,16 @@ interface AppRouteChildren {
   AppFinanceIndexRoute: typeof AppFinanceIndexRoute
   AppSettingsIndexRoute: typeof AppSettingsIndexRoute
   AppStudentsIndexRoute: typeof AppStudentsIndexRoute
+  AppAcademicClassesIndexRoute: typeof AppAcademicClassesIndexRoute
+  AppAcademicLevelsIndexRoute: typeof AppAcademicLevelsIndexRoute
+  AppAcademicProgramsIndexRoute: typeof AppAcademicProgramsIndexRoute
+  AppBillingFeeMappingsIndexRoute: typeof AppBillingFeeMappingsIndexRoute
   AppEnrollmentAcademicYearsIndexRoute: typeof AppEnrollmentAcademicYearsIndexRoute
   AppEnrollmentBatchesIndexRoute: typeof AppEnrollmentBatchesIndexRoute
   AppEnrollmentIntakeBatchIndexRoute: typeof AppEnrollmentIntakeBatchIndexRoute
   AppEnrollmentIntakesIndexRoute: typeof AppEnrollmentIntakesIndexRoute
+  AppFeesCategoriesIndexRoute: typeof AppFeesCategoriesIndexRoute
+  AppFeesDiscountsIndexRoute: typeof AppFeesDiscountsIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -582,10 +727,16 @@ const AppRouteChildren: AppRouteChildren = {
   AppFinanceIndexRoute: AppFinanceIndexRoute,
   AppSettingsIndexRoute: AppSettingsIndexRoute,
   AppStudentsIndexRoute: AppStudentsIndexRoute,
+  AppAcademicClassesIndexRoute: AppAcademicClassesIndexRoute,
+  AppAcademicLevelsIndexRoute: AppAcademicLevelsIndexRoute,
+  AppAcademicProgramsIndexRoute: AppAcademicProgramsIndexRoute,
+  AppBillingFeeMappingsIndexRoute: AppBillingFeeMappingsIndexRoute,
   AppEnrollmentAcademicYearsIndexRoute: AppEnrollmentAcademicYearsIndexRoute,
   AppEnrollmentBatchesIndexRoute: AppEnrollmentBatchesIndexRoute,
   AppEnrollmentIntakeBatchIndexRoute: AppEnrollmentIntakeBatchIndexRoute,
   AppEnrollmentIntakesIndexRoute: AppEnrollmentIntakesIndexRoute,
+  AppFeesCategoriesIndexRoute: AppFeesCategoriesIndexRoute,
+  AppFeesDiscountsIndexRoute: AppFeesDiscountsIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

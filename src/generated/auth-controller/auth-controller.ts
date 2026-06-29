@@ -24,11 +24,11 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  AuthControllerMeParams,
+  AuthControllerPlatformMeParams,
   LoginRequest,
-  MeParams,
   MeResponse,
   PlatformLoginRequest,
-  PlatformMeParams,
   RefreshRequest,
   TokenResponse
 } from '../model';
@@ -53,7 +53,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const refresh = (
+export const authControllerRefresh = (
     refreshRequest: RefreshRequest,
  signal?: AbortSignal
 ) => {
@@ -70,66 +70,66 @@ export const refresh = (
 
 
 
-export const getRefreshQueryKey = (refreshRequest?: RefreshRequest,) => {
+export const getAuthControllerRefreshQueryKey = (refreshRequest?: RefreshRequest,) => {
     return [
     'POST', `/api/v1/auth/refresh`, refreshRequest
     ] as const;
     }
 
 
-export const getRefreshQueryOptions = <TData = Awaited<ReturnType<typeof refresh>>, TError = unknown>(refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof refresh>>, TError, TData>>, }
+export const getAuthControllerRefreshQueryOptions = <TData = Awaited<ReturnType<typeof authControllerRefresh>>, TError = unknown>(refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getRefreshQueryKey(refreshRequest);
+  const queryKey =  queryOptions?.queryKey ?? getAuthControllerRefreshQueryKey(refreshRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof refresh>>> = ({ signal }) => refresh(refreshRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof authControllerRefresh>>> = ({ signal }) => authControllerRefresh(refreshRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof refresh>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type RefreshQueryResult = NonNullable<Awaited<ReturnType<typeof refresh>>>
-export type RefreshQueryError = unknown
+export type AuthControllerRefreshQueryResult = NonNullable<Awaited<ReturnType<typeof authControllerRefresh>>>
+export type AuthControllerRefreshQueryError = unknown
 
 
-export function useRefresh<TData = Awaited<ReturnType<typeof refresh>>, TError = unknown>(
- refreshRequest: RefreshRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof refresh>>, TError, TData>> & Pick<
+export function useAuthControllerRefresh<TData = Awaited<ReturnType<typeof authControllerRefresh>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof refresh>>,
+          Awaited<ReturnType<typeof authControllerRefresh>>,
           TError,
-          Awaited<ReturnType<typeof refresh>>
+          Awaited<ReturnType<typeof authControllerRefresh>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useRefresh<TData = Awaited<ReturnType<typeof refresh>>, TError = unknown>(
- refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof refresh>>, TError, TData>> & Pick<
+export function useAuthControllerRefresh<TData = Awaited<ReturnType<typeof authControllerRefresh>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof refresh>>,
+          Awaited<ReturnType<typeof authControllerRefresh>>,
           TError,
-          Awaited<ReturnType<typeof refresh>>
+          Awaited<ReturnType<typeof authControllerRefresh>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useRefresh<TData = Awaited<ReturnType<typeof refresh>>, TError = unknown>(
- refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof refresh>>, TError, TData>>, }
+export function useAuthControllerRefresh<TData = Awaited<ReturnType<typeof authControllerRefresh>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useRefresh<TData = Awaited<ReturnType<typeof refresh>>, TError = unknown>(
- refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof refresh>>, TError, TData>>, }
+export function useAuthControllerRefresh<TData = Awaited<ReturnType<typeof authControllerRefresh>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getRefreshQueryOptions(refreshRequest,options)
+  const queryOptions = getAuthControllerRefreshQueryOptions(refreshRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -141,7 +141,7 @@ export function useRefresh<TData = Awaited<ReturnType<typeof refresh>>, TError =
 
 
 
-export const platformRefresh = (
+export const authControllerPlatformRefresh = (
     refreshRequest: RefreshRequest,
  signal?: AbortSignal
 ) => {
@@ -158,66 +158,66 @@ export const platformRefresh = (
 
 
 
-export const getPlatformRefreshQueryKey = (refreshRequest?: RefreshRequest,) => {
+export const getAuthControllerPlatformRefreshQueryKey = (refreshRequest?: RefreshRequest,) => {
     return [
     'POST', `/api/v1/auth/platform/refresh`, refreshRequest
     ] as const;
     }
 
 
-export const getPlatformRefreshQueryOptions = <TData = Awaited<ReturnType<typeof platformRefresh>>, TError = unknown>(refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformRefresh>>, TError, TData>>, }
+export const getAuthControllerPlatformRefreshQueryOptions = <TData = Awaited<ReturnType<typeof authControllerPlatformRefresh>>, TError = unknown>(refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformRefresh>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getPlatformRefreshQueryKey(refreshRequest);
+  const queryKey =  queryOptions?.queryKey ?? getAuthControllerPlatformRefreshQueryKey(refreshRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof platformRefresh>>> = ({ signal }) => platformRefresh(refreshRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof authControllerPlatformRefresh>>> = ({ signal }) => authControllerPlatformRefresh(refreshRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof platformRefresh>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformRefresh>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type PlatformRefreshQueryResult = NonNullable<Awaited<ReturnType<typeof platformRefresh>>>
-export type PlatformRefreshQueryError = unknown
+export type AuthControllerPlatformRefreshQueryResult = NonNullable<Awaited<ReturnType<typeof authControllerPlatformRefresh>>>
+export type AuthControllerPlatformRefreshQueryError = unknown
 
 
-export function usePlatformRefresh<TData = Awaited<ReturnType<typeof platformRefresh>>, TError = unknown>(
- refreshRequest: RefreshRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformRefresh>>, TError, TData>> & Pick<
+export function useAuthControllerPlatformRefresh<TData = Awaited<ReturnType<typeof authControllerPlatformRefresh>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformRefresh>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof platformRefresh>>,
+          Awaited<ReturnType<typeof authControllerPlatformRefresh>>,
           TError,
-          Awaited<ReturnType<typeof platformRefresh>>
+          Awaited<ReturnType<typeof authControllerPlatformRefresh>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePlatformRefresh<TData = Awaited<ReturnType<typeof platformRefresh>>, TError = unknown>(
- refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformRefresh>>, TError, TData>> & Pick<
+export function useAuthControllerPlatformRefresh<TData = Awaited<ReturnType<typeof authControllerPlatformRefresh>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformRefresh>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof platformRefresh>>,
+          Awaited<ReturnType<typeof authControllerPlatformRefresh>>,
           TError,
-          Awaited<ReturnType<typeof platformRefresh>>
+          Awaited<ReturnType<typeof authControllerPlatformRefresh>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePlatformRefresh<TData = Awaited<ReturnType<typeof platformRefresh>>, TError = unknown>(
- refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformRefresh>>, TError, TData>>, }
+export function useAuthControllerPlatformRefresh<TData = Awaited<ReturnType<typeof authControllerPlatformRefresh>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformRefresh>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function usePlatformRefresh<TData = Awaited<ReturnType<typeof platformRefresh>>, TError = unknown>(
- refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformRefresh>>, TError, TData>>, }
+export function useAuthControllerPlatformRefresh<TData = Awaited<ReturnType<typeof authControllerPlatformRefresh>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformRefresh>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getPlatformRefreshQueryOptions(refreshRequest,options)
+  const queryOptions = getAuthControllerPlatformRefreshQueryOptions(refreshRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -229,7 +229,7 @@ export function usePlatformRefresh<TData = Awaited<ReturnType<typeof platformRef
 
 
 
-export const platformLogout = (
+export const authControllerPlatformLogout = (
     refreshRequest: RefreshRequest,
  signal?: AbortSignal
 ) => {
@@ -246,66 +246,66 @@ export const platformLogout = (
 
 
 
-export const getPlatformLogoutQueryKey = (refreshRequest?: RefreshRequest,) => {
+export const getAuthControllerPlatformLogoutQueryKey = (refreshRequest?: RefreshRequest,) => {
     return [
     'POST', `/api/v1/auth/platform/logout`, refreshRequest
     ] as const;
     }
 
 
-export const getPlatformLogoutQueryOptions = <TData = Awaited<ReturnType<typeof platformLogout>>, TError = unknown>(refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformLogout>>, TError, TData>>, }
+export const getAuthControllerPlatformLogoutQueryOptions = <TData = Awaited<ReturnType<typeof authControllerPlatformLogout>>, TError = unknown>(refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformLogout>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getPlatformLogoutQueryKey(refreshRequest);
+  const queryKey =  queryOptions?.queryKey ?? getAuthControllerPlatformLogoutQueryKey(refreshRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof platformLogout>>> = ({ signal }) => platformLogout(refreshRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof authControllerPlatformLogout>>> = ({ signal }) => authControllerPlatformLogout(refreshRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof platformLogout>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformLogout>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type PlatformLogoutQueryResult = NonNullable<Awaited<ReturnType<typeof platformLogout>>>
-export type PlatformLogoutQueryError = unknown
+export type AuthControllerPlatformLogoutQueryResult = NonNullable<Awaited<ReturnType<typeof authControllerPlatformLogout>>>
+export type AuthControllerPlatformLogoutQueryError = unknown
 
 
-export function usePlatformLogout<TData = Awaited<ReturnType<typeof platformLogout>>, TError = unknown>(
- refreshRequest: RefreshRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformLogout>>, TError, TData>> & Pick<
+export function useAuthControllerPlatformLogout<TData = Awaited<ReturnType<typeof authControllerPlatformLogout>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformLogout>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof platformLogout>>,
+          Awaited<ReturnType<typeof authControllerPlatformLogout>>,
           TError,
-          Awaited<ReturnType<typeof platformLogout>>
+          Awaited<ReturnType<typeof authControllerPlatformLogout>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePlatformLogout<TData = Awaited<ReturnType<typeof platformLogout>>, TError = unknown>(
- refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformLogout>>, TError, TData>> & Pick<
+export function useAuthControllerPlatformLogout<TData = Awaited<ReturnType<typeof authControllerPlatformLogout>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformLogout>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof platformLogout>>,
+          Awaited<ReturnType<typeof authControllerPlatformLogout>>,
           TError,
-          Awaited<ReturnType<typeof platformLogout>>
+          Awaited<ReturnType<typeof authControllerPlatformLogout>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePlatformLogout<TData = Awaited<ReturnType<typeof platformLogout>>, TError = unknown>(
- refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformLogout>>, TError, TData>>, }
+export function useAuthControllerPlatformLogout<TData = Awaited<ReturnType<typeof authControllerPlatformLogout>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformLogout>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function usePlatformLogout<TData = Awaited<ReturnType<typeof platformLogout>>, TError = unknown>(
- refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformLogout>>, TError, TData>>, }
+export function useAuthControllerPlatformLogout<TData = Awaited<ReturnType<typeof authControllerPlatformLogout>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformLogout>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getPlatformLogoutQueryOptions(refreshRequest,options)
+  const queryOptions = getAuthControllerPlatformLogoutQueryOptions(refreshRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -317,7 +317,7 @@ export function usePlatformLogout<TData = Awaited<ReturnType<typeof platformLogo
 
 
 
-export const platformLogin = (
+export const authControllerPlatformLogin = (
     platformLoginRequest: PlatformLoginRequest,
  signal?: AbortSignal
 ) => {
@@ -334,66 +334,66 @@ export const platformLogin = (
 
 
 
-export const getPlatformLoginQueryKey = (platformLoginRequest?: PlatformLoginRequest,) => {
+export const getAuthControllerPlatformLoginQueryKey = (platformLoginRequest?: PlatformLoginRequest,) => {
     return [
     'POST', `/api/v1/auth/platform/login`, platformLoginRequest
     ] as const;
     }
 
 
-export const getPlatformLoginQueryOptions = <TData = Awaited<ReturnType<typeof platformLogin>>, TError = unknown>(platformLoginRequest: PlatformLoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformLogin>>, TError, TData>>, }
+export const getAuthControllerPlatformLoginQueryOptions = <TData = Awaited<ReturnType<typeof authControllerPlatformLogin>>, TError = unknown>(platformLoginRequest: PlatformLoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformLogin>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getPlatformLoginQueryKey(platformLoginRequest);
+  const queryKey =  queryOptions?.queryKey ?? getAuthControllerPlatformLoginQueryKey(platformLoginRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof platformLogin>>> = ({ signal }) => platformLogin(platformLoginRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof authControllerPlatformLogin>>> = ({ signal }) => authControllerPlatformLogin(platformLoginRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof platformLogin>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformLogin>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type PlatformLoginQueryResult = NonNullable<Awaited<ReturnType<typeof platformLogin>>>
-export type PlatformLoginQueryError = unknown
+export type AuthControllerPlatformLoginQueryResult = NonNullable<Awaited<ReturnType<typeof authControllerPlatformLogin>>>
+export type AuthControllerPlatformLoginQueryError = unknown
 
 
-export function usePlatformLogin<TData = Awaited<ReturnType<typeof platformLogin>>, TError = unknown>(
- platformLoginRequest: PlatformLoginRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformLogin>>, TError, TData>> & Pick<
+export function useAuthControllerPlatformLogin<TData = Awaited<ReturnType<typeof authControllerPlatformLogin>>, TError = unknown>(
+ platformLoginRequest: PlatformLoginRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformLogin>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof platformLogin>>,
+          Awaited<ReturnType<typeof authControllerPlatformLogin>>,
           TError,
-          Awaited<ReturnType<typeof platformLogin>>
+          Awaited<ReturnType<typeof authControllerPlatformLogin>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePlatformLogin<TData = Awaited<ReturnType<typeof platformLogin>>, TError = unknown>(
- platformLoginRequest: PlatformLoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformLogin>>, TError, TData>> & Pick<
+export function useAuthControllerPlatformLogin<TData = Awaited<ReturnType<typeof authControllerPlatformLogin>>, TError = unknown>(
+ platformLoginRequest: PlatformLoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformLogin>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof platformLogin>>,
+          Awaited<ReturnType<typeof authControllerPlatformLogin>>,
           TError,
-          Awaited<ReturnType<typeof platformLogin>>
+          Awaited<ReturnType<typeof authControllerPlatformLogin>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePlatformLogin<TData = Awaited<ReturnType<typeof platformLogin>>, TError = unknown>(
- platformLoginRequest: PlatformLoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformLogin>>, TError, TData>>, }
+export function useAuthControllerPlatformLogin<TData = Awaited<ReturnType<typeof authControllerPlatformLogin>>, TError = unknown>(
+ platformLoginRequest: PlatformLoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformLogin>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function usePlatformLogin<TData = Awaited<ReturnType<typeof platformLogin>>, TError = unknown>(
- platformLoginRequest: PlatformLoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof platformLogin>>, TError, TData>>, }
+export function useAuthControllerPlatformLogin<TData = Awaited<ReturnType<typeof authControllerPlatformLogin>>, TError = unknown>(
+ platformLoginRequest: PlatformLoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerPlatformLogin>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getPlatformLoginQueryOptions(platformLoginRequest,options)
+  const queryOptions = getAuthControllerPlatformLoginQueryOptions(platformLoginRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -405,7 +405,7 @@ export function usePlatformLogin<TData = Awaited<ReturnType<typeof platformLogin
 
 
 
-export const logout = (
+export const authControllerLogout = (
     refreshRequest: RefreshRequest,
  signal?: AbortSignal
 ) => {
@@ -422,66 +422,66 @@ export const logout = (
 
 
 
-export const getLogoutQueryKey = (refreshRequest?: RefreshRequest,) => {
+export const getAuthControllerLogoutQueryKey = (refreshRequest?: RefreshRequest,) => {
     return [
     'POST', `/api/v1/auth/logout`, refreshRequest
     ] as const;
     }
 
 
-export const getLogoutQueryOptions = <TData = Awaited<ReturnType<typeof logout>>, TError = unknown>(refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof logout>>, TError, TData>>, }
+export const getAuthControllerLogoutQueryOptions = <TData = Awaited<ReturnType<typeof authControllerLogout>>, TError = unknown>(refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerLogout>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getLogoutQueryKey(refreshRequest);
+  const queryKey =  queryOptions?.queryKey ?? getAuthControllerLogoutQueryKey(refreshRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof logout>>> = ({ signal }) => logout(refreshRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof authControllerLogout>>> = ({ signal }) => authControllerLogout(refreshRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof logout>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof authControllerLogout>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type LogoutQueryResult = NonNullable<Awaited<ReturnType<typeof logout>>>
-export type LogoutQueryError = unknown
+export type AuthControllerLogoutQueryResult = NonNullable<Awaited<ReturnType<typeof authControllerLogout>>>
+export type AuthControllerLogoutQueryError = unknown
 
 
-export function useLogout<TData = Awaited<ReturnType<typeof logout>>, TError = unknown>(
- refreshRequest: RefreshRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof logout>>, TError, TData>> & Pick<
+export function useAuthControllerLogout<TData = Awaited<ReturnType<typeof authControllerLogout>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerLogout>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof logout>>,
+          Awaited<ReturnType<typeof authControllerLogout>>,
           TError,
-          Awaited<ReturnType<typeof logout>>
+          Awaited<ReturnType<typeof authControllerLogout>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useLogout<TData = Awaited<ReturnType<typeof logout>>, TError = unknown>(
- refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof logout>>, TError, TData>> & Pick<
+export function useAuthControllerLogout<TData = Awaited<ReturnType<typeof authControllerLogout>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerLogout>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof logout>>,
+          Awaited<ReturnType<typeof authControllerLogout>>,
           TError,
-          Awaited<ReturnType<typeof logout>>
+          Awaited<ReturnType<typeof authControllerLogout>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useLogout<TData = Awaited<ReturnType<typeof logout>>, TError = unknown>(
- refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof logout>>, TError, TData>>, }
+export function useAuthControllerLogout<TData = Awaited<ReturnType<typeof authControllerLogout>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerLogout>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useLogout<TData = Awaited<ReturnType<typeof logout>>, TError = unknown>(
- refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof logout>>, TError, TData>>, }
+export function useAuthControllerLogout<TData = Awaited<ReturnType<typeof authControllerLogout>>, TError = unknown>(
+ refreshRequest: RefreshRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerLogout>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getLogoutQueryOptions(refreshRequest,options)
+  const queryOptions = getAuthControllerLogoutQueryOptions(refreshRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -493,7 +493,7 @@ export function useLogout<TData = Awaited<ReturnType<typeof logout>>, TError = u
 
 
 
-export const login = (
+export const authControllerLogin = (
     loginRequest: LoginRequest,
  signal?: AbortSignal
 ) => {
@@ -510,66 +510,66 @@ export const login = (
 
 
 
-export const getLoginQueryKey = (loginRequest?: LoginRequest,) => {
+export const getAuthControllerLoginQueryKey = (loginRequest?: LoginRequest,) => {
     return [
     'POST', `/api/v1/auth/login`, loginRequest
     ] as const;
     }
 
 
-export const getLoginQueryOptions = <TData = Awaited<ReturnType<typeof login>>, TError = unknown>(loginRequest: LoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof login>>, TError, TData>>, }
+export const getAuthControllerLoginQueryOptions = <TData = Awaited<ReturnType<typeof authControllerLogin>>, TError = unknown>(loginRequest: LoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerLogin>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getLoginQueryKey(loginRequest);
+  const queryKey =  queryOptions?.queryKey ?? getAuthControllerLoginQueryKey(loginRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof login>>> = ({ signal }) => login(loginRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof authControllerLogin>>> = ({ signal }) => authControllerLogin(loginRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof login>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof authControllerLogin>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type LoginQueryResult = NonNullable<Awaited<ReturnType<typeof login>>>
-export type LoginQueryError = unknown
+export type AuthControllerLoginQueryResult = NonNullable<Awaited<ReturnType<typeof authControllerLogin>>>
+export type AuthControllerLoginQueryError = unknown
 
 
-export function useLogin<TData = Awaited<ReturnType<typeof login>>, TError = unknown>(
- loginRequest: LoginRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof login>>, TError, TData>> & Pick<
+export function useAuthControllerLogin<TData = Awaited<ReturnType<typeof authControllerLogin>>, TError = unknown>(
+ loginRequest: LoginRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerLogin>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof login>>,
+          Awaited<ReturnType<typeof authControllerLogin>>,
           TError,
-          Awaited<ReturnType<typeof login>>
+          Awaited<ReturnType<typeof authControllerLogin>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useLogin<TData = Awaited<ReturnType<typeof login>>, TError = unknown>(
- loginRequest: LoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof login>>, TError, TData>> & Pick<
+export function useAuthControllerLogin<TData = Awaited<ReturnType<typeof authControllerLogin>>, TError = unknown>(
+ loginRequest: LoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerLogin>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof login>>,
+          Awaited<ReturnType<typeof authControllerLogin>>,
           TError,
-          Awaited<ReturnType<typeof login>>
+          Awaited<ReturnType<typeof authControllerLogin>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useLogin<TData = Awaited<ReturnType<typeof login>>, TError = unknown>(
- loginRequest: LoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof login>>, TError, TData>>, }
+export function useAuthControllerLogin<TData = Awaited<ReturnType<typeof authControllerLogin>>, TError = unknown>(
+ loginRequest: LoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerLogin>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useLogin<TData = Awaited<ReturnType<typeof login>>, TError = unknown>(
- loginRequest: LoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof login>>, TError, TData>>, }
+export function useAuthControllerLogin<TData = Awaited<ReturnType<typeof authControllerLogin>>, TError = unknown>(
+ loginRequest: LoginRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof authControllerLogin>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getLoginQueryOptions(loginRequest,options)
+  const queryOptions = getAuthControllerLoginQueryOptions(loginRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -581,8 +581,8 @@ export function useLogin<TData = Awaited<ReturnType<typeof login>>, TError = unk
 
 
 
-export const platformMe = (
-    params: PlatformMeParams,
+export const authControllerPlatformMe = (
+    params: AuthControllerPlatformMeParams,
  signal?: AbortSignal
 ) => {
 
@@ -596,11 +596,11 @@ export const platformMe = (
 
 
 
-export const getPlatformMeMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof platformMe>>, TError,{params: PlatformMeParams}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof platformMe>>, TError,{params: PlatformMeParams}, TContext> => {
+export const getAuthControllerPlatformMeMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerPlatformMe>>, TError,{params: AuthControllerPlatformMeParams}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerPlatformMe>>, TError,{params: AuthControllerPlatformMeParams}, TContext> => {
 
-const mutationKey = ['platformMe'];
+const mutationKey = ['authControllerPlatformMe'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -610,10 +610,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof platformMe>>, {params: PlatformMeParams}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerPlatformMe>>, {params: AuthControllerPlatformMeParams}> = (props) => {
           const {params} = props ?? {};
 
-          return  platformMe(params,)
+          return  authControllerPlatformMe(params,)
         }
 
 
@@ -623,22 +623,22 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PlatformMeMutationResult = NonNullable<Awaited<ReturnType<typeof platformMe>>>
+    export type AuthControllerPlatformMeMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerPlatformMe>>>
 
-    export type PlatformMeMutationError = unknown
+    export type AuthControllerPlatformMeMutationError = unknown
 
-    export const usePlatformMe = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof platformMe>>, TError,{params: PlatformMeParams}, TContext>, }
+    export const useAuthControllerPlatformMe = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerPlatformMe>>, TError,{params: AuthControllerPlatformMeParams}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof platformMe>>,
+        Awaited<ReturnType<typeof authControllerPlatformMe>>,
         TError,
-        {params: PlatformMeParams},
+        {params: AuthControllerPlatformMeParams},
         TContext
       > => {
-      return useMutation(getPlatformMeMutationOptions(options), queryClient);
+      return useMutation(getAuthControllerPlatformMeMutationOptions(options), queryClient);
     }
-    export const me = (
-    params: MeParams,
+    export const authControllerMe = (
+    params: AuthControllerMeParams,
  signal?: AbortSignal
 ) => {
 
@@ -652,11 +652,11 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getMeMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof me>>, TError,{params: MeParams}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof me>>, TError,{params: MeParams}, TContext> => {
+export const getAuthControllerMeMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerMe>>, TError,{params: AuthControllerMeParams}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerMe>>, TError,{params: AuthControllerMeParams}, TContext> => {
 
-const mutationKey = ['me'];
+const mutationKey = ['authControllerMe'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -666,10 +666,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof me>>, {params: MeParams}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerMe>>, {params: AuthControllerMeParams}> = (props) => {
           const {params} = props ?? {};
 
-          return  me(params,)
+          return  authControllerMe(params,)
         }
 
 
@@ -679,17 +679,17 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type MeMutationResult = NonNullable<Awaited<ReturnType<typeof me>>>
+    export type AuthControllerMeMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerMe>>>
 
-    export type MeMutationError = unknown
+    export type AuthControllerMeMutationError = unknown
 
-    export const useMe = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof me>>, TError,{params: MeParams}, TContext>, }
+    export const useAuthControllerMe = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerMe>>, TError,{params: AuthControllerMeParams}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof me>>,
+        Awaited<ReturnType<typeof authControllerMe>>,
         TError,
-        {params: MeParams},
+        {params: AuthControllerMeParams},
         TContext
       > => {
-      return useMutation(getMeMutationOptions(options), queryClient);
+      return useMutation(getAuthControllerMeMutationOptions(options), queryClient);
     }

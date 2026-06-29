@@ -24,9 +24,9 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  FeeCategoryControllerListParams,
   FeeCategoryRequest,
   FeeCategoryResponse,
-  List1Params,
   PageResponseFeeCategoryResponse,
   UpdateFeeCategoryRequest
 } from '../model';
@@ -51,7 +51,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const update8 = (
+export const feeCategoryControllerUpdate = (
     id: string,
     updateFeeCategoryRequest: UpdateFeeCategoryRequest,
  signal?: AbortSignal
@@ -69,7 +69,7 @@ export const update8 = (
 
 
 
-export const getUpdate8QueryKey = (id: string,
+export const getFeeCategoryControllerUpdateQueryKey = (id: string,
     updateFeeCategoryRequest?: UpdateFeeCategoryRequest,) => {
     return [
     'PUT', `/api/v1/billing/fee-categories/${id}`, updateFeeCategoryRequest
@@ -77,64 +77,64 @@ export const getUpdate8QueryKey = (id: string,
     }
 
 
-export const getUpdate8QueryOptions = <TData = Awaited<ReturnType<typeof update8>>, TError = unknown>(id: string,
-    updateFeeCategoryRequest: UpdateFeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update8>>, TError, TData>>, }
+export const getFeeCategoryControllerUpdateQueryOptions = <TData = Awaited<ReturnType<typeof feeCategoryControllerUpdate>>, TError = unknown>(id: string,
+    updateFeeCategoryRequest: UpdateFeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof feeCategoryControllerUpdate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getUpdate8QueryKey(id,updateFeeCategoryRequest);
+  const queryKey =  queryOptions?.queryKey ?? getFeeCategoryControllerUpdateQueryKey(id,updateFeeCategoryRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof update8>>> = ({ signal }) => update8(id,updateFeeCategoryRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof feeCategoryControllerUpdate>>> = ({ signal }) => feeCategoryControllerUpdate(id,updateFeeCategoryRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof update8>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof feeCategoryControllerUpdate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Update8QueryResult = NonNullable<Awaited<ReturnType<typeof update8>>>
-export type Update8QueryError = unknown
+export type FeeCategoryControllerUpdateQueryResult = NonNullable<Awaited<ReturnType<typeof feeCategoryControllerUpdate>>>
+export type FeeCategoryControllerUpdateQueryError = unknown
 
 
-export function useUpdate8<TData = Awaited<ReturnType<typeof update8>>, TError = unknown>(
+export function useFeeCategoryControllerUpdate<TData = Awaited<ReturnType<typeof feeCategoryControllerUpdate>>, TError = unknown>(
  id: string,
-    updateFeeCategoryRequest: UpdateFeeCategoryRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof update8>>, TError, TData>> & Pick<
+    updateFeeCategoryRequest: UpdateFeeCategoryRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof feeCategoryControllerUpdate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update8>>,
+          Awaited<ReturnType<typeof feeCategoryControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update8>>
+          Awaited<ReturnType<typeof feeCategoryControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate8<TData = Awaited<ReturnType<typeof update8>>, TError = unknown>(
+export function useFeeCategoryControllerUpdate<TData = Awaited<ReturnType<typeof feeCategoryControllerUpdate>>, TError = unknown>(
  id: string,
-    updateFeeCategoryRequest: UpdateFeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update8>>, TError, TData>> & Pick<
+    updateFeeCategoryRequest: UpdateFeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof feeCategoryControllerUpdate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update8>>,
+          Awaited<ReturnType<typeof feeCategoryControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update8>>
+          Awaited<ReturnType<typeof feeCategoryControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate8<TData = Awaited<ReturnType<typeof update8>>, TError = unknown>(
+export function useFeeCategoryControllerUpdate<TData = Awaited<ReturnType<typeof feeCategoryControllerUpdate>>, TError = unknown>(
  id: string,
-    updateFeeCategoryRequest: UpdateFeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update8>>, TError, TData>>, }
+    updateFeeCategoryRequest: UpdateFeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof feeCategoryControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useUpdate8<TData = Awaited<ReturnType<typeof update8>>, TError = unknown>(
+export function useFeeCategoryControllerUpdate<TData = Awaited<ReturnType<typeof feeCategoryControllerUpdate>>, TError = unknown>(
  id: string,
-    updateFeeCategoryRequest: UpdateFeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update8>>, TError, TData>>, }
+    updateFeeCategoryRequest: UpdateFeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof feeCategoryControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getUpdate8QueryOptions(id,updateFeeCategoryRequest,options)
+  const queryOptions = getFeeCategoryControllerUpdateQueryOptions(id,updateFeeCategoryRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -146,8 +146,8 @@ export function useUpdate8<TData = Awaited<ReturnType<typeof update8>>, TError =
 
 
 
-export const list1 = (
-    params?: List1Params,
+export const feeCategoryControllerList = (
+    params?: FeeCategoryControllerListParams,
  signal?: AbortSignal
 ) => {
 
@@ -161,11 +161,11 @@ export const list1 = (
 
 
 
-export const getList1MutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof list1>>, TError,{params?: List1Params}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof list1>>, TError,{params?: List1Params}, TContext> => {
+export const getFeeCategoryControllerListMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof feeCategoryControllerList>>, TError,{params?: FeeCategoryControllerListParams}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof feeCategoryControllerList>>, TError,{params?: FeeCategoryControllerListParams}, TContext> => {
 
-const mutationKey = ['list1'];
+const mutationKey = ['feeCategoryControllerList'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -175,10 +175,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof list1>>, {params?: List1Params}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof feeCategoryControllerList>>, {params?: FeeCategoryControllerListParams}> = (props) => {
           const {params} = props ?? {};
 
-          return  list1(params,)
+          return  feeCategoryControllerList(params,)
         }
 
 
@@ -188,21 +188,21 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type List1MutationResult = NonNullable<Awaited<ReturnType<typeof list1>>>
+    export type FeeCategoryControllerListMutationResult = NonNullable<Awaited<ReturnType<typeof feeCategoryControllerList>>>
 
-    export type List1MutationError = unknown
+    export type FeeCategoryControllerListMutationError = unknown
 
-    export const useList1 = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof list1>>, TError,{params?: List1Params}, TContext>, }
+    export const useFeeCategoryControllerList = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof feeCategoryControllerList>>, TError,{params?: FeeCategoryControllerListParams}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof list1>>,
+        Awaited<ReturnType<typeof feeCategoryControllerList>>,
         TError,
-        {params?: List1Params},
+        {params?: FeeCategoryControllerListParams},
         TContext
       > => {
-      return useMutation(getList1MutationOptions(options), queryClient);
+      return useMutation(getFeeCategoryControllerListMutationOptions(options), queryClient);
     }
-    export const create8 = (
+    export const feeCategoryControllerCreate = (
     feeCategoryRequest: FeeCategoryRequest,
  signal?: AbortSignal
 ) => {
@@ -219,66 +219,66 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getCreate8QueryKey = (feeCategoryRequest?: FeeCategoryRequest,) => {
+export const getFeeCategoryControllerCreateQueryKey = (feeCategoryRequest?: FeeCategoryRequest,) => {
     return [
     'POST', `/api/v1/billing/fee-categories`, feeCategoryRequest
     ] as const;
     }
 
 
-export const getCreate8QueryOptions = <TData = Awaited<ReturnType<typeof create8>>, TError = unknown>(feeCategoryRequest: FeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create8>>, TError, TData>>, }
+export const getFeeCategoryControllerCreateQueryOptions = <TData = Awaited<ReturnType<typeof feeCategoryControllerCreate>>, TError = unknown>(feeCategoryRequest: FeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof feeCategoryControllerCreate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getCreate8QueryKey(feeCategoryRequest);
+  const queryKey =  queryOptions?.queryKey ?? getFeeCategoryControllerCreateQueryKey(feeCategoryRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof create8>>> = ({ signal }) => create8(feeCategoryRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof feeCategoryControllerCreate>>> = ({ signal }) => feeCategoryControllerCreate(feeCategoryRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof create8>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof feeCategoryControllerCreate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Create8QueryResult = NonNullable<Awaited<ReturnType<typeof create8>>>
-export type Create8QueryError = unknown
+export type FeeCategoryControllerCreateQueryResult = NonNullable<Awaited<ReturnType<typeof feeCategoryControllerCreate>>>
+export type FeeCategoryControllerCreateQueryError = unknown
 
 
-export function useCreate8<TData = Awaited<ReturnType<typeof create8>>, TError = unknown>(
- feeCategoryRequest: FeeCategoryRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof create8>>, TError, TData>> & Pick<
+export function useFeeCategoryControllerCreate<TData = Awaited<ReturnType<typeof feeCategoryControllerCreate>>, TError = unknown>(
+ feeCategoryRequest: FeeCategoryRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof feeCategoryControllerCreate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create8>>,
+          Awaited<ReturnType<typeof feeCategoryControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create8>>
+          Awaited<ReturnType<typeof feeCategoryControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate8<TData = Awaited<ReturnType<typeof create8>>, TError = unknown>(
- feeCategoryRequest: FeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create8>>, TError, TData>> & Pick<
+export function useFeeCategoryControllerCreate<TData = Awaited<ReturnType<typeof feeCategoryControllerCreate>>, TError = unknown>(
+ feeCategoryRequest: FeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof feeCategoryControllerCreate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create8>>,
+          Awaited<ReturnType<typeof feeCategoryControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create8>>
+          Awaited<ReturnType<typeof feeCategoryControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate8<TData = Awaited<ReturnType<typeof create8>>, TError = unknown>(
- feeCategoryRequest: FeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create8>>, TError, TData>>, }
+export function useFeeCategoryControllerCreate<TData = Awaited<ReturnType<typeof feeCategoryControllerCreate>>, TError = unknown>(
+ feeCategoryRequest: FeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof feeCategoryControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useCreate8<TData = Awaited<ReturnType<typeof create8>>, TError = unknown>(
- feeCategoryRequest: FeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create8>>, TError, TData>>, }
+export function useFeeCategoryControllerCreate<TData = Awaited<ReturnType<typeof feeCategoryControllerCreate>>, TError = unknown>(
+ feeCategoryRequest: FeeCategoryRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof feeCategoryControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getCreate8QueryOptions(feeCategoryRequest,options)
+  const queryOptions = getFeeCategoryControllerCreateQueryOptions(feeCategoryRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

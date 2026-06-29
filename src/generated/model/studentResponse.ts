@@ -4,19 +4,15 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { StudentResponseStatus } from './studentResponseStatus.ts';
 
 export interface StudentResponse {
   id?: string;
-  studentNumber?: string;
-  firstName?: string;
-  lastName?: string;
+  studentNo?: string;
   fullName?: string;
-  email?: string;
-  phone?: string;
-  dateOfBirth?: string;
   gender?: string;
   nationality?: string;
-  status?: StudentResponseStatus;
+  telephoneNumber?: string;
+  email?: string;
+  status?: string;
   createdAt?: string;
 }

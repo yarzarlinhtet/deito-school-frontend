@@ -20,7 +20,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  ImpersonateParams,
+  ImpersonateControllerImpersonateParams,
   ImpersonateRequest,
   ImpersonateResponse
 } from '../model';
@@ -45,9 +45,9 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const impersonate = (
+export const impersonateControllerImpersonate = (
     impersonateRequest: ImpersonateRequest,
-    params: ImpersonateParams,
+    params: ImpersonateControllerImpersonateParams,
  signal?: AbortSignal
 ) => {
 
@@ -64,72 +64,72 @@ export const impersonate = (
 
 
 
-export const getImpersonateQueryKey = (impersonateRequest?: ImpersonateRequest,
-    params?: ImpersonateParams,) => {
+export const getImpersonateControllerImpersonateQueryKey = (impersonateRequest?: ImpersonateRequest,
+    params?: ImpersonateControllerImpersonateParams,) => {
     return [
     'POST', `/api/v1/platform/impersonate`, ...(params ? [params] : []), impersonateRequest
     ] as const;
     }
 
 
-export const getImpersonateQueryOptions = <TData = Awaited<ReturnType<typeof impersonate>>, TError = unknown>(impersonateRequest: ImpersonateRequest,
-    params: ImpersonateParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof impersonate>>, TError, TData>>, }
+export const getImpersonateControllerImpersonateQueryOptions = <TData = Awaited<ReturnType<typeof impersonateControllerImpersonate>>, TError = unknown>(impersonateRequest: ImpersonateRequest,
+    params: ImpersonateControllerImpersonateParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof impersonateControllerImpersonate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getImpersonateQueryKey(impersonateRequest,params);
+  const queryKey =  queryOptions?.queryKey ?? getImpersonateControllerImpersonateQueryKey(impersonateRequest,params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof impersonate>>> = ({ signal }) => impersonate(impersonateRequest,params, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof impersonateControllerImpersonate>>> = ({ signal }) => impersonateControllerImpersonate(impersonateRequest,params, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof impersonate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof impersonateControllerImpersonate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type ImpersonateQueryResult = NonNullable<Awaited<ReturnType<typeof impersonate>>>
-export type ImpersonateQueryError = unknown
+export type ImpersonateControllerImpersonateQueryResult = NonNullable<Awaited<ReturnType<typeof impersonateControllerImpersonate>>>
+export type ImpersonateControllerImpersonateQueryError = unknown
 
 
-export function useImpersonate<TData = Awaited<ReturnType<typeof impersonate>>, TError = unknown>(
+export function useImpersonateControllerImpersonate<TData = Awaited<ReturnType<typeof impersonateControllerImpersonate>>, TError = unknown>(
  impersonateRequest: ImpersonateRequest,
-    params: ImpersonateParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof impersonate>>, TError, TData>> & Pick<
+    params: ImpersonateControllerImpersonateParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof impersonateControllerImpersonate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof impersonate>>,
+          Awaited<ReturnType<typeof impersonateControllerImpersonate>>,
           TError,
-          Awaited<ReturnType<typeof impersonate>>
+          Awaited<ReturnType<typeof impersonateControllerImpersonate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useImpersonate<TData = Awaited<ReturnType<typeof impersonate>>, TError = unknown>(
+export function useImpersonateControllerImpersonate<TData = Awaited<ReturnType<typeof impersonateControllerImpersonate>>, TError = unknown>(
  impersonateRequest: ImpersonateRequest,
-    params: ImpersonateParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof impersonate>>, TError, TData>> & Pick<
+    params: ImpersonateControllerImpersonateParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof impersonateControllerImpersonate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof impersonate>>,
+          Awaited<ReturnType<typeof impersonateControllerImpersonate>>,
           TError,
-          Awaited<ReturnType<typeof impersonate>>
+          Awaited<ReturnType<typeof impersonateControllerImpersonate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useImpersonate<TData = Awaited<ReturnType<typeof impersonate>>, TError = unknown>(
+export function useImpersonateControllerImpersonate<TData = Awaited<ReturnType<typeof impersonateControllerImpersonate>>, TError = unknown>(
  impersonateRequest: ImpersonateRequest,
-    params: ImpersonateParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof impersonate>>, TError, TData>>, }
+    params: ImpersonateControllerImpersonateParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof impersonateControllerImpersonate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useImpersonate<TData = Awaited<ReturnType<typeof impersonate>>, TError = unknown>(
+export function useImpersonateControllerImpersonate<TData = Awaited<ReturnType<typeof impersonateControllerImpersonate>>, TError = unknown>(
  impersonateRequest: ImpersonateRequest,
-    params: ImpersonateParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof impersonate>>, TError, TData>>, }
+    params: ImpersonateControllerImpersonateParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof impersonateControllerImpersonate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getImpersonateQueryOptions(impersonateRequest,params,options)
+  const queryOptions = getImpersonateControllerImpersonateQueryOptions(impersonateRequest,params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

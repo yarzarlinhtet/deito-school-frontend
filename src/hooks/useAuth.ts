@@ -1,7 +1,7 @@
 import { useAuthStore } from '#/stores/authStore'
 import { useUserStore } from '#/stores/userStore'
 import { useNavigate } from '@tanstack/react-router'
-import { logout as logoutFn } from '#/generated/auth-controller/auth-controller'
+import { authControllerLogout as logoutFn } from '#/generated/auth-controller/auth-controller'
 import { clearUserContext } from '#/lib/bootstrap'
 
 export function useAuth() {

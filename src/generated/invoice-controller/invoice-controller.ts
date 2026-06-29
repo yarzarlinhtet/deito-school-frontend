@@ -47,7 +47,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const send = (
+export const invoiceControllerSend = (
     id: string,
  signal?: AbortSignal
 ) => {
@@ -62,66 +62,66 @@ export const send = (
 
 
 
-export const getSendQueryKey = (id: string,) => {
+export const getInvoiceControllerSendQueryKey = (id: string,) => {
     return [
     'PUT', `/api/v1/invoices/${id}/send`
     ] as const;
     }
 
 
-export const getSendQueryOptions = <TData = Awaited<ReturnType<typeof send>>, TError = unknown>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof send>>, TError, TData>>, }
+export const getInvoiceControllerSendQueryOptions = <TData = Awaited<ReturnType<typeof invoiceControllerSend>>, TError = unknown>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof invoiceControllerSend>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getSendQueryKey(id);
+  const queryKey =  queryOptions?.queryKey ?? getInvoiceControllerSendQueryKey(id);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof send>>> = ({ signal }) => send(id, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof invoiceControllerSend>>> = ({ signal }) => invoiceControllerSend(id, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof send>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof invoiceControllerSend>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type SendQueryResult = NonNullable<Awaited<ReturnType<typeof send>>>
-export type SendQueryError = unknown
+export type InvoiceControllerSendQueryResult = NonNullable<Awaited<ReturnType<typeof invoiceControllerSend>>>
+export type InvoiceControllerSendQueryError = unknown
 
 
-export function useSend<TData = Awaited<ReturnType<typeof send>>, TError = unknown>(
- id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof send>>, TError, TData>> & Pick<
+export function useInvoiceControllerSend<TData = Awaited<ReturnType<typeof invoiceControllerSend>>, TError = unknown>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof invoiceControllerSend>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof send>>,
+          Awaited<ReturnType<typeof invoiceControllerSend>>,
           TError,
-          Awaited<ReturnType<typeof send>>
+          Awaited<ReturnType<typeof invoiceControllerSend>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSend<TData = Awaited<ReturnType<typeof send>>, TError = unknown>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof send>>, TError, TData>> & Pick<
+export function useInvoiceControllerSend<TData = Awaited<ReturnType<typeof invoiceControllerSend>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof invoiceControllerSend>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof send>>,
+          Awaited<ReturnType<typeof invoiceControllerSend>>,
           TError,
-          Awaited<ReturnType<typeof send>>
+          Awaited<ReturnType<typeof invoiceControllerSend>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSend<TData = Awaited<ReturnType<typeof send>>, TError = unknown>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof send>>, TError, TData>>, }
+export function useInvoiceControllerSend<TData = Awaited<ReturnType<typeof invoiceControllerSend>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof invoiceControllerSend>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useSend<TData = Awaited<ReturnType<typeof send>>, TError = unknown>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof send>>, TError, TData>>, }
+export function useInvoiceControllerSend<TData = Awaited<ReturnType<typeof invoiceControllerSend>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof invoiceControllerSend>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getSendQueryOptions(id,options)
+  const queryOptions = getInvoiceControllerSendQueryOptions(id,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -133,7 +133,7 @@ export function useSend<TData = Awaited<ReturnType<typeof send>>, TError = unkno
 
 
 
-export const getById8 = (
+export const invoiceControllerGetById = (
     id: string,
  signal?: AbortSignal
 ) => {
@@ -147,11 +147,11 @@ export const getById8 = (
 
 
 
-export const getGetById8MutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById8>>, TError,{id: string}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof getById8>>, TError,{id: string}, TContext> => {
+export const getInvoiceControllerGetByIdMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof invoiceControllerGetById>>, TError,{id: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof invoiceControllerGetById>>, TError,{id: string}, TContext> => {
 
-const mutationKey = ['getById8'];
+const mutationKey = ['invoiceControllerGetById'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -161,10 +161,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof getById8>>, {id: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof invoiceControllerGetById>>, {id: string}> = (props) => {
           const {id} = props ?? {};
 
-          return  getById8(id,)
+          return  invoiceControllerGetById(id,)
         }
 
 
@@ -174,17 +174,17 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type GetById8MutationResult = NonNullable<Awaited<ReturnType<typeof getById8>>>
+    export type InvoiceControllerGetByIdMutationResult = NonNullable<Awaited<ReturnType<typeof invoiceControllerGetById>>>
 
-    export type GetById8MutationError = unknown
+    export type InvoiceControllerGetByIdMutationError = unknown
 
-    export const useGetById8 = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById8>>, TError,{id: string}, TContext>, }
+    export const useInvoiceControllerGetById = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof invoiceControllerGetById>>, TError,{id: string}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof getById8>>,
+        Awaited<ReturnType<typeof invoiceControllerGetById>>,
         TError,
         {id: string},
         TContext
       > => {
-      return useMutation(getGetById8MutationOptions(options), queryClient);
+      return useMutation(getInvoiceControllerGetByIdMutationOptions(options), queryClient);
     }

@@ -52,7 +52,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const getById1 = (
+export const programControllerGetById = (
     programId: string,
  signal?: AbortSignal
 ) => {
@@ -66,11 +66,11 @@ export const getById1 = (
 
 
 
-export const getGetById1MutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById1>>, TError,{programId: string}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof getById1>>, TError,{programId: string}, TContext> => {
+export const getProgramControllerGetByIdMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof programControllerGetById>>, TError,{programId: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof programControllerGetById>>, TError,{programId: string}, TContext> => {
 
-const mutationKey = ['getById1'];
+const mutationKey = ['programControllerGetById'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -80,10 +80,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof getById1>>, {programId: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof programControllerGetById>>, {programId: string}> = (props) => {
           const {programId} = props ?? {};
 
-          return  getById1(programId,)
+          return  programControllerGetById(programId,)
         }
 
 
@@ -93,21 +93,21 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type GetById1MutationResult = NonNullable<Awaited<ReturnType<typeof getById1>>>
+    export type ProgramControllerGetByIdMutationResult = NonNullable<Awaited<ReturnType<typeof programControllerGetById>>>
 
-    export type GetById1MutationError = unknown
+    export type ProgramControllerGetByIdMutationError = unknown
 
-    export const useGetById1 = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById1>>, TError,{programId: string}, TContext>, }
+    export const useProgramControllerGetById = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof programControllerGetById>>, TError,{programId: string}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof getById1>>,
+        Awaited<ReturnType<typeof programControllerGetById>>,
         TError,
         {programId: string},
         TContext
       > => {
-      return useMutation(getGetById1MutationOptions(options), queryClient);
+      return useMutation(getProgramControllerGetByIdMutationOptions(options), queryClient);
     }
-    export const update1 = (
+    export const programControllerUpdate = (
     programId: string,
     updateProgramRequest: UpdateProgramRequest,
  signal?: AbortSignal
@@ -125,7 +125,7 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getUpdate1QueryKey = (programId: string,
+export const getProgramControllerUpdateQueryKey = (programId: string,
     updateProgramRequest?: UpdateProgramRequest,) => {
     return [
     'PUT', `/api/v1/enrollments/programs/${programId}`, updateProgramRequest
@@ -133,64 +133,64 @@ export const getUpdate1QueryKey = (programId: string,
     }
 
 
-export const getUpdate1QueryOptions = <TData = Awaited<ReturnType<typeof update1>>, TError = unknown>(programId: string,
-    updateProgramRequest: UpdateProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update1>>, TError, TData>>, }
+export const getProgramControllerUpdateQueryOptions = <TData = Awaited<ReturnType<typeof programControllerUpdate>>, TError = unknown>(programId: string,
+    updateProgramRequest: UpdateProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerUpdate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getUpdate1QueryKey(programId,updateProgramRequest);
+  const queryKey =  queryOptions?.queryKey ?? getProgramControllerUpdateQueryKey(programId,updateProgramRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof update1>>> = ({ signal }) => update1(programId,updateProgramRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof programControllerUpdate>>> = ({ signal }) => programControllerUpdate(programId,updateProgramRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: programId !== null && programId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof update1>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: programId !== null && programId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof programControllerUpdate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Update1QueryResult = NonNullable<Awaited<ReturnType<typeof update1>>>
-export type Update1QueryError = unknown
+export type ProgramControllerUpdateQueryResult = NonNullable<Awaited<ReturnType<typeof programControllerUpdate>>>
+export type ProgramControllerUpdateQueryError = unknown
 
 
-export function useUpdate1<TData = Awaited<ReturnType<typeof update1>>, TError = unknown>(
+export function useProgramControllerUpdate<TData = Awaited<ReturnType<typeof programControllerUpdate>>, TError = unknown>(
  programId: string,
-    updateProgramRequest: UpdateProgramRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof update1>>, TError, TData>> & Pick<
+    updateProgramRequest: UpdateProgramRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerUpdate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update1>>,
+          Awaited<ReturnType<typeof programControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update1>>
+          Awaited<ReturnType<typeof programControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate1<TData = Awaited<ReturnType<typeof update1>>, TError = unknown>(
+export function useProgramControllerUpdate<TData = Awaited<ReturnType<typeof programControllerUpdate>>, TError = unknown>(
  programId: string,
-    updateProgramRequest: UpdateProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update1>>, TError, TData>> & Pick<
+    updateProgramRequest: UpdateProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerUpdate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update1>>,
+          Awaited<ReturnType<typeof programControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update1>>
+          Awaited<ReturnType<typeof programControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate1<TData = Awaited<ReturnType<typeof update1>>, TError = unknown>(
+export function useProgramControllerUpdate<TData = Awaited<ReturnType<typeof programControllerUpdate>>, TError = unknown>(
  programId: string,
-    updateProgramRequest: UpdateProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update1>>, TError, TData>>, }
+    updateProgramRequest: UpdateProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useUpdate1<TData = Awaited<ReturnType<typeof update1>>, TError = unknown>(
+export function useProgramControllerUpdate<TData = Awaited<ReturnType<typeof programControllerUpdate>>, TError = unknown>(
  programId: string,
-    updateProgramRequest: UpdateProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update1>>, TError, TData>>, }
+    updateProgramRequest: UpdateProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getUpdate1QueryOptions(programId,updateProgramRequest,options)
+  const queryOptions = getProgramControllerUpdateQueryOptions(programId,updateProgramRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -202,7 +202,7 @@ export function useUpdate1<TData = Awaited<ReturnType<typeof update1>>, TError =
 
 
 
-export const create1 = (
+export const programControllerCreate = (
     programRequest: ProgramRequest,
  signal?: AbortSignal
 ) => {
@@ -219,66 +219,66 @@ export const create1 = (
 
 
 
-export const getCreate1QueryKey = (programRequest?: ProgramRequest,) => {
+export const getProgramControllerCreateQueryKey = (programRequest?: ProgramRequest,) => {
     return [
     'POST', `/api/v1/enrollments/programs`, programRequest
     ] as const;
     }
 
 
-export const getCreate1QueryOptions = <TData = Awaited<ReturnType<typeof create1>>, TError = unknown>(programRequest: ProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create1>>, TError, TData>>, }
+export const getProgramControllerCreateQueryOptions = <TData = Awaited<ReturnType<typeof programControllerCreate>>, TError = unknown>(programRequest: ProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerCreate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getCreate1QueryKey(programRequest);
+  const queryKey =  queryOptions?.queryKey ?? getProgramControllerCreateQueryKey(programRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof create1>>> = ({ signal }) => create1(programRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof programControllerCreate>>> = ({ signal }) => programControllerCreate(programRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof create1>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof programControllerCreate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Create1QueryResult = NonNullable<Awaited<ReturnType<typeof create1>>>
-export type Create1QueryError = unknown
+export type ProgramControllerCreateQueryResult = NonNullable<Awaited<ReturnType<typeof programControllerCreate>>>
+export type ProgramControllerCreateQueryError = unknown
 
 
-export function useCreate1<TData = Awaited<ReturnType<typeof create1>>, TError = unknown>(
- programRequest: ProgramRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof create1>>, TError, TData>> & Pick<
+export function useProgramControllerCreate<TData = Awaited<ReturnType<typeof programControllerCreate>>, TError = unknown>(
+ programRequest: ProgramRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerCreate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create1>>,
+          Awaited<ReturnType<typeof programControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create1>>
+          Awaited<ReturnType<typeof programControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate1<TData = Awaited<ReturnType<typeof create1>>, TError = unknown>(
- programRequest: ProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create1>>, TError, TData>> & Pick<
+export function useProgramControllerCreate<TData = Awaited<ReturnType<typeof programControllerCreate>>, TError = unknown>(
+ programRequest: ProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerCreate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create1>>,
+          Awaited<ReturnType<typeof programControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create1>>
+          Awaited<ReturnType<typeof programControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate1<TData = Awaited<ReturnType<typeof create1>>, TError = unknown>(
- programRequest: ProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create1>>, TError, TData>>, }
+export function useProgramControllerCreate<TData = Awaited<ReturnType<typeof programControllerCreate>>, TError = unknown>(
+ programRequest: ProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useCreate1<TData = Awaited<ReturnType<typeof create1>>, TError = unknown>(
- programRequest: ProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create1>>, TError, TData>>, }
+export function useProgramControllerCreate<TData = Awaited<ReturnType<typeof programControllerCreate>>, TError = unknown>(
+ programRequest: ProgramRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getCreate1QueryOptions(programRequest,options)
+  const queryOptions = getProgramControllerCreateQueryOptions(programRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -290,7 +290,7 @@ export function useCreate1<TData = Awaited<ReturnType<typeof create1>>, TError =
 
 
 
-export const search1 = (
+export const programControllerSearch = (
     searchRequest: SearchRequest,
  signal?: AbortSignal
 ) => {
@@ -307,66 +307,66 @@ export const search1 = (
 
 
 
-export const getSearch1QueryKey = (searchRequest?: SearchRequest,) => {
+export const getProgramControllerSearchQueryKey = (searchRequest?: SearchRequest,) => {
     return [
     'POST', `/api/v1/enrollments/programs/search`, searchRequest
     ] as const;
     }
 
 
-export const getSearch1QueryOptions = <TData = Awaited<ReturnType<typeof search1>>, TError = unknown>(searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search1>>, TError, TData>>, }
+export const getProgramControllerSearchQueryOptions = <TData = Awaited<ReturnType<typeof programControllerSearch>>, TError = unknown>(searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerSearch>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getSearch1QueryKey(searchRequest);
+  const queryKey =  queryOptions?.queryKey ?? getProgramControllerSearchQueryKey(searchRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof search1>>> = ({ signal }) => search1(searchRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof programControllerSearch>>> = ({ signal }) => programControllerSearch(searchRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof search1>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof programControllerSearch>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Search1QueryResult = NonNullable<Awaited<ReturnType<typeof search1>>>
-export type Search1QueryError = unknown
+export type ProgramControllerSearchQueryResult = NonNullable<Awaited<ReturnType<typeof programControllerSearch>>>
+export type ProgramControllerSearchQueryError = unknown
 
 
-export function useSearch1<TData = Awaited<ReturnType<typeof search1>>, TError = unknown>(
- searchRequest: SearchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof search1>>, TError, TData>> & Pick<
+export function useProgramControllerSearch<TData = Awaited<ReturnType<typeof programControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerSearch>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof search1>>,
+          Awaited<ReturnType<typeof programControllerSearch>>,
           TError,
-          Awaited<ReturnType<typeof search1>>
+          Awaited<ReturnType<typeof programControllerSearch>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSearch1<TData = Awaited<ReturnType<typeof search1>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search1>>, TError, TData>> & Pick<
+export function useProgramControllerSearch<TData = Awaited<ReturnType<typeof programControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerSearch>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof search1>>,
+          Awaited<ReturnType<typeof programControllerSearch>>,
           TError,
-          Awaited<ReturnType<typeof search1>>
+          Awaited<ReturnType<typeof programControllerSearch>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSearch1<TData = Awaited<ReturnType<typeof search1>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search1>>, TError, TData>>, }
+export function useProgramControllerSearch<TData = Awaited<ReturnType<typeof programControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerSearch>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useSearch1<TData = Awaited<ReturnType<typeof search1>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search1>>, TError, TData>>, }
+export function useProgramControllerSearch<TData = Awaited<ReturnType<typeof programControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof programControllerSearch>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getSearch1QueryOptions(searchRequest,options)
+  const queryOptions = getProgramControllerSearchQueryOptions(searchRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -378,7 +378,7 @@ export function useSearch1<TData = Awaited<ReturnType<typeof search1>>, TError =
 
 
 
-export const listLevels = (
+export const programControllerListLevels = (
     programId: string,
  signal?: AbortSignal
 ) => {
@@ -392,11 +392,11 @@ export const listLevels = (
 
 
 
-export const getListLevelsMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof listLevels>>, TError,{programId: string}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof listLevels>>, TError,{programId: string}, TContext> => {
+export const getProgramControllerListLevelsMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof programControllerListLevels>>, TError,{programId: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof programControllerListLevels>>, TError,{programId: string}, TContext> => {
 
-const mutationKey = ['listLevels'];
+const mutationKey = ['programControllerListLevels'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -406,10 +406,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof listLevels>>, {programId: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof programControllerListLevels>>, {programId: string}> = (props) => {
           const {programId} = props ?? {};
 
-          return  listLevels(programId,)
+          return  programControllerListLevels(programId,)
         }
 
 
@@ -419,21 +419,21 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type ListLevelsMutationResult = NonNullable<Awaited<ReturnType<typeof listLevels>>>
+    export type ProgramControllerListLevelsMutationResult = NonNullable<Awaited<ReturnType<typeof programControllerListLevels>>>
 
-    export type ListLevelsMutationError = unknown
+    export type ProgramControllerListLevelsMutationError = unknown
 
-    export const useListLevels = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof listLevels>>, TError,{programId: string}, TContext>, }
+    export const useProgramControllerListLevels = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof programControllerListLevels>>, TError,{programId: string}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof listLevels>>,
+        Awaited<ReturnType<typeof programControllerListLevels>>,
         TError,
         {programId: string},
         TContext
       > => {
-      return useMutation(getListLevelsMutationOptions(options), queryClient);
+      return useMutation(getProgramControllerListLevelsMutationOptions(options), queryClient);
     }
-    export const listActive = (
+    export const programControllerListActive = (
 
  signal?: AbortSignal
 ) => {
@@ -447,11 +447,11 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getListActiveMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof listActive>>, TError,void, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof listActive>>, TError,void, TContext> => {
+export const getProgramControllerListActiveMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof programControllerListActive>>, TError,void, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof programControllerListActive>>, TError,void, TContext> => {
 
-const mutationKey = ['listActive'];
+const mutationKey = ['programControllerListActive'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -461,10 +461,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof listActive>>, void> = () => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof programControllerListActive>>, void> = () => {
 
 
-          return  listActive()
+          return  programControllerListActive()
         }
 
 
@@ -474,17 +474,17 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type ListActiveMutationResult = NonNullable<Awaited<ReturnType<typeof listActive>>>
+    export type ProgramControllerListActiveMutationResult = NonNullable<Awaited<ReturnType<typeof programControllerListActive>>>
 
-    export type ListActiveMutationError = unknown
+    export type ProgramControllerListActiveMutationError = unknown
 
-    export const useListActive = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof listActive>>, TError,void, TContext>, }
+    export const useProgramControllerListActive = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof programControllerListActive>>, TError,void, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof listActive>>,
+        Awaited<ReturnType<typeof programControllerListActive>>,
         TError,
         void,
         TContext
       > => {
-      return useMutation(getListActiveMutationOptions(options), queryClient);
+      return useMutation(getProgramControllerListActiveMutationOptions(options), queryClient);
     }

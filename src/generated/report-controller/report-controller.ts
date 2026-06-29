@@ -15,11 +15,11 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  DailyCollectionParams,
   DailyCollectionReport,
   DashboardSummary,
-  OutstandingParams,
-  OutstandingReport
+  OutstandingReport,
+  ReportControllerDailyCollectionParams,
+  ReportControllerOutstandingParams
 } from '../model';
 
 import { customInstance } from '../../lib/axios.ts';
@@ -27,8 +27,8 @@ import { customInstance } from '../../lib/axios.ts';
 
 
 
-export const outstanding = (
-    params?: OutstandingParams,
+export const reportControllerOutstanding = (
+    params?: ReportControllerOutstandingParams,
  signal?: AbortSignal
 ) => {
 
@@ -42,11 +42,11 @@ export const outstanding = (
 
 
 
-export const getOutstandingMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof outstanding>>, TError,{params?: OutstandingParams}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof outstanding>>, TError,{params?: OutstandingParams}, TContext> => {
+export const getReportControllerOutstandingMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reportControllerOutstanding>>, TError,{params?: ReportControllerOutstandingParams}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof reportControllerOutstanding>>, TError,{params?: ReportControllerOutstandingParams}, TContext> => {
 
-const mutationKey = ['outstanding'];
+const mutationKey = ['reportControllerOutstanding'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -56,10 +56,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof outstanding>>, {params?: OutstandingParams}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof reportControllerOutstanding>>, {params?: ReportControllerOutstandingParams}> = (props) => {
           const {params} = props ?? {};
 
-          return  outstanding(params,)
+          return  reportControllerOutstanding(params,)
         }
 
 
@@ -69,21 +69,21 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type OutstandingMutationResult = NonNullable<Awaited<ReturnType<typeof outstanding>>>
+    export type ReportControllerOutstandingMutationResult = NonNullable<Awaited<ReturnType<typeof reportControllerOutstanding>>>
 
-    export type OutstandingMutationError = unknown
+    export type ReportControllerOutstandingMutationError = unknown
 
-    export const useOutstanding = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof outstanding>>, TError,{params?: OutstandingParams}, TContext>, }
+    export const useReportControllerOutstanding = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reportControllerOutstanding>>, TError,{params?: ReportControllerOutstandingParams}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof outstanding>>,
+        Awaited<ReturnType<typeof reportControllerOutstanding>>,
         TError,
-        {params?: OutstandingParams},
+        {params?: ReportControllerOutstandingParams},
         TContext
       > => {
-      return useMutation(getOutstandingMutationOptions(options), queryClient);
+      return useMutation(getReportControllerOutstandingMutationOptions(options), queryClient);
     }
-    export const dashboard = (
+    export const reportControllerDashboard = (
 
  signal?: AbortSignal
 ) => {
@@ -97,11 +97,11 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getDashboardMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof dashboard>>, TError,void, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof dashboard>>, TError,void, TContext> => {
+export const getReportControllerDashboardMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reportControllerDashboard>>, TError,void, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof reportControllerDashboard>>, TError,void, TContext> => {
 
-const mutationKey = ['dashboard'];
+const mutationKey = ['reportControllerDashboard'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -111,10 +111,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof dashboard>>, void> = () => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof reportControllerDashboard>>, void> = () => {
 
 
-          return  dashboard()
+          return  reportControllerDashboard()
         }
 
 
@@ -124,22 +124,22 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type DashboardMutationResult = NonNullable<Awaited<ReturnType<typeof dashboard>>>
+    export type ReportControllerDashboardMutationResult = NonNullable<Awaited<ReturnType<typeof reportControllerDashboard>>>
 
-    export type DashboardMutationError = unknown
+    export type ReportControllerDashboardMutationError = unknown
 
-    export const useDashboard = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof dashboard>>, TError,void, TContext>, }
+    export const useReportControllerDashboard = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reportControllerDashboard>>, TError,void, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof dashboard>>,
+        Awaited<ReturnType<typeof reportControllerDashboard>>,
         TError,
         void,
         TContext
       > => {
-      return useMutation(getDashboardMutationOptions(options), queryClient);
+      return useMutation(getReportControllerDashboardMutationOptions(options), queryClient);
     }
-    export const dailyCollection = (
-    params: DailyCollectionParams,
+    export const reportControllerDailyCollection = (
+    params: ReportControllerDailyCollectionParams,
  signal?: AbortSignal
 ) => {
 
@@ -153,11 +153,11 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getDailyCollectionMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof dailyCollection>>, TError,{params: DailyCollectionParams}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof dailyCollection>>, TError,{params: DailyCollectionParams}, TContext> => {
+export const getReportControllerDailyCollectionMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reportControllerDailyCollection>>, TError,{params: ReportControllerDailyCollectionParams}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof reportControllerDailyCollection>>, TError,{params: ReportControllerDailyCollectionParams}, TContext> => {
 
-const mutationKey = ['dailyCollection'];
+const mutationKey = ['reportControllerDailyCollection'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -167,10 +167,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof dailyCollection>>, {params: DailyCollectionParams}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof reportControllerDailyCollection>>, {params: ReportControllerDailyCollectionParams}> = (props) => {
           const {params} = props ?? {};
 
-          return  dailyCollection(params,)
+          return  reportControllerDailyCollection(params,)
         }
 
 
@@ -180,17 +180,17 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type DailyCollectionMutationResult = NonNullable<Awaited<ReturnType<typeof dailyCollection>>>
+    export type ReportControllerDailyCollectionMutationResult = NonNullable<Awaited<ReturnType<typeof reportControllerDailyCollection>>>
 
-    export type DailyCollectionMutationError = unknown
+    export type ReportControllerDailyCollectionMutationError = unknown
 
-    export const useDailyCollection = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof dailyCollection>>, TError,{params: DailyCollectionParams}, TContext>, }
+    export const useReportControllerDailyCollection = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reportControllerDailyCollection>>, TError,{params: ReportControllerDailyCollectionParams}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof dailyCollection>>,
+        Awaited<ReturnType<typeof reportControllerDailyCollection>>,
         TError,
-        {params: DailyCollectionParams},
+        {params: ReportControllerDailyCollectionParams},
         TContext
       > => {
-      return useMutation(getDailyCollectionMutationOptions(options), queryClient);
+      return useMutation(getReportControllerDailyCollectionMutationOptions(options), queryClient);
     }

@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from '#/components/ui/select'
 import { cn } from '#/lib/utils'
+import { LookupSelect } from '#/components/shared/form/LookupSelect'
 import { useAcademicYears } from '../hooks/useAcademicYears'
 import { useCreateIntake, useUpdateIntake } from '../hooks/useIntakes'
 import type { IntakeResponse } from '#/generated/model'
@@ -47,7 +48,7 @@ export function IntakeModal({ open, onOpenChange, editTarget }: IntakeModalProps
   const update = useUpdateIntake()
   const isPending = create.isPending || update.isPending
 
-  const { data: academicYears } = useAcademicYears({ size: 100 })
+  const { data: academicYears, isLoading: isLoadingAY } = useAcademicYears({ size: 100 })
 
   const form = useForm({
     defaultValues: {
@@ -129,22 +130,14 @@ export function IntakeModal({ open, onOpenChange, editTarget }: IntakeModalProps
           {(field) => (
             <div className="grid gap-1.5">
               <Label>Academic Year</Label>
-              <Select
+              <LookupSelect
                 value={field.state.value}
                 onValueChange={(v) => field.handleChange(v)}
+                items={academicYears?.items}
+                isLoading={isLoadingAY}
+                placeholder="Select academic year"
                 disabled={isEdit}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select academic year" />
-                </SelectTrigger>
-                <SelectContent>
-                  {academicYears?.items?.map((ay) => (
-                    <SelectItem key={ay.id} value={ay.id!}>
-                      {ay.name ?? ay.id}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              />
               {field.state.meta.errors[0] && (
                 <p className="text-xs text-destructive">{String(field.state.meta.errors[0])}</p>
               )}

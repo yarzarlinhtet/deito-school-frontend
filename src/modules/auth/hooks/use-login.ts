@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
-import { login as loginFn, platformLogin as platformLoginFn } from '#/generated/auth-controller/auth-controller'
+import { authControllerLogin as loginFn, authControllerPlatformLogin as platformLoginFn } from '#/generated/auth-controller/auth-controller'
 import { customInstance } from '#/lib/axios'
 import { useAuthStore } from '#/stores/authStore'
 import { bootstrapFromMeResponse } from '#/lib/bootstrap'

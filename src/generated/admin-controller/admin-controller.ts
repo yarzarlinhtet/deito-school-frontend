@@ -48,7 +48,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const getSchoolConfig = (
+export const adminControllerGetSchoolConfig = (
 
  signal?: AbortSignal
 ) => {
@@ -62,11 +62,11 @@ export const getSchoolConfig = (
 
 
 
-export const getGetSchoolConfigMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getSchoolConfig>>, TError,void, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof getSchoolConfig>>, TError,void, TContext> => {
+export const getAdminControllerGetSchoolConfigMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerGetSchoolConfig>>, TError,void, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof adminControllerGetSchoolConfig>>, TError,void, TContext> => {
 
-const mutationKey = ['getSchoolConfig'];
+const mutationKey = ['adminControllerGetSchoolConfig'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -76,10 +76,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof getSchoolConfig>>, void> = () => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof adminControllerGetSchoolConfig>>, void> = () => {
 
 
-          return  getSchoolConfig()
+          return  adminControllerGetSchoolConfig()
         }
 
 
@@ -89,21 +89,21 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type GetSchoolConfigMutationResult = NonNullable<Awaited<ReturnType<typeof getSchoolConfig>>>
+    export type AdminControllerGetSchoolConfigMutationResult = NonNullable<Awaited<ReturnType<typeof adminControllerGetSchoolConfig>>>
 
-    export type GetSchoolConfigMutationError = unknown
+    export type AdminControllerGetSchoolConfigMutationError = unknown
 
-    export const useGetSchoolConfig = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getSchoolConfig>>, TError,void, TContext>, }
+    export const useAdminControllerGetSchoolConfig = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof adminControllerGetSchoolConfig>>, TError,void, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof getSchoolConfig>>,
+        Awaited<ReturnType<typeof adminControllerGetSchoolConfig>>,
         TError,
         void,
         TContext
       > => {
-      return useMutation(getGetSchoolConfigMutationOptions(options), queryClient);
+      return useMutation(getAdminControllerGetSchoolConfigMutationOptions(options), queryClient);
     }
-    export const updateSchoolConfig = (
+    export const adminControllerUpdateSchoolConfig = (
     schoolConfigRequest: SchoolConfigRequest,
  signal?: AbortSignal
 ) => {
@@ -120,66 +120,66 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getUpdateSchoolConfigQueryKey = (schoolConfigRequest?: SchoolConfigRequest,) => {
+export const getAdminControllerUpdateSchoolConfigQueryKey = (schoolConfigRequest?: SchoolConfigRequest,) => {
     return [
     'PUT', `/api/v1/admin/school-config`, schoolConfigRequest
     ] as const;
     }
 
 
-export const getUpdateSchoolConfigQueryOptions = <TData = Awaited<ReturnType<typeof updateSchoolConfig>>, TError = unknown>(schoolConfigRequest: SchoolConfigRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof updateSchoolConfig>>, TError, TData>>, }
+export const getAdminControllerUpdateSchoolConfigQueryOptions = <TData = Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>, TError = unknown>(schoolConfigRequest: SchoolConfigRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getUpdateSchoolConfigQueryKey(schoolConfigRequest);
+  const queryKey =  queryOptions?.queryKey ?? getAdminControllerUpdateSchoolConfigQueryKey(schoolConfigRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof updateSchoolConfig>>> = ({ signal }) => updateSchoolConfig(schoolConfigRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>> = ({ signal }) => adminControllerUpdateSchoolConfig(schoolConfigRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof updateSchoolConfig>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type UpdateSchoolConfigQueryResult = NonNullable<Awaited<ReturnType<typeof updateSchoolConfig>>>
-export type UpdateSchoolConfigQueryError = unknown
+export type AdminControllerUpdateSchoolConfigQueryResult = NonNullable<Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>>
+export type AdminControllerUpdateSchoolConfigQueryError = unknown
 
 
-export function useUpdateSchoolConfig<TData = Awaited<ReturnType<typeof updateSchoolConfig>>, TError = unknown>(
- schoolConfigRequest: SchoolConfigRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof updateSchoolConfig>>, TError, TData>> & Pick<
+export function useAdminControllerUpdateSchoolConfig<TData = Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>, TError = unknown>(
+ schoolConfigRequest: SchoolConfigRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof updateSchoolConfig>>,
+          Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>,
           TError,
-          Awaited<ReturnType<typeof updateSchoolConfig>>
+          Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdateSchoolConfig<TData = Awaited<ReturnType<typeof updateSchoolConfig>>, TError = unknown>(
- schoolConfigRequest: SchoolConfigRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof updateSchoolConfig>>, TError, TData>> & Pick<
+export function useAdminControllerUpdateSchoolConfig<TData = Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>, TError = unknown>(
+ schoolConfigRequest: SchoolConfigRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof updateSchoolConfig>>,
+          Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>,
           TError,
-          Awaited<ReturnType<typeof updateSchoolConfig>>
+          Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdateSchoolConfig<TData = Awaited<ReturnType<typeof updateSchoolConfig>>, TError = unknown>(
- schoolConfigRequest: SchoolConfigRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof updateSchoolConfig>>, TError, TData>>, }
+export function useAdminControllerUpdateSchoolConfig<TData = Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>, TError = unknown>(
+ schoolConfigRequest: SchoolConfigRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useUpdateSchoolConfig<TData = Awaited<ReturnType<typeof updateSchoolConfig>>, TError = unknown>(
- schoolConfigRequest: SchoolConfigRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof updateSchoolConfig>>, TError, TData>>, }
+export function useAdminControllerUpdateSchoolConfig<TData = Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>, TError = unknown>(
+ schoolConfigRequest: SchoolConfigRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof adminControllerUpdateSchoolConfig>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getUpdateSchoolConfigQueryOptions(schoolConfigRequest,options)
+  const queryOptions = getAdminControllerUpdateSchoolConfigQueryOptions(schoolConfigRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

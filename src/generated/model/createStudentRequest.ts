@@ -4,42 +4,75 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
+import type { CreateStudentRequestGender } from './createStudentRequestGender.ts';
 
 export interface CreateStudentRequest {
   /**
      * @minLength 0
-     * @maxLength 50
+     * @maxLength 200
      */
-  studentNumber: string;
+  fullName: string;
+  dateOfBirth: string;
+  gender: CreateStudentRequestGender;
   /**
      * @minLength 0
      * @maxLength 100
      */
-  firstName: string;
+  nationality: string;
+  /**
+     * @minLength 0
+     * @maxLength 200
+     */
+  placeOfBirth?: string;
   /**
      * @minLength 0
      * @maxLength 100
      */
-  lastName: string;
+  religion?: string;
   /**
      * @minLength 0
-     * @maxLength 255
+     * @maxLength 100
+     */
+  passportNumber: string;
+  passportExpiryDate?: string;
+  /**
+     * @minLength 0
+     * @maxLength 30
+     */
+  telephoneNumber: string;
+  /**
+     * @minLength 0
+     * @maxLength 200
      */
   email?: string;
+  /** @minLength 1 */
+  currentResidentialAddress: string;
+  permanentResidentialAddress?: string;
+  educationBackground?: string;
   /**
      * @minLength 0
-     * @maxLength 50
+     * @maxLength 200
      */
-  phone?: string;
-  dateOfBirth?: string;
+  fatherName?: string;
   /**
      * @minLength 0
-     * @maxLength 20
+     * @maxLength 200
      */
-  gender?: string;
+  motherName?: string;
+  /**
+     * @minLength 0
+     * @maxLength 200
+     */
+  emergencyContactName: string;
   /**
      * @minLength 0
      * @maxLength 100
      */
-  nationality?: string;
+  emergencyContactRelationship?: string;
+  /**
+     * @minLength 0
+     * @maxLength 30
+     */
+  emergencyContactPhone: string;
+  remarks?: string;
 }

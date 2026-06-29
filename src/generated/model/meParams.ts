@@ -4,8 +4,8 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { UserPrincipal } from './userPrincipal.ts';
+import type { ComMidnightlabSchoolmanagementSharedSecurityUserPrincipal } from './comMidnightlabSchoolmanagementSharedSecurityUserPrincipal.ts';
 
 export type MeParams = {
-principal: UserPrincipal;
+principal: ComMidnightlabSchoolmanagementSharedSecurityUserPrincipal;
 };

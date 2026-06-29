@@ -1,50 +1,100 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { axiosInstance } from '#/lib/axios'
-import type { Student, StudentListParams, PaginatedStudents } from '../types'
+import {
+  studentControllerSearch,
+  studentControllerGetById,
+  studentControllerCreate,
+  studentControllerUpdate,
+} from '#/generated/student-controller/student-controller'
+import type { SearchRequest, UpdateStudentRequest, CreateStudentRequest } from '#/generated/model'
 
 const QK = 'students'
 
-export function useStudents(params: StudentListParams = {}) {
+export function useStudents(searchRequest: SearchRequest = {}) {
   return useQuery({
-    queryKey: [QK, 'list', params],
-    queryFn: () =>
-      axiosInstance
-        .get<PaginatedStudents>('/students', { params })
-        .then((r) => r.data),
+    queryKey: [QK, 'list', searchRequest],
+    queryFn: ({ signal }) => studentControllerSearch(searchRequest, signal),
   })
 }
 
-export function useStudent(id: string) {
+export function useStudentDetail(id: string) {
   return useQuery({
     queryKey: [QK, id],
-    queryFn: () => axiosInstance.get<Student>(`/students/${id}`).then((r) => r.data),
+    queryFn: ({ signal }) => studentControllerGetById(id, signal),
     enabled: !!id,
   })
 }
 
-export function useDeactivateStudent() {
+export function useCreateStudent() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: string) =>
-      axiosInstance.patch(`/students/${id}/deactivate`).then((r) => r.data),
-    onSuccess: (_data, id) => {
+    mutationFn: (req: CreateStudentRequest) => studentControllerCreate(req, { actor: {} }),
+    onSuccess: () => {
       qc.invalidateQueries({ queryKey: [QK, 'list'] })
-      qc.invalidateQueries({ queryKey: [QK, id] })
-      toast.success('Student deactivated')
+      toast.success('Student created successfully')
     },
-    onError: () => toast.error('Failed to deactivate student'),
+    onError: () => toast.error('Failed to create student'),
   })
 }
 
-export function useDeleteStudent() {
+export function useUpdateStudent() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: string) => axiosInstance.delete(`/students/${id}`),
-    onSuccess: () => {
+    mutationFn: ({ id, req }: { id: string; req: UpdateStudentRequest }) =>
+      studentControllerUpdate(id, req, { actor: {} }),
+    onSuccess: (_data, { id }) => {
       qc.invalidateQueries({ queryKey: [QK, 'list'] })
-      toast.success('Student deleted')
+      qc.invalidateQueries({ queryKey: [QK, id] })
+      toast.success('Student updated successfully')
     },
-    onError: () => toast.error('Failed to delete student'),
+    onError: () => toast.error('Failed to update student'),
+  })
+}
+
+// Fetches full detail then updates status — avoids needing StudentDetailResponse in caller
+export function useUpdateStudentStatus() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async ({
+      id,
+      status,
+    }: {
+      id: string
+      status: UpdateStudentRequest['status']
+    }) => {
+      const existing = await studentControllerGetById(id)
+      return studentControllerUpdate(
+        id,
+        {
+          fullName: existing.fullName ?? '',
+          dateOfBirth: existing.dateOfBirth ?? '',
+          gender: existing.gender as UpdateStudentRequest['gender'],
+          nationality: existing.nationality ?? '',
+          placeOfBirth: existing.placeOfBirth,
+          religion: existing.religion,
+          passportNumber: existing.passportNumber ?? '',
+          passportExpiryDate: existing.passportExpiryDate,
+          telephoneNumber: existing.telephoneNumber ?? '',
+          email: existing.email,
+          currentResidentialAddress: existing.currentResidentialAddress ?? '',
+          permanentResidentialAddress: existing.permanentResidentialAddress,
+          educationBackground: existing.educationBackground,
+          fatherName: existing.fatherName,
+          motherName: existing.motherName,
+          emergencyContactName: existing.emergencyContactName ?? '',
+          emergencyContactRelationship: existing.emergencyContactRelationship,
+          emergencyContactPhone: existing.emergencyContactPhone ?? '',
+          remarks: existing.remarks,
+          status,
+        },
+        { actor: {} }
+      )
+    },
+    onSuccess: (_data, { id }) => {
+      qc.invalidateQueries({ queryKey: [QK, 'list'] })
+      qc.invalidateQueries({ queryKey: [QK, id] })
+      toast.success('Student status updated')
+    },
+    onError: () => toast.error('Failed to update student status'),
   })
 }

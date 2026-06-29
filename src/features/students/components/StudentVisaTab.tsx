@@ -1,85 +1,208 @@
-import { AlertTriangle } from 'lucide-react'
+import { useState } from 'react'
+import { Plus, MoreHorizontal, AlertTriangle } from 'lucide-react'
+import { Button } from '#/components/ui/button'
 import { Alert, AlertDescription } from '#/components/ui/alert'
 import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
-import { Progress } from '#/components/ui/progress'
-import { useStudentVisa } from '../hooks/useStudentDocuments'
+import { StatusBadge } from '#/components/shared/status-badge'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '#/components/ui/dropdown-menu'
+import type { StudentVisaResponse } from '#/generated/model'
+import { useStudentVisas, useDeleteVisa } from '../hooks/useStudentVisa'
+import { VisaModal } from './VisaModal'
+
+const STATUS_MAP: Record<string, string> = {
+  ACTIVE: 'active',
+  EXPIRED: 'inactive',
+  PENDING: 'pending',
+  CANCELLED: 'suspended',
+}
+
+function daysUntil(dateStr?: string | null): number | null {
+  if (!dateStr) return null
+  const diff = new Date(dateStr).getTime() - Date.now()
+  return Math.ceil(diff / 86400000)
+}
 
 interface StudentVisaTabProps {
   studentId: string
 }
 
 export function StudentVisaTab({ studentId }: StudentVisaTabProps) {
-  const { data: visa, isLoading } = useStudentVisa(studentId)
+  const [modalOpen, setModalOpen] = useState(false)
+  const [editTarget, setEditTarget] = useState<StudentVisaResponse | undefined>()
 
-  if (isLoading) {
-    return <div className="h-48 rounded-lg border bg-muted animate-pulse" />
+  const { data: visas, isLoading } = useStudentVisas(studentId)
+  const deleteVisa = useDeleteVisa(studentId)
+
+  const activeVisa = (visas ?? []).find((v) => v.status === 'ACTIVE')
+  const activeDays = daysUntil(activeVisa?.expiryDate)
+  const showExpiry = activeDays !== null && activeDays <= 30
+
+  function openCreate() {
+    setEditTarget(undefined)
+    setModalOpen(true)
   }
 
-  if (!visa) {
+  function openEdit(visa: StudentVisaResponse) {
+    setEditTarget(visa)
+    setModalOpen(true)
+  }
+
+  if (isLoading) {
     return (
-      <p className="text-sm text-muted-foreground py-8 text-center">
-        No visa information on file.
-      </p>
+      <div className="space-y-3">
+        {[1, 2].map((i) => (
+          <div key={i} className="h-12 rounded-lg border bg-muted animate-pulse" />
+        ))}
+      </div>
     )
   }
 
-  const daysUntil = visa.daysUntilExpiry ?? 0
-  const isExpiringSoon = daysUntil > 0 && daysUntil <= 30
-  const isExpired = daysUntil <= 0
-
-  const expiryDate = new Date(visa.expiryDate)
-  const issueDate = new Date(visa.issueDate)
-  const totalDays = Math.ceil((expiryDate.getTime() - issueDate.getTime()) / 86400000)
-  const remainingPercent = Math.max(0, Math.min(100, (daysUntil / totalDays) * 100))
-
   return (
-    <div className="max-w-xl space-y-4">
-      {(isExpiringSoon || isExpired) && (
+    <div className="space-y-4">
+      {showExpiry && (
         <Alert variant="destructive">
           <AlertTriangle className="size-4" />
           <AlertDescription>
-            {isExpired
-              ? 'Visa has expired. Renewal required.'
-              : `Visa expires in ${daysUntil} days. Renewal recommended.`}
+            {activeDays! <= 0
+              ? 'Active visa has expired. Renewal required.'
+              : `Active visa expires in ${activeDays} days. Renewal recommended.`}
           </AlertDescription>
         </Alert>
       )}
 
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-semibold">Current Visa</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <dl className="divide-y divide-border">
-            {[
-              ['Visa Type', visa.type],
-              ['Visa Number', visa.number],
-              ['Passport Number', visa.passportNumber],
-              ['Country', visa.country],
-              ['Issue Date', visa.issueDate],
-              ['Expiry Date', visa.expiryDate],
-            ].map(([label, value]) => value ? (
-              <div key={label} className="grid grid-cols-2 gap-2 py-1.5">
-                <dt className="text-sm text-muted-foreground">{label}</dt>
-                <dd className="text-sm font-medium">{value}</dd>
-              </div>
-            ) : null)}
-          </dl>
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground">
+          {visas?.length ?? 0} visa record{visas?.length !== 1 ? 's' : ''}
+        </p>
+        <Button size="sm" className="gap-2" onClick={openCreate}>
+          <Plus className="size-4" />
+          Add Visa
+        </Button>
+      </div>
 
-          <div className="space-y-1.5">
-            <div className="flex justify-between text-xs">
-              <span className="text-muted-foreground">Validity Progress</span>
-              <span className={isExpired ? 'text-destructive' : isExpiringSoon ? 'text-warning' : 'text-success'}>
-                {isExpired ? 'Expired' : `${daysUntil} days remaining`}
-              </span>
-            </div>
-            <Progress
-              value={remainingPercent}
-              className={isExpired ? 'bg-destructive/20' : isExpiringSoon ? '[&>div]:bg-warning' : '[&>div]:bg-success'}
-            />
-          </div>
-        </CardContent>
-      </Card>
+      {!visas?.length ? (
+        <p className="text-sm text-muted-foreground py-8 text-center">
+          No visa records on file.
+        </p>
+      ) : (
+        <div className="rounded-md border">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b bg-muted/50">
+                <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">Visa Number</th>
+                <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">Country</th>
+                <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">Issue Date</th>
+                <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">Expiry Date</th>
+                <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">Sponsor</th>
+                <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">Status</th>
+                <th className="px-4 py-2.5 text-right font-medium text-muted-foreground text-xs">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {visas.map((visa) => {
+                const days = daysUntil(visa.expiryDate)
+                return (
+                  <tr key={visa.id} className="hover:bg-muted/30 transition-colors">
+                    <td className="px-4 py-3">
+                      <span className="font-mono text-xs">{visa.visaNumber ?? '—'}</span>
+                    </td>
+                    <td className="px-4 py-3 text-sm">{visa.countryOfIssue ?? '—'}</td>
+                    <td className="px-4 py-3 text-sm text-muted-foreground">{visa.issueDate ?? '—'}</td>
+                    <td className="px-4 py-3">
+                      <span className={
+                        visa.status === 'ACTIVE' && days !== null && days <= 30
+                          ? 'text-warning font-medium text-sm'
+                          : 'text-sm text-muted-foreground'
+                      }>
+                        {visa.expiryDate ?? '—'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-muted-foreground">{visa.sponsor ?? '—'}</td>
+                    <td className="px-4 py-3">
+                      <StatusBadge
+                        status={STATUS_MAP[visa.status ?? ''] ?? 'inactive'}
+                        label={visa.status ?? '—'}
+                      />
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" className="size-8">
+                            <MoreHorizontal className="size-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem onClick={() => openEdit(visa)}>
+                            Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            className="text-destructive focus:text-destructive"
+                            onClick={() => deleteVisa.mutate(visa.id!)}
+                          >
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      <VisaModal
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+        studentId={studentId}
+        editTarget={editTarget}
+      />
+
+      {/* Visa History */}
+      {(visas ?? []).some((v) => v.status !== 'ACTIVE') && (
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-semibold">Visa History</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b bg-muted/50">
+                  <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">Visa Number</th>
+                  <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">Country</th>
+                  <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">Expiry</th>
+                  <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {(visas ?? [])
+                  .filter((v) => v.status !== 'ACTIVE')
+                  .map((visa) => (
+                    <tr key={visa.id} className="hover:bg-muted/30 transition-colors">
+                      <td className="px-4 py-3 font-mono text-xs">{visa.visaNumber ?? '—'}</td>
+                      <td className="px-4 py-3 text-sm">{visa.countryOfIssue ?? '—'}</td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">{visa.expiryDate ?? '—'}</td>
+                      <td className="px-4 py-3">
+                        <StatusBadge
+                          status={STATUS_MAP[visa.status ?? ''] ?? 'inactive'}
+                          label={visa.status ?? '—'}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </CardContent>
+        </Card>
+      )}
     </div>
   )
 }

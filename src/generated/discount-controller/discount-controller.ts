@@ -52,7 +52,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const getById7 = (
+export const discountControllerGetById = (
     discountId: string,
  signal?: AbortSignal
 ) => {
@@ -66,11 +66,11 @@ export const getById7 = (
 
 
 
-export const getGetById7MutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById7>>, TError,{discountId: string}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof getById7>>, TError,{discountId: string}, TContext> => {
+export const getDiscountControllerGetByIdMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof discountControllerGetById>>, TError,{discountId: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof discountControllerGetById>>, TError,{discountId: string}, TContext> => {
 
-const mutationKey = ['getById7'];
+const mutationKey = ['discountControllerGetById'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -80,10 +80,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof getById7>>, {discountId: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof discountControllerGetById>>, {discountId: string}> = (props) => {
           const {discountId} = props ?? {};
 
-          return  getById7(discountId,)
+          return  discountControllerGetById(discountId,)
         }
 
 
@@ -93,21 +93,21 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type GetById7MutationResult = NonNullable<Awaited<ReturnType<typeof getById7>>>
+    export type DiscountControllerGetByIdMutationResult = NonNullable<Awaited<ReturnType<typeof discountControllerGetById>>>
 
-    export type GetById7MutationError = unknown
+    export type DiscountControllerGetByIdMutationError = unknown
 
-    export const useGetById7 = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById7>>, TError,{discountId: string}, TContext>, }
+    export const useDiscountControllerGetById = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof discountControllerGetById>>, TError,{discountId: string}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof getById7>>,
+        Awaited<ReturnType<typeof discountControllerGetById>>,
         TError,
         {discountId: string},
         TContext
       > => {
-      return useMutation(getGetById7MutationOptions(options), queryClient);
+      return useMutation(getDiscountControllerGetByIdMutationOptions(options), queryClient);
     }
-    export const update9 = (
+    export const discountControllerUpdate = (
     discountId: string,
     updateDiscountRequest: UpdateDiscountRequest,
  signal?: AbortSignal
@@ -125,7 +125,7 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getUpdate9QueryKey = (discountId: string,
+export const getDiscountControllerUpdateQueryKey = (discountId: string,
     updateDiscountRequest?: UpdateDiscountRequest,) => {
     return [
     'PUT', `/api/v1/billing/discounts/${discountId}`, updateDiscountRequest
@@ -133,64 +133,64 @@ export const getUpdate9QueryKey = (discountId: string,
     }
 
 
-export const getUpdate9QueryOptions = <TData = Awaited<ReturnType<typeof update9>>, TError = unknown>(discountId: string,
-    updateDiscountRequest: UpdateDiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update9>>, TError, TData>>, }
+export const getDiscountControllerUpdateQueryOptions = <TData = Awaited<ReturnType<typeof discountControllerUpdate>>, TError = unknown>(discountId: string,
+    updateDiscountRequest: UpdateDiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerUpdate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getUpdate9QueryKey(discountId,updateDiscountRequest);
+  const queryKey =  queryOptions?.queryKey ?? getDiscountControllerUpdateQueryKey(discountId,updateDiscountRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof update9>>> = ({ signal }) => update9(discountId,updateDiscountRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof discountControllerUpdate>>> = ({ signal }) => discountControllerUpdate(discountId,updateDiscountRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: discountId !== null && discountId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof update9>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: discountId !== null && discountId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof discountControllerUpdate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Update9QueryResult = NonNullable<Awaited<ReturnType<typeof update9>>>
-export type Update9QueryError = unknown
+export type DiscountControllerUpdateQueryResult = NonNullable<Awaited<ReturnType<typeof discountControllerUpdate>>>
+export type DiscountControllerUpdateQueryError = unknown
 
 
-export function useUpdate9<TData = Awaited<ReturnType<typeof update9>>, TError = unknown>(
+export function useDiscountControllerUpdate<TData = Awaited<ReturnType<typeof discountControllerUpdate>>, TError = unknown>(
  discountId: string,
-    updateDiscountRequest: UpdateDiscountRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof update9>>, TError, TData>> & Pick<
+    updateDiscountRequest: UpdateDiscountRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerUpdate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update9>>,
+          Awaited<ReturnType<typeof discountControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update9>>
+          Awaited<ReturnType<typeof discountControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate9<TData = Awaited<ReturnType<typeof update9>>, TError = unknown>(
+export function useDiscountControllerUpdate<TData = Awaited<ReturnType<typeof discountControllerUpdate>>, TError = unknown>(
  discountId: string,
-    updateDiscountRequest: UpdateDiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update9>>, TError, TData>> & Pick<
+    updateDiscountRequest: UpdateDiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerUpdate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update9>>,
+          Awaited<ReturnType<typeof discountControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update9>>
+          Awaited<ReturnType<typeof discountControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate9<TData = Awaited<ReturnType<typeof update9>>, TError = unknown>(
+export function useDiscountControllerUpdate<TData = Awaited<ReturnType<typeof discountControllerUpdate>>, TError = unknown>(
  discountId: string,
-    updateDiscountRequest: UpdateDiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update9>>, TError, TData>>, }
+    updateDiscountRequest: UpdateDiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useUpdate9<TData = Awaited<ReturnType<typeof update9>>, TError = unknown>(
+export function useDiscountControllerUpdate<TData = Awaited<ReturnType<typeof discountControllerUpdate>>, TError = unknown>(
  discountId: string,
-    updateDiscountRequest: UpdateDiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update9>>, TError, TData>>, }
+    updateDiscountRequest: UpdateDiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getUpdate9QueryOptions(discountId,updateDiscountRequest,options)
+  const queryOptions = getDiscountControllerUpdateQueryOptions(discountId,updateDiscountRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -202,7 +202,7 @@ export function useUpdate9<TData = Awaited<ReturnType<typeof update9>>, TError =
 
 
 
-export const create9 = (
+export const discountControllerCreate = (
     discountRequest: DiscountRequest,
  signal?: AbortSignal
 ) => {
@@ -219,66 +219,66 @@ export const create9 = (
 
 
 
-export const getCreate9QueryKey = (discountRequest?: DiscountRequest,) => {
+export const getDiscountControllerCreateQueryKey = (discountRequest?: DiscountRequest,) => {
     return [
     'POST', `/api/v1/billing/discounts`, discountRequest
     ] as const;
     }
 
 
-export const getCreate9QueryOptions = <TData = Awaited<ReturnType<typeof create9>>, TError = unknown>(discountRequest: DiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create9>>, TError, TData>>, }
+export const getDiscountControllerCreateQueryOptions = <TData = Awaited<ReturnType<typeof discountControllerCreate>>, TError = unknown>(discountRequest: DiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerCreate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getCreate9QueryKey(discountRequest);
+  const queryKey =  queryOptions?.queryKey ?? getDiscountControllerCreateQueryKey(discountRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof create9>>> = ({ signal }) => create9(discountRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof discountControllerCreate>>> = ({ signal }) => discountControllerCreate(discountRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof create9>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof discountControllerCreate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Create9QueryResult = NonNullable<Awaited<ReturnType<typeof create9>>>
-export type Create9QueryError = unknown
+export type DiscountControllerCreateQueryResult = NonNullable<Awaited<ReturnType<typeof discountControllerCreate>>>
+export type DiscountControllerCreateQueryError = unknown
 
 
-export function useCreate9<TData = Awaited<ReturnType<typeof create9>>, TError = unknown>(
- discountRequest: DiscountRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof create9>>, TError, TData>> & Pick<
+export function useDiscountControllerCreate<TData = Awaited<ReturnType<typeof discountControllerCreate>>, TError = unknown>(
+ discountRequest: DiscountRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerCreate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create9>>,
+          Awaited<ReturnType<typeof discountControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create9>>
+          Awaited<ReturnType<typeof discountControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate9<TData = Awaited<ReturnType<typeof create9>>, TError = unknown>(
- discountRequest: DiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create9>>, TError, TData>> & Pick<
+export function useDiscountControllerCreate<TData = Awaited<ReturnType<typeof discountControllerCreate>>, TError = unknown>(
+ discountRequest: DiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerCreate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create9>>,
+          Awaited<ReturnType<typeof discountControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create9>>
+          Awaited<ReturnType<typeof discountControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate9<TData = Awaited<ReturnType<typeof create9>>, TError = unknown>(
- discountRequest: DiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create9>>, TError, TData>>, }
+export function useDiscountControllerCreate<TData = Awaited<ReturnType<typeof discountControllerCreate>>, TError = unknown>(
+ discountRequest: DiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useCreate9<TData = Awaited<ReturnType<typeof create9>>, TError = unknown>(
- discountRequest: DiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create9>>, TError, TData>>, }
+export function useDiscountControllerCreate<TData = Awaited<ReturnType<typeof discountControllerCreate>>, TError = unknown>(
+ discountRequest: DiscountRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getCreate9QueryOptions(discountRequest,options)
+  const queryOptions = getDiscountControllerCreateQueryOptions(discountRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -290,7 +290,7 @@ export function useCreate9<TData = Awaited<ReturnType<typeof create9>>, TError =
 
 
 
-export const search7 = (
+export const discountControllerSearch = (
     searchRequest: SearchRequest,
  signal?: AbortSignal
 ) => {
@@ -307,66 +307,66 @@ export const search7 = (
 
 
 
-export const getSearch7QueryKey = (searchRequest?: SearchRequest,) => {
+export const getDiscountControllerSearchQueryKey = (searchRequest?: SearchRequest,) => {
     return [
     'POST', `/api/v1/billing/discounts/search`, searchRequest
     ] as const;
     }
 
 
-export const getSearch7QueryOptions = <TData = Awaited<ReturnType<typeof search7>>, TError = unknown>(searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search7>>, TError, TData>>, }
+export const getDiscountControllerSearchQueryOptions = <TData = Awaited<ReturnType<typeof discountControllerSearch>>, TError = unknown>(searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerSearch>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getSearch7QueryKey(searchRequest);
+  const queryKey =  queryOptions?.queryKey ?? getDiscountControllerSearchQueryKey(searchRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof search7>>> = ({ signal }) => search7(searchRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof discountControllerSearch>>> = ({ signal }) => discountControllerSearch(searchRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof search7>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof discountControllerSearch>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Search7QueryResult = NonNullable<Awaited<ReturnType<typeof search7>>>
-export type Search7QueryError = unknown
+export type DiscountControllerSearchQueryResult = NonNullable<Awaited<ReturnType<typeof discountControllerSearch>>>
+export type DiscountControllerSearchQueryError = unknown
 
 
-export function useSearch7<TData = Awaited<ReturnType<typeof search7>>, TError = unknown>(
- searchRequest: SearchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof search7>>, TError, TData>> & Pick<
+export function useDiscountControllerSearch<TData = Awaited<ReturnType<typeof discountControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerSearch>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof search7>>,
+          Awaited<ReturnType<typeof discountControllerSearch>>,
           TError,
-          Awaited<ReturnType<typeof search7>>
+          Awaited<ReturnType<typeof discountControllerSearch>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSearch7<TData = Awaited<ReturnType<typeof search7>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search7>>, TError, TData>> & Pick<
+export function useDiscountControllerSearch<TData = Awaited<ReturnType<typeof discountControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerSearch>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof search7>>,
+          Awaited<ReturnType<typeof discountControllerSearch>>,
           TError,
-          Awaited<ReturnType<typeof search7>>
+          Awaited<ReturnType<typeof discountControllerSearch>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSearch7<TData = Awaited<ReturnType<typeof search7>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search7>>, TError, TData>>, }
+export function useDiscountControllerSearch<TData = Awaited<ReturnType<typeof discountControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerSearch>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useSearch7<TData = Awaited<ReturnType<typeof search7>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search7>>, TError, TData>>, }
+export function useDiscountControllerSearch<TData = Awaited<ReturnType<typeof discountControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof discountControllerSearch>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getSearch7QueryOptions(searchRequest,options)
+  const queryOptions = getDiscountControllerSearchQueryOptions(searchRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -378,7 +378,7 @@ export function useSearch7<TData = Awaited<ReturnType<typeof search7>>, TError =
 
 
 
-export const listActive1 = (
+export const discountControllerListActive = (
 
  signal?: AbortSignal
 ) => {
@@ -392,11 +392,11 @@ export const listActive1 = (
 
 
 
-export const getListActive1MutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof listActive1>>, TError,void, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof listActive1>>, TError,void, TContext> => {
+export const getDiscountControllerListActiveMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof discountControllerListActive>>, TError,void, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof discountControllerListActive>>, TError,void, TContext> => {
 
-const mutationKey = ['listActive1'];
+const mutationKey = ['discountControllerListActive'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -406,10 +406,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof listActive1>>, void> = () => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof discountControllerListActive>>, void> = () => {
 
 
-          return  listActive1()
+          return  discountControllerListActive()
         }
 
 
@@ -419,17 +419,17 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type ListActive1MutationResult = NonNullable<Awaited<ReturnType<typeof listActive1>>>
+    export type DiscountControllerListActiveMutationResult = NonNullable<Awaited<ReturnType<typeof discountControllerListActive>>>
 
-    export type ListActive1MutationError = unknown
+    export type DiscountControllerListActiveMutationError = unknown
 
-    export const useListActive1 = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof listActive1>>, TError,void, TContext>, }
+    export const useDiscountControllerListActive = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof discountControllerListActive>>, TError,void, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof listActive1>>,
+        Awaited<ReturnType<typeof discountControllerListActive>>,
         TError,
         void,
         TContext
       > => {
-      return useMutation(getListActive1MutationOptions(options), queryClient);
+      return useMutation(getDiscountControllerListActiveMutationOptions(options), queryClient);
     }

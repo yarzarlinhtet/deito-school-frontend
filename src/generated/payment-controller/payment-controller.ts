@@ -21,8 +21,8 @@ import type {
 
 import type {
   AllocationRequest,
-  PaymentRequest,
-  RecordPaymentParams
+  PaymentControllerRecordPaymentParams,
+  PaymentRequest
 } from '../model';
 
 import { customInstance } from '../../lib/axios.ts';
@@ -45,9 +45,9 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const recordPayment = (
+export const paymentControllerRecordPayment = (
     paymentRequest: PaymentRequest,
-    params: RecordPaymentParams,
+    params: PaymentControllerRecordPaymentParams,
  signal?: AbortSignal
 ) => {
 
@@ -64,72 +64,72 @@ export const recordPayment = (
 
 
 
-export const getRecordPaymentQueryKey = (paymentRequest?: PaymentRequest,
-    params?: RecordPaymentParams,) => {
+export const getPaymentControllerRecordPaymentQueryKey = (paymentRequest?: PaymentRequest,
+    params?: PaymentControllerRecordPaymentParams,) => {
     return [
     'POST', `/api/v1/payments`, ...(params ? [params] : []), paymentRequest
     ] as const;
     }
 
 
-export const getRecordPaymentQueryOptions = <TData = Awaited<ReturnType<typeof recordPayment>>, TError = unknown>(paymentRequest: PaymentRequest,
-    params: RecordPaymentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recordPayment>>, TError, TData>>, }
+export const getPaymentControllerRecordPaymentQueryOptions = <TData = Awaited<ReturnType<typeof paymentControllerRecordPayment>>, TError = unknown>(paymentRequest: PaymentRequest,
+    params: PaymentControllerRecordPaymentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentControllerRecordPayment>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getRecordPaymentQueryKey(paymentRequest,params);
+  const queryKey =  queryOptions?.queryKey ?? getPaymentControllerRecordPaymentQueryKey(paymentRequest,params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof recordPayment>>> = ({ signal }) => recordPayment(paymentRequest,params, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof paymentControllerRecordPayment>>> = ({ signal }) => paymentControllerRecordPayment(paymentRequest,params, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof recordPayment>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof paymentControllerRecordPayment>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type RecordPaymentQueryResult = NonNullable<Awaited<ReturnType<typeof recordPayment>>>
-export type RecordPaymentQueryError = unknown
+export type PaymentControllerRecordPaymentQueryResult = NonNullable<Awaited<ReturnType<typeof paymentControllerRecordPayment>>>
+export type PaymentControllerRecordPaymentQueryError = unknown
 
 
-export function useRecordPayment<TData = Awaited<ReturnType<typeof recordPayment>>, TError = unknown>(
+export function usePaymentControllerRecordPayment<TData = Awaited<ReturnType<typeof paymentControllerRecordPayment>>, TError = unknown>(
  paymentRequest: PaymentRequest,
-    params: RecordPaymentParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof recordPayment>>, TError, TData>> & Pick<
+    params: PaymentControllerRecordPaymentParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentControllerRecordPayment>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof recordPayment>>,
+          Awaited<ReturnType<typeof paymentControllerRecordPayment>>,
           TError,
-          Awaited<ReturnType<typeof recordPayment>>
+          Awaited<ReturnType<typeof paymentControllerRecordPayment>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useRecordPayment<TData = Awaited<ReturnType<typeof recordPayment>>, TError = unknown>(
+export function usePaymentControllerRecordPayment<TData = Awaited<ReturnType<typeof paymentControllerRecordPayment>>, TError = unknown>(
  paymentRequest: PaymentRequest,
-    params: RecordPaymentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recordPayment>>, TError, TData>> & Pick<
+    params: PaymentControllerRecordPaymentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentControllerRecordPayment>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof recordPayment>>,
+          Awaited<ReturnType<typeof paymentControllerRecordPayment>>,
           TError,
-          Awaited<ReturnType<typeof recordPayment>>
+          Awaited<ReturnType<typeof paymentControllerRecordPayment>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useRecordPayment<TData = Awaited<ReturnType<typeof recordPayment>>, TError = unknown>(
+export function usePaymentControllerRecordPayment<TData = Awaited<ReturnType<typeof paymentControllerRecordPayment>>, TError = unknown>(
  paymentRequest: PaymentRequest,
-    params: RecordPaymentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recordPayment>>, TError, TData>>, }
+    params: PaymentControllerRecordPaymentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentControllerRecordPayment>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useRecordPayment<TData = Awaited<ReturnType<typeof recordPayment>>, TError = unknown>(
+export function usePaymentControllerRecordPayment<TData = Awaited<ReturnType<typeof paymentControllerRecordPayment>>, TError = unknown>(
  paymentRequest: PaymentRequest,
-    params: RecordPaymentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recordPayment>>, TError, TData>>, }
+    params: PaymentControllerRecordPaymentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentControllerRecordPayment>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getRecordPaymentQueryOptions(paymentRequest,params,options)
+  const queryOptions = getPaymentControllerRecordPaymentQueryOptions(paymentRequest,params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -141,7 +141,7 @@ export function useRecordPayment<TData = Awaited<ReturnType<typeof recordPayment
 
 
 
-export const allocate = (
+export const paymentControllerAllocate = (
     id: string,
     allocationRequest: AllocationRequest,
  signal?: AbortSignal
@@ -159,7 +159,7 @@ export const allocate = (
 
 
 
-export const getAllocateQueryKey = (id: string,
+export const getPaymentControllerAllocateQueryKey = (id: string,
     allocationRequest?: AllocationRequest,) => {
     return [
     'POST', `/api/v1/payments/${id}/allocate`, allocationRequest
@@ -167,64 +167,64 @@ export const getAllocateQueryKey = (id: string,
     }
 
 
-export const getAllocateQueryOptions = <TData = Awaited<ReturnType<typeof allocate>>, TError = unknown>(id: string,
-    allocationRequest: AllocationRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof allocate>>, TError, TData>>, }
+export const getPaymentControllerAllocateQueryOptions = <TData = Awaited<ReturnType<typeof paymentControllerAllocate>>, TError = unknown>(id: string,
+    allocationRequest: AllocationRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentControllerAllocate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getAllocateQueryKey(id,allocationRequest);
+  const queryKey =  queryOptions?.queryKey ?? getPaymentControllerAllocateQueryKey(id,allocationRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof allocate>>> = ({ signal }) => allocate(id,allocationRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof paymentControllerAllocate>>> = ({ signal }) => paymentControllerAllocate(id,allocationRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof allocate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof paymentControllerAllocate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type AllocateQueryResult = NonNullable<Awaited<ReturnType<typeof allocate>>>
-export type AllocateQueryError = unknown
+export type PaymentControllerAllocateQueryResult = NonNullable<Awaited<ReturnType<typeof paymentControllerAllocate>>>
+export type PaymentControllerAllocateQueryError = unknown
 
 
-export function useAllocate<TData = Awaited<ReturnType<typeof allocate>>, TError = unknown>(
+export function usePaymentControllerAllocate<TData = Awaited<ReturnType<typeof paymentControllerAllocate>>, TError = unknown>(
  id: string,
-    allocationRequest: AllocationRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof allocate>>, TError, TData>> & Pick<
+    allocationRequest: AllocationRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentControllerAllocate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof allocate>>,
+          Awaited<ReturnType<typeof paymentControllerAllocate>>,
           TError,
-          Awaited<ReturnType<typeof allocate>>
+          Awaited<ReturnType<typeof paymentControllerAllocate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useAllocate<TData = Awaited<ReturnType<typeof allocate>>, TError = unknown>(
+export function usePaymentControllerAllocate<TData = Awaited<ReturnType<typeof paymentControllerAllocate>>, TError = unknown>(
  id: string,
-    allocationRequest: AllocationRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof allocate>>, TError, TData>> & Pick<
+    allocationRequest: AllocationRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentControllerAllocate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof allocate>>,
+          Awaited<ReturnType<typeof paymentControllerAllocate>>,
           TError,
-          Awaited<ReturnType<typeof allocate>>
+          Awaited<ReturnType<typeof paymentControllerAllocate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useAllocate<TData = Awaited<ReturnType<typeof allocate>>, TError = unknown>(
+export function usePaymentControllerAllocate<TData = Awaited<ReturnType<typeof paymentControllerAllocate>>, TError = unknown>(
  id: string,
-    allocationRequest: AllocationRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof allocate>>, TError, TData>>, }
+    allocationRequest: AllocationRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentControllerAllocate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useAllocate<TData = Awaited<ReturnType<typeof allocate>>, TError = unknown>(
+export function usePaymentControllerAllocate<TData = Awaited<ReturnType<typeof paymentControllerAllocate>>, TError = unknown>(
  id: string,
-    allocationRequest: AllocationRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof allocate>>, TError, TData>>, }
+    allocationRequest: AllocationRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentControllerAllocate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getAllocateQueryOptions(id,allocationRequest,options)
+  const queryOptions = getPaymentControllerAllocateQueryOptions(id,allocationRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

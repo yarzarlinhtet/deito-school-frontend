@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from '#/components/ui/dialog'
 import { StatusBadge } from '#/components/shared/status-badge'
-import { getById5 } from '#/generated/batch-controller/batch-controller'
+import { batchControllerGetById } from '#/generated/batch-controller/batch-controller'
 
 interface BatchDetailDialogProps {
   open: boolean
@@ -39,7 +39,7 @@ export function BatchDetailDialog({
 }: BatchDetailDialogProps) {
   const { data: batch } = useQuery({
     queryKey: ['batch-detail', batchId],
-    queryFn: ({ signal }) => getById5(batchId!, signal),
+    queryFn: ({ signal }) => batchControllerGetById(batchId!, signal),
     enabled: open && !!batchId,
   })
 

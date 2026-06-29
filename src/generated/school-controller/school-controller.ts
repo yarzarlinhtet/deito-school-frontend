@@ -26,8 +26,8 @@ import type {
 import type {
   CreateSchoolRequest,
   CreateSchoolResponse,
-  ListSchoolsParams,
   PageResponseSchoolResponse,
+  SchoolControllerListSchoolsParams,
   SchoolResponse
 } from '../model';
 
@@ -51,8 +51,8 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const listSchools = (
-    params?: ListSchoolsParams,
+export const schoolControllerListSchools = (
+    params?: SchoolControllerListSchoolsParams,
  signal?: AbortSignal
 ) => {
 
@@ -66,11 +66,11 @@ export const listSchools = (
 
 
 
-export const getListSchoolsMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof listSchools>>, TError,{params?: ListSchoolsParams}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof listSchools>>, TError,{params?: ListSchoolsParams}, TContext> => {
+export const getSchoolControllerListSchoolsMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof schoolControllerListSchools>>, TError,{params?: SchoolControllerListSchoolsParams}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof schoolControllerListSchools>>, TError,{params?: SchoolControllerListSchoolsParams}, TContext> => {
 
-const mutationKey = ['listSchools'];
+const mutationKey = ['schoolControllerListSchools'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -80,10 +80,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof listSchools>>, {params?: ListSchoolsParams}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof schoolControllerListSchools>>, {params?: SchoolControllerListSchoolsParams}> = (props) => {
           const {params} = props ?? {};
 
-          return  listSchools(params,)
+          return  schoolControllerListSchools(params,)
         }
 
 
@@ -93,21 +93,21 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type ListSchoolsMutationResult = NonNullable<Awaited<ReturnType<typeof listSchools>>>
+    export type SchoolControllerListSchoolsMutationResult = NonNullable<Awaited<ReturnType<typeof schoolControllerListSchools>>>
 
-    export type ListSchoolsMutationError = unknown
+    export type SchoolControllerListSchoolsMutationError = unknown
 
-    export const useListSchools = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof listSchools>>, TError,{params?: ListSchoolsParams}, TContext>, }
+    export const useSchoolControllerListSchools = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof schoolControllerListSchools>>, TError,{params?: SchoolControllerListSchoolsParams}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof listSchools>>,
+        Awaited<ReturnType<typeof schoolControllerListSchools>>,
         TError,
-        {params?: ListSchoolsParams},
+        {params?: SchoolControllerListSchoolsParams},
         TContext
       > => {
-      return useMutation(getListSchoolsMutationOptions(options), queryClient);
+      return useMutation(getSchoolControllerListSchoolsMutationOptions(options), queryClient);
     }
-    export const createSchool = (
+    export const schoolControllerCreateSchool = (
     createSchoolRequest: CreateSchoolRequest,
  signal?: AbortSignal
 ) => {
@@ -124,66 +124,66 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getCreateSchoolQueryKey = (createSchoolRequest?: CreateSchoolRequest,) => {
+export const getSchoolControllerCreateSchoolQueryKey = (createSchoolRequest?: CreateSchoolRequest,) => {
     return [
     'POST', `/api/v1/platform/schools`, createSchoolRequest
     ] as const;
     }
 
 
-export const getCreateSchoolQueryOptions = <TData = Awaited<ReturnType<typeof createSchool>>, TError = unknown>(createSchoolRequest: CreateSchoolRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof createSchool>>, TError, TData>>, }
+export const getSchoolControllerCreateSchoolQueryOptions = <TData = Awaited<ReturnType<typeof schoolControllerCreateSchool>>, TError = unknown>(createSchoolRequest: CreateSchoolRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof schoolControllerCreateSchool>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getCreateSchoolQueryKey(createSchoolRequest);
+  const queryKey =  queryOptions?.queryKey ?? getSchoolControllerCreateSchoolQueryKey(createSchoolRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof createSchool>>> = ({ signal }) => createSchool(createSchoolRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof schoolControllerCreateSchool>>> = ({ signal }) => schoolControllerCreateSchool(createSchoolRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof createSchool>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof schoolControllerCreateSchool>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type CreateSchoolQueryResult = NonNullable<Awaited<ReturnType<typeof createSchool>>>
-export type CreateSchoolQueryError = unknown
+export type SchoolControllerCreateSchoolQueryResult = NonNullable<Awaited<ReturnType<typeof schoolControllerCreateSchool>>>
+export type SchoolControllerCreateSchoolQueryError = unknown
 
 
-export function useCreateSchool<TData = Awaited<ReturnType<typeof createSchool>>, TError = unknown>(
- createSchoolRequest: CreateSchoolRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof createSchool>>, TError, TData>> & Pick<
+export function useSchoolControllerCreateSchool<TData = Awaited<ReturnType<typeof schoolControllerCreateSchool>>, TError = unknown>(
+ createSchoolRequest: CreateSchoolRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof schoolControllerCreateSchool>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof createSchool>>,
+          Awaited<ReturnType<typeof schoolControllerCreateSchool>>,
           TError,
-          Awaited<ReturnType<typeof createSchool>>
+          Awaited<ReturnType<typeof schoolControllerCreateSchool>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreateSchool<TData = Awaited<ReturnType<typeof createSchool>>, TError = unknown>(
- createSchoolRequest: CreateSchoolRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof createSchool>>, TError, TData>> & Pick<
+export function useSchoolControllerCreateSchool<TData = Awaited<ReturnType<typeof schoolControllerCreateSchool>>, TError = unknown>(
+ createSchoolRequest: CreateSchoolRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof schoolControllerCreateSchool>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof createSchool>>,
+          Awaited<ReturnType<typeof schoolControllerCreateSchool>>,
           TError,
-          Awaited<ReturnType<typeof createSchool>>
+          Awaited<ReturnType<typeof schoolControllerCreateSchool>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreateSchool<TData = Awaited<ReturnType<typeof createSchool>>, TError = unknown>(
- createSchoolRequest: CreateSchoolRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof createSchool>>, TError, TData>>, }
+export function useSchoolControllerCreateSchool<TData = Awaited<ReturnType<typeof schoolControllerCreateSchool>>, TError = unknown>(
+ createSchoolRequest: CreateSchoolRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof schoolControllerCreateSchool>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useCreateSchool<TData = Awaited<ReturnType<typeof createSchool>>, TError = unknown>(
- createSchoolRequest: CreateSchoolRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof createSchool>>, TError, TData>>, }
+export function useSchoolControllerCreateSchool<TData = Awaited<ReturnType<typeof schoolControllerCreateSchool>>, TError = unknown>(
+ createSchoolRequest: CreateSchoolRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof schoolControllerCreateSchool>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getCreateSchoolQueryOptions(createSchoolRequest,options)
+  const queryOptions = getSchoolControllerCreateSchoolQueryOptions(createSchoolRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -195,7 +195,7 @@ export function useCreateSchool<TData = Awaited<ReturnType<typeof createSchool>>
 
 
 
-export const getSchool = (
+export const schoolControllerGetSchool = (
     schoolCode: string,
  signal?: AbortSignal
 ) => {
@@ -209,11 +209,11 @@ export const getSchool = (
 
 
 
-export const getGetSchoolMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getSchool>>, TError,{schoolCode: string}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof getSchool>>, TError,{schoolCode: string}, TContext> => {
+export const getSchoolControllerGetSchoolMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof schoolControllerGetSchool>>, TError,{schoolCode: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof schoolControllerGetSchool>>, TError,{schoolCode: string}, TContext> => {
 
-const mutationKey = ['getSchool'];
+const mutationKey = ['schoolControllerGetSchool'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -223,10 +223,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof getSchool>>, {schoolCode: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof schoolControllerGetSchool>>, {schoolCode: string}> = (props) => {
           const {schoolCode} = props ?? {};
 
-          return  getSchool(schoolCode,)
+          return  schoolControllerGetSchool(schoolCode,)
         }
 
 
@@ -236,17 +236,17 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type GetSchoolMutationResult = NonNullable<Awaited<ReturnType<typeof getSchool>>>
+    export type SchoolControllerGetSchoolMutationResult = NonNullable<Awaited<ReturnType<typeof schoolControllerGetSchool>>>
 
-    export type GetSchoolMutationError = unknown
+    export type SchoolControllerGetSchoolMutationError = unknown
 
-    export const useGetSchool = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getSchool>>, TError,{schoolCode: string}, TContext>, }
+    export const useSchoolControllerGetSchool = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof schoolControllerGetSchool>>, TError,{schoolCode: string}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof getSchool>>,
+        Awaited<ReturnType<typeof schoolControllerGetSchool>>,
         TError,
         {schoolCode: string},
         TContext
       > => {
-      return useMutation(getGetSchoolMutationOptions(options), queryClient);
+      return useMutation(getSchoolControllerGetSchoolMutationOptions(options), queryClient);
     }

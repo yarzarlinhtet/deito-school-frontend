@@ -52,7 +52,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const getById3 = (
+export const intakeControllerGetById = (
     intakeId: string,
  signal?: AbortSignal
 ) => {
@@ -66,11 +66,11 @@ export const getById3 = (
 
 
 
-export const getGetById3MutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById3>>, TError,{intakeId: string}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof getById3>>, TError,{intakeId: string}, TContext> => {
+export const getIntakeControllerGetByIdMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof intakeControllerGetById>>, TError,{intakeId: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof intakeControllerGetById>>, TError,{intakeId: string}, TContext> => {
 
-const mutationKey = ['getById3'];
+const mutationKey = ['intakeControllerGetById'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -80,10 +80,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof getById3>>, {intakeId: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof intakeControllerGetById>>, {intakeId: string}> = (props) => {
           const {intakeId} = props ?? {};
 
-          return  getById3(intakeId,)
+          return  intakeControllerGetById(intakeId,)
         }
 
 
@@ -93,21 +93,21 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type GetById3MutationResult = NonNullable<Awaited<ReturnType<typeof getById3>>>
+    export type IntakeControllerGetByIdMutationResult = NonNullable<Awaited<ReturnType<typeof intakeControllerGetById>>>
 
-    export type GetById3MutationError = unknown
+    export type IntakeControllerGetByIdMutationError = unknown
 
-    export const useGetById3 = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById3>>, TError,{intakeId: string}, TContext>, }
+    export const useIntakeControllerGetById = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof intakeControllerGetById>>, TError,{intakeId: string}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof getById3>>,
+        Awaited<ReturnType<typeof intakeControllerGetById>>,
         TError,
         {intakeId: string},
         TContext
       > => {
-      return useMutation(getGetById3MutationOptions(options), queryClient);
+      return useMutation(getIntakeControllerGetByIdMutationOptions(options), queryClient);
     }
-    export const update3 = (
+    export const intakeControllerUpdate = (
     intakeId: string,
     updateIntakeRequest: UpdateIntakeRequest,
  signal?: AbortSignal
@@ -125,7 +125,7 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getUpdate3QueryKey = (intakeId: string,
+export const getIntakeControllerUpdateQueryKey = (intakeId: string,
     updateIntakeRequest?: UpdateIntakeRequest,) => {
     return [
     'PUT', `/api/v1/enrollments/intakes/${intakeId}`, updateIntakeRequest
@@ -133,64 +133,64 @@ export const getUpdate3QueryKey = (intakeId: string,
     }
 
 
-export const getUpdate3QueryOptions = <TData = Awaited<ReturnType<typeof update3>>, TError = unknown>(intakeId: string,
-    updateIntakeRequest: UpdateIntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update3>>, TError, TData>>, }
+export const getIntakeControllerUpdateQueryOptions = <TData = Awaited<ReturnType<typeof intakeControllerUpdate>>, TError = unknown>(intakeId: string,
+    updateIntakeRequest: UpdateIntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerUpdate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getUpdate3QueryKey(intakeId,updateIntakeRequest);
+  const queryKey =  queryOptions?.queryKey ?? getIntakeControllerUpdateQueryKey(intakeId,updateIntakeRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof update3>>> = ({ signal }) => update3(intakeId,updateIntakeRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof intakeControllerUpdate>>> = ({ signal }) => intakeControllerUpdate(intakeId,updateIntakeRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: intakeId !== null && intakeId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof update3>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: intakeId !== null && intakeId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof intakeControllerUpdate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Update3QueryResult = NonNullable<Awaited<ReturnType<typeof update3>>>
-export type Update3QueryError = unknown
+export type IntakeControllerUpdateQueryResult = NonNullable<Awaited<ReturnType<typeof intakeControllerUpdate>>>
+export type IntakeControllerUpdateQueryError = unknown
 
 
-export function useUpdate3<TData = Awaited<ReturnType<typeof update3>>, TError = unknown>(
+export function useIntakeControllerUpdate<TData = Awaited<ReturnType<typeof intakeControllerUpdate>>, TError = unknown>(
  intakeId: string,
-    updateIntakeRequest: UpdateIntakeRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof update3>>, TError, TData>> & Pick<
+    updateIntakeRequest: UpdateIntakeRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerUpdate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update3>>,
+          Awaited<ReturnType<typeof intakeControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update3>>
+          Awaited<ReturnType<typeof intakeControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate3<TData = Awaited<ReturnType<typeof update3>>, TError = unknown>(
+export function useIntakeControllerUpdate<TData = Awaited<ReturnType<typeof intakeControllerUpdate>>, TError = unknown>(
  intakeId: string,
-    updateIntakeRequest: UpdateIntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update3>>, TError, TData>> & Pick<
+    updateIntakeRequest: UpdateIntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerUpdate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update3>>,
+          Awaited<ReturnType<typeof intakeControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update3>>
+          Awaited<ReturnType<typeof intakeControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate3<TData = Awaited<ReturnType<typeof update3>>, TError = unknown>(
+export function useIntakeControllerUpdate<TData = Awaited<ReturnType<typeof intakeControllerUpdate>>, TError = unknown>(
  intakeId: string,
-    updateIntakeRequest: UpdateIntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update3>>, TError, TData>>, }
+    updateIntakeRequest: UpdateIntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useUpdate3<TData = Awaited<ReturnType<typeof update3>>, TError = unknown>(
+export function useIntakeControllerUpdate<TData = Awaited<ReturnType<typeof intakeControllerUpdate>>, TError = unknown>(
  intakeId: string,
-    updateIntakeRequest: UpdateIntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update3>>, TError, TData>>, }
+    updateIntakeRequest: UpdateIntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getUpdate3QueryOptions(intakeId,updateIntakeRequest,options)
+  const queryOptions = getIntakeControllerUpdateQueryOptions(intakeId,updateIntakeRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -202,7 +202,7 @@ export function useUpdate3<TData = Awaited<ReturnType<typeof update3>>, TError =
 
 
 
-export const create3 = (
+export const intakeControllerCreate = (
     intakeRequest: IntakeRequest,
  signal?: AbortSignal
 ) => {
@@ -219,66 +219,66 @@ export const create3 = (
 
 
 
-export const getCreate3QueryKey = (intakeRequest?: IntakeRequest,) => {
+export const getIntakeControllerCreateQueryKey = (intakeRequest?: IntakeRequest,) => {
     return [
     'POST', `/api/v1/enrollments/intakes`, intakeRequest
     ] as const;
     }
 
 
-export const getCreate3QueryOptions = <TData = Awaited<ReturnType<typeof create3>>, TError = unknown>(intakeRequest: IntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create3>>, TError, TData>>, }
+export const getIntakeControllerCreateQueryOptions = <TData = Awaited<ReturnType<typeof intakeControllerCreate>>, TError = unknown>(intakeRequest: IntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerCreate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getCreate3QueryKey(intakeRequest);
+  const queryKey =  queryOptions?.queryKey ?? getIntakeControllerCreateQueryKey(intakeRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof create3>>> = ({ signal }) => create3(intakeRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof intakeControllerCreate>>> = ({ signal }) => intakeControllerCreate(intakeRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof create3>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof intakeControllerCreate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Create3QueryResult = NonNullable<Awaited<ReturnType<typeof create3>>>
-export type Create3QueryError = unknown
+export type IntakeControllerCreateQueryResult = NonNullable<Awaited<ReturnType<typeof intakeControllerCreate>>>
+export type IntakeControllerCreateQueryError = unknown
 
 
-export function useCreate3<TData = Awaited<ReturnType<typeof create3>>, TError = unknown>(
- intakeRequest: IntakeRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof create3>>, TError, TData>> & Pick<
+export function useIntakeControllerCreate<TData = Awaited<ReturnType<typeof intakeControllerCreate>>, TError = unknown>(
+ intakeRequest: IntakeRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerCreate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create3>>,
+          Awaited<ReturnType<typeof intakeControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create3>>
+          Awaited<ReturnType<typeof intakeControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate3<TData = Awaited<ReturnType<typeof create3>>, TError = unknown>(
- intakeRequest: IntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create3>>, TError, TData>> & Pick<
+export function useIntakeControllerCreate<TData = Awaited<ReturnType<typeof intakeControllerCreate>>, TError = unknown>(
+ intakeRequest: IntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerCreate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create3>>,
+          Awaited<ReturnType<typeof intakeControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create3>>
+          Awaited<ReturnType<typeof intakeControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate3<TData = Awaited<ReturnType<typeof create3>>, TError = unknown>(
- intakeRequest: IntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create3>>, TError, TData>>, }
+export function useIntakeControllerCreate<TData = Awaited<ReturnType<typeof intakeControllerCreate>>, TError = unknown>(
+ intakeRequest: IntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useCreate3<TData = Awaited<ReturnType<typeof create3>>, TError = unknown>(
- intakeRequest: IntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create3>>, TError, TData>>, }
+export function useIntakeControllerCreate<TData = Awaited<ReturnType<typeof intakeControllerCreate>>, TError = unknown>(
+ intakeRequest: IntakeRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getCreate3QueryOptions(intakeRequest,options)
+  const queryOptions = getIntakeControllerCreateQueryOptions(intakeRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -290,7 +290,7 @@ export function useCreate3<TData = Awaited<ReturnType<typeof create3>>, TError =
 
 
 
-export const search3 = (
+export const intakeControllerSearch = (
     searchRequest: SearchRequest,
  signal?: AbortSignal
 ) => {
@@ -307,66 +307,66 @@ export const search3 = (
 
 
 
-export const getSearch3QueryKey = (searchRequest?: SearchRequest,) => {
+export const getIntakeControllerSearchQueryKey = (searchRequest?: SearchRequest,) => {
     return [
     'POST', `/api/v1/enrollments/intakes/search`, searchRequest
     ] as const;
     }
 
 
-export const getSearch3QueryOptions = <TData = Awaited<ReturnType<typeof search3>>, TError = unknown>(searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search3>>, TError, TData>>, }
+export const getIntakeControllerSearchQueryOptions = <TData = Awaited<ReturnType<typeof intakeControllerSearch>>, TError = unknown>(searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerSearch>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getSearch3QueryKey(searchRequest);
+  const queryKey =  queryOptions?.queryKey ?? getIntakeControllerSearchQueryKey(searchRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof search3>>> = ({ signal }) => search3(searchRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof intakeControllerSearch>>> = ({ signal }) => intakeControllerSearch(searchRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof search3>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof intakeControllerSearch>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Search3QueryResult = NonNullable<Awaited<ReturnType<typeof search3>>>
-export type Search3QueryError = unknown
+export type IntakeControllerSearchQueryResult = NonNullable<Awaited<ReturnType<typeof intakeControllerSearch>>>
+export type IntakeControllerSearchQueryError = unknown
 
 
-export function useSearch3<TData = Awaited<ReturnType<typeof search3>>, TError = unknown>(
- searchRequest: SearchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof search3>>, TError, TData>> & Pick<
+export function useIntakeControllerSearch<TData = Awaited<ReturnType<typeof intakeControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerSearch>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof search3>>,
+          Awaited<ReturnType<typeof intakeControllerSearch>>,
           TError,
-          Awaited<ReturnType<typeof search3>>
+          Awaited<ReturnType<typeof intakeControllerSearch>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSearch3<TData = Awaited<ReturnType<typeof search3>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search3>>, TError, TData>> & Pick<
+export function useIntakeControllerSearch<TData = Awaited<ReturnType<typeof intakeControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerSearch>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof search3>>,
+          Awaited<ReturnType<typeof intakeControllerSearch>>,
           TError,
-          Awaited<ReturnType<typeof search3>>
+          Awaited<ReturnType<typeof intakeControllerSearch>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSearch3<TData = Awaited<ReturnType<typeof search3>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search3>>, TError, TData>>, }
+export function useIntakeControllerSearch<TData = Awaited<ReturnType<typeof intakeControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerSearch>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useSearch3<TData = Awaited<ReturnType<typeof search3>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search3>>, TError, TData>>, }
+export function useIntakeControllerSearch<TData = Awaited<ReturnType<typeof intakeControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof intakeControllerSearch>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getSearch3QueryOptions(searchRequest,options)
+  const queryOptions = getIntakeControllerSearchQueryOptions(searchRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -378,7 +378,7 @@ export function useSearch3<TData = Awaited<ReturnType<typeof search3>>, TError =
 
 
 
-export const listBatches = (
+export const intakeControllerListBatches = (
     intakeId: string,
  signal?: AbortSignal
 ) => {
@@ -392,11 +392,11 @@ export const listBatches = (
 
 
 
-export const getListBatchesMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof listBatches>>, TError,{intakeId: string}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof listBatches>>, TError,{intakeId: string}, TContext> => {
+export const getIntakeControllerListBatchesMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof intakeControllerListBatches>>, TError,{intakeId: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof intakeControllerListBatches>>, TError,{intakeId: string}, TContext> => {
 
-const mutationKey = ['listBatches'];
+const mutationKey = ['intakeControllerListBatches'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -406,10 +406,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof listBatches>>, {intakeId: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof intakeControllerListBatches>>, {intakeId: string}> = (props) => {
           const {intakeId} = props ?? {};
 
-          return  listBatches(intakeId,)
+          return  intakeControllerListBatches(intakeId,)
         }
 
 
@@ -419,17 +419,17 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type ListBatchesMutationResult = NonNullable<Awaited<ReturnType<typeof listBatches>>>
+    export type IntakeControllerListBatchesMutationResult = NonNullable<Awaited<ReturnType<typeof intakeControllerListBatches>>>
 
-    export type ListBatchesMutationError = unknown
+    export type IntakeControllerListBatchesMutationError = unknown
 
-    export const useListBatches = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof listBatches>>, TError,{intakeId: string}, TContext>, }
+    export const useIntakeControllerListBatches = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof intakeControllerListBatches>>, TError,{intakeId: string}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof listBatches>>,
+        Awaited<ReturnType<typeof intakeControllerListBatches>>,
         TError,
         {intakeId: string},
         TContext
       > => {
-      return useMutation(getListBatchesMutationOptions(options), queryClient);
+      return useMutation(getIntakeControllerListBatchesMutationOptions(options), queryClient);
     }

@@ -1,44 +1,78 @@
-import { createFileRoute, Outlet, Link, useParams, useMatchRoute } from '@tanstack/react-router'
-import { ArrowLeft } from 'lucide-react'
+import { createFileRoute, Outlet, Link, useParams, useNavigate, useMatchRoute } from '@tanstack/react-router'
+import { ArrowLeft, Pencil, UserX } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger } from '#/components/ui/tabs'
 import { PageContainer } from '#/components/shared/page-layout'
 import { Button } from '#/components/ui/button'
 import { Skeleton } from '#/components/ui/skeleton'
 import { StudentProfileCard } from '#/features/students/components/StudentProfileCard'
-import { useStudent, useDeactivateStudent } from '#/features/students/hooks/useStudents'
+import { PermissionGuard } from '#/components/shared/permission-guard'
+import { PERMISSIONS } from '#/constants/permissions'
+import { useStudentDetail, useUpdateStudentStatus } from '#/features/students/hooks/useStudents'
 
 export const Route = createFileRoute('/_app/students/$studentId')({
   component: StudentProfileLayout,
 })
 
 const TABS = [
-  { label: 'Overview', path: 'overview' },
-  { label: 'Academic', path: 'academic' },
-  { label: 'Finance', path: 'finance' },
-  { label: 'Documents', path: 'documents' },
-  { label: 'Visa', path: 'visa' },
-  { label: 'Activity', path: 'activity' },
+  { label: 'Overview',         path: 'profile' },
+  { label: 'Academic',         path: 'enrollment-history' },
+  { label: 'Finance',          path: 'finance' },
+  { label: 'Documents',        path: 'documents' },
+  { label: 'Visa Information', path: 'visa' },
+  { label: 'Activity',         path: 'audit' },
 ] as const
 
 function StudentProfileLayout() {
   const { studentId } = useParams({ from: '/_app/students/$studentId' })
-  const { data: student, isLoading } = useStudent(studentId)
-  const deactivate = useDeactivateStudent()
+  const { data: student, isLoading } = useStudentDetail(studentId)
+  const updateStatus = useUpdateStudentStatus()
+  const navigate = useNavigate()
   const matchRoute = useMatchRoute()
 
-  const activeTab = TABS.find((t) =>
-    matchRoute({ to: `/students/${studentId}/${t.path}` as any })
-  )?.path ?? 'overview'
+  const activeTab =
+    TABS.find((t) =>
+      matchRoute({ to: `/students/${studentId}/${t.path}` as any })
+    )?.path ?? 'profile'
+
+  const status = student?.status ?? ''
 
   return (
     <PageContainer>
-      {/* Back link */}
-      <Button variant="ghost" size="sm" className="mb-4 -ml-2 gap-1.5 text-muted-foreground" asChild>
-        <Link to="/students">
-          <ArrowLeft className="size-4" />
-          Back to Students
-        </Link>
-      </Button>
+      <div className="flex items-center justify-between mb-4">
+        <Button variant="ghost" size="sm" className="-ml-2 gap-1.5 text-muted-foreground" asChild>
+          <Link to="/students">
+            <ArrowLeft className="size-4" />
+            Back to Students
+          </Link>
+        </Button>
+
+        <div className="flex items-center gap-2">
+          <PermissionGuard permission={PERMISSIONS.STUDENT.PROFILE.UPDATE}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2"
+              onClick={() => navigate({ to: '/students/$studentId/edit' as any, params: { studentId } as any })}
+            >
+              <Pencil className="size-3.5" />
+              Edit Profile
+            </Button>
+          </PermissionGuard>
+          {status === 'ACTIVE' && (
+            <PermissionGuard permission={PERMISSIONS.STUDENT.PROFILE.UPDATE}>
+              <Button
+                variant="outline"
+                size="sm"
+                className="gap-2 text-warning border-warning/30 hover:bg-warning/10"
+                onClick={() => updateStatus.mutate({ id: studentId, status: 'SUSPENDED' })}
+              >
+                <UserX className="size-3.5" />
+                Deactivate
+              </Button>
+            </PermissionGuard>
+          )}
+        </div>
+      </div>
 
       <div className="flex gap-6">
         {/* Left sidebar profile card */}
@@ -50,10 +84,7 @@ function StudentProfileLayout() {
               <Skeleton className="h-3 w-1/2 mx-auto" />
             </div>
           ) : student ? (
-            <StudentProfileCard
-              student={student}
-              onDeactivate={() => deactivate.mutate(student.id)}
-            />
+            <StudentProfileCard student={student} />
           ) : null}
         </aside>
 

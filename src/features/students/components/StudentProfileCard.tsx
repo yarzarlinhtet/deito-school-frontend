@@ -1,49 +1,49 @@
-import { UserX, Pencil } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
-import { Badge } from '#/components/ui/badge'
-import { Button } from '#/components/ui/button'
+import { Avatar, AvatarFallback } from '#/components/ui/avatar'
 import { Separator } from '#/components/ui/separator'
 import { StatusBadge } from '#/components/shared/status-badge'
-import { PermissionGuard } from '#/components/shared/permission-guard'
-import { PERMISSIONS } from '#/constants/permissions'
-import type { Student } from '../types'
+import type { StudentDetailResponse } from '#/generated/model'
 
-const STATUS_MAP: Record<Student['status'], string> = {
-  active: 'active',
-  enrolled: 'pending',
-  inactive: 'inactive',
-  suspended: 'suspended',
-  graduated: 'completed',
+const STATUS_MAP: Record<string, string> = {
+  ACTIVE: 'active',
+  SUSPENDED: 'suspended',
+  NEW: 'pending',
+  GRADUATED: 'completed',
+  TRANSFERRED: 'info',
+  WITHDRAWN: 'inactive',
+}
+
+function getInitials(fullName?: string | null) {
+  if (!fullName) return '??'
+  return fullName
+    .split(' ')
+    .map((w) => w[0])
+    .join('')
+    .substring(0, 2)
+    .toUpperCase()
 }
 
 interface StudentProfileCardProps {
-  student: Student
-  onEdit?: () => void
-  onDeactivate?: () => void
+  student: StudentDetailResponse
 }
 
-export function StudentProfileCard({
-  student,
-  onEdit,
-  onDeactivate,
-}: StudentProfileCardProps) {
-  const initials = `${student.firstName[0]}${student.lastName[0]}`.toUpperCase()
+export function StudentProfileCard({ student }: StudentProfileCardProps) {
+  const status = student.status ?? 'NEW'
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Avatar + Name */}
       <div className="flex flex-col items-center gap-3 py-2">
         <Avatar className="size-20">
-          <AvatarImage src={student.avatarUrl} />
-          <AvatarFallback className="text-xl font-semibold">{initials}</AvatarFallback>
+          <AvatarFallback className="text-xl font-semibold">
+            {getInitials(student.fullName)}
+          </AvatarFallback>
         </Avatar>
         <div className="text-center">
-          <h2 className="text-lg font-semibold">{student.fullName}</h2>
-          <p className="text-sm text-muted-foreground">{student.studentId}</p>
+          <h2 className="text-lg font-semibold">{student.fullName ?? '—'}</h2>
+          <p className="text-sm text-muted-foreground font-mono">{student.studentNo}</p>
           <div className="mt-2">
             <StatusBadge
-              status={STATUS_MAP[student.status]}
-              label={student.status.charAt(0).toUpperCase() + student.status.slice(1)}
+              status={STATUS_MAP[status] ?? 'inactive'}
+              label={status.charAt(0) + status.slice(1).toLowerCase()}
             />
           </div>
         </div>
@@ -51,78 +51,26 @@ export function StudentProfileCard({
 
       <Separator />
 
-      {/* Meta info */}
       <dl className="grid gap-2 text-sm">
-        {student.academicYearName && (
-          <div className="flex justify-between">
-            <dt className="text-muted-foreground">Academic Year</dt>
-            <dd className="font-medium text-right">{student.academicYearName}</dd>
-          </div>
-        )}
-        {student.majorName && (
-          <div className="flex justify-between">
-            <dt className="text-muted-foreground">Major</dt>
-            <dd className="font-medium text-right">{student.majorName}</dd>
-          </div>
-        )}
-        {student.className && (
-          <div className="flex justify-between">
-            <dt className="text-muted-foreground">Class</dt>
-            <dd>
-              <Badge variant="outline" className="text-xs">{student.className}</Badge>
-            </dd>
-          </div>
-        )}
-        {student.admissionType && (
-          <div className="flex justify-between">
-            <dt className="text-muted-foreground">Admission</dt>
-            <dd className="font-medium capitalize text-right">{student.admissionType}</dd>
-          </div>
-        )}
-        {student.email && (
-          <div className="flex flex-col gap-0.5">
-            <dt className="text-muted-foreground">Email</dt>
-            <dd className="font-medium text-xs break-all">{student.email}</dd>
-          </div>
-        )}
-        {student.phone && (
-          <div className="flex justify-between">
-            <dt className="text-muted-foreground">Phone</dt>
-            <dd className="font-medium">{student.phone}</dd>
-          </div>
-        )}
         {student.nationality && (
           <div className="flex justify-between">
             <dt className="text-muted-foreground">Nationality</dt>
             <dd className="font-medium">{student.nationality}</dd>
           </div>
         )}
-      </dl>
-
-      <Separator />
-
-      {/* Actions */}
-      <div className="flex flex-col gap-2">
-        <PermissionGuard permission={PERMISSIONS.STUDENT.PROFILE.UPDATE}>
-          <Button variant="outline" size="sm" className="w-full gap-2" onClick={onEdit}>
-            <Pencil className="size-3.5" />
-            Edit Profile
-          </Button>
-        </PermissionGuard>
-        {student.status === 'active' && (
-          <PermissionGuard permission={PERMISSIONS.STUDENT.PROFILE.UPDATE}>
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-full gap-2 text-warning border-warning/30 hover:bg-warning/10"
-              onClick={onDeactivate}
-            >
-              <UserX className="size-3.5" />
-              Deactivate
-            </Button>
-          </PermissionGuard>
+        {student.gender && (
+          <div className="flex justify-between">
+            <dt className="text-muted-foreground">Gender</dt>
+            <dd className="font-medium capitalize">{student.gender.toLowerCase()}</dd>
+          </div>
         )}
-      </div>
+        {student.createdAt && (
+          <div className="flex justify-between">
+            <dt className="text-muted-foreground">Registered</dt>
+            <dd className="font-medium text-xs">{new Date(student.createdAt).toLocaleDateString()}</dd>
+          </div>
+        )}
+      </dl>
     </div>
   )
 }

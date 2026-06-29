@@ -53,7 +53,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const getById5 = (
+export const batchControllerGetById = (
     batchId: string,
  signal?: AbortSignal
 ) => {
@@ -67,11 +67,11 @@ export const getById5 = (
 
 
 
-export const getGetById5MutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById5>>, TError,{batchId: string}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof getById5>>, TError,{batchId: string}, TContext> => {
+export const getBatchControllerGetByIdMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof batchControllerGetById>>, TError,{batchId: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof batchControllerGetById>>, TError,{batchId: string}, TContext> => {
 
-const mutationKey = ['getById5'];
+const mutationKey = ['batchControllerGetById'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -81,10 +81,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof getById5>>, {batchId: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof batchControllerGetById>>, {batchId: string}> = (props) => {
           const {batchId} = props ?? {};
 
-          return  getById5(batchId,)
+          return  batchControllerGetById(batchId,)
         }
 
 
@@ -94,21 +94,21 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type GetById5MutationResult = NonNullable<Awaited<ReturnType<typeof getById5>>>
+    export type BatchControllerGetByIdMutationResult = NonNullable<Awaited<ReturnType<typeof batchControllerGetById>>>
 
-    export type GetById5MutationError = unknown
+    export type BatchControllerGetByIdMutationError = unknown
 
-    export const useGetById5 = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getById5>>, TError,{batchId: string}, TContext>, }
+    export const useBatchControllerGetById = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof batchControllerGetById>>, TError,{batchId: string}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof getById5>>,
+        Awaited<ReturnType<typeof batchControllerGetById>>,
         TError,
         {batchId: string},
         TContext
       > => {
-      return useMutation(getGetById5MutationOptions(options), queryClient);
+      return useMutation(getBatchControllerGetByIdMutationOptions(options), queryClient);
     }
-    export const update5 = (
+    export const batchControllerUpdate = (
     batchId: string,
     updateBatchRequest: UpdateBatchRequest,
  signal?: AbortSignal
@@ -126,7 +126,7 @@ const {mutation: mutationOptions} = options ?
 
 
 
-export const getUpdate5QueryKey = (batchId: string,
+export const getBatchControllerUpdateQueryKey = (batchId: string,
     updateBatchRequest?: UpdateBatchRequest,) => {
     return [
     'PUT', `/api/v1/enrollments/batches/${batchId}`, updateBatchRequest
@@ -134,64 +134,64 @@ export const getUpdate5QueryKey = (batchId: string,
     }
 
 
-export const getUpdate5QueryOptions = <TData = Awaited<ReturnType<typeof update5>>, TError = unknown>(batchId: string,
-    updateBatchRequest: UpdateBatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update5>>, TError, TData>>, }
+export const getBatchControllerUpdateQueryOptions = <TData = Awaited<ReturnType<typeof batchControllerUpdate>>, TError = unknown>(batchId: string,
+    updateBatchRequest: UpdateBatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerUpdate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getUpdate5QueryKey(batchId,updateBatchRequest);
+  const queryKey =  queryOptions?.queryKey ?? getBatchControllerUpdateQueryKey(batchId,updateBatchRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof update5>>> = ({ signal }) => update5(batchId,updateBatchRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof batchControllerUpdate>>> = ({ signal }) => batchControllerUpdate(batchId,updateBatchRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: batchId !== null && batchId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof update5>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: batchId !== null && batchId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof batchControllerUpdate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Update5QueryResult = NonNullable<Awaited<ReturnType<typeof update5>>>
-export type Update5QueryError = unknown
+export type BatchControllerUpdateQueryResult = NonNullable<Awaited<ReturnType<typeof batchControllerUpdate>>>
+export type BatchControllerUpdateQueryError = unknown
 
 
-export function useUpdate5<TData = Awaited<ReturnType<typeof update5>>, TError = unknown>(
+export function useBatchControllerUpdate<TData = Awaited<ReturnType<typeof batchControllerUpdate>>, TError = unknown>(
  batchId: string,
-    updateBatchRequest: UpdateBatchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof update5>>, TError, TData>> & Pick<
+    updateBatchRequest: UpdateBatchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerUpdate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update5>>,
+          Awaited<ReturnType<typeof batchControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update5>>
+          Awaited<ReturnType<typeof batchControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate5<TData = Awaited<ReturnType<typeof update5>>, TError = unknown>(
+export function useBatchControllerUpdate<TData = Awaited<ReturnType<typeof batchControllerUpdate>>, TError = unknown>(
  batchId: string,
-    updateBatchRequest: UpdateBatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update5>>, TError, TData>> & Pick<
+    updateBatchRequest: UpdateBatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerUpdate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof update5>>,
+          Awaited<ReturnType<typeof batchControllerUpdate>>,
           TError,
-          Awaited<ReturnType<typeof update5>>
+          Awaited<ReturnType<typeof batchControllerUpdate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUpdate5<TData = Awaited<ReturnType<typeof update5>>, TError = unknown>(
+export function useBatchControllerUpdate<TData = Awaited<ReturnType<typeof batchControllerUpdate>>, TError = unknown>(
  batchId: string,
-    updateBatchRequest: UpdateBatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update5>>, TError, TData>>, }
+    updateBatchRequest: UpdateBatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useUpdate5<TData = Awaited<ReturnType<typeof update5>>, TError = unknown>(
+export function useBatchControllerUpdate<TData = Awaited<ReturnType<typeof batchControllerUpdate>>, TError = unknown>(
  batchId: string,
-    updateBatchRequest: UpdateBatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof update5>>, TError, TData>>, }
+    updateBatchRequest: UpdateBatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerUpdate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getUpdate5QueryOptions(batchId,updateBatchRequest,options)
+  const queryOptions = getBatchControllerUpdateQueryOptions(batchId,updateBatchRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -203,7 +203,7 @@ export function useUpdate5<TData = Awaited<ReturnType<typeof update5>>, TError =
 
 
 
-export const create5 = (
+export const batchControllerCreate = (
     batchRequest: BatchRequest,
  signal?: AbortSignal
 ) => {
@@ -220,66 +220,66 @@ export const create5 = (
 
 
 
-export const getCreate5QueryKey = (batchRequest?: BatchRequest,) => {
+export const getBatchControllerCreateQueryKey = (batchRequest?: BatchRequest,) => {
     return [
     'POST', `/api/v1/enrollments/batches`, batchRequest
     ] as const;
     }
 
 
-export const getCreate5QueryOptions = <TData = Awaited<ReturnType<typeof create5>>, TError = unknown>(batchRequest: BatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create5>>, TError, TData>>, }
+export const getBatchControllerCreateQueryOptions = <TData = Awaited<ReturnType<typeof batchControllerCreate>>, TError = unknown>(batchRequest: BatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerCreate>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getCreate5QueryKey(batchRequest);
+  const queryKey =  queryOptions?.queryKey ?? getBatchControllerCreateQueryKey(batchRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof create5>>> = ({ signal }) => create5(batchRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof batchControllerCreate>>> = ({ signal }) => batchControllerCreate(batchRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof create5>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof batchControllerCreate>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Create5QueryResult = NonNullable<Awaited<ReturnType<typeof create5>>>
-export type Create5QueryError = unknown
+export type BatchControllerCreateQueryResult = NonNullable<Awaited<ReturnType<typeof batchControllerCreate>>>
+export type BatchControllerCreateQueryError = unknown
 
 
-export function useCreate5<TData = Awaited<ReturnType<typeof create5>>, TError = unknown>(
- batchRequest: BatchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof create5>>, TError, TData>> & Pick<
+export function useBatchControllerCreate<TData = Awaited<ReturnType<typeof batchControllerCreate>>, TError = unknown>(
+ batchRequest: BatchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerCreate>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create5>>,
+          Awaited<ReturnType<typeof batchControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create5>>
+          Awaited<ReturnType<typeof batchControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate5<TData = Awaited<ReturnType<typeof create5>>, TError = unknown>(
- batchRequest: BatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create5>>, TError, TData>> & Pick<
+export function useBatchControllerCreate<TData = Awaited<ReturnType<typeof batchControllerCreate>>, TError = unknown>(
+ batchRequest: BatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerCreate>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof create5>>,
+          Awaited<ReturnType<typeof batchControllerCreate>>,
           TError,
-          Awaited<ReturnType<typeof create5>>
+          Awaited<ReturnType<typeof batchControllerCreate>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCreate5<TData = Awaited<ReturnType<typeof create5>>, TError = unknown>(
- batchRequest: BatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create5>>, TError, TData>>, }
+export function useBatchControllerCreate<TData = Awaited<ReturnType<typeof batchControllerCreate>>, TError = unknown>(
+ batchRequest: BatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useCreate5<TData = Awaited<ReturnType<typeof create5>>, TError = unknown>(
- batchRequest: BatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof create5>>, TError, TData>>, }
+export function useBatchControllerCreate<TData = Awaited<ReturnType<typeof batchControllerCreate>>, TError = unknown>(
+ batchRequest: BatchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerCreate>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getCreate5QueryOptions(batchRequest,options)
+  const queryOptions = getBatchControllerCreateQueryOptions(batchRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -291,7 +291,7 @@ export function useCreate5<TData = Awaited<ReturnType<typeof create5>>, TError =
 
 
 
-export const search5 = (
+export const batchControllerSearch = (
     searchRequest: SearchRequest,
  signal?: AbortSignal
 ) => {
@@ -308,66 +308,66 @@ export const search5 = (
 
 
 
-export const getSearch5QueryKey = (searchRequest?: SearchRequest,) => {
+export const getBatchControllerSearchQueryKey = (searchRequest?: SearchRequest,) => {
     return [
     'POST', `/api/v1/enrollments/batches/search`, searchRequest
     ] as const;
     }
 
 
-export const getSearch5QueryOptions = <TData = Awaited<ReturnType<typeof search5>>, TError = unknown>(searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search5>>, TError, TData>>, }
+export const getBatchControllerSearchQueryOptions = <TData = Awaited<ReturnType<typeof batchControllerSearch>>, TError = unknown>(searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerSearch>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getSearch5QueryKey(searchRequest);
+  const queryKey =  queryOptions?.queryKey ?? getBatchControllerSearchQueryKey(searchRequest);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof search5>>> = ({ signal }) => search5(searchRequest, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof batchControllerSearch>>> = ({ signal }) => batchControllerSearch(searchRequest, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof search5>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof batchControllerSearch>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type Search5QueryResult = NonNullable<Awaited<ReturnType<typeof search5>>>
-export type Search5QueryError = unknown
+export type BatchControllerSearchQueryResult = NonNullable<Awaited<ReturnType<typeof batchControllerSearch>>>
+export type BatchControllerSearchQueryError = unknown
 
 
-export function useSearch5<TData = Awaited<ReturnType<typeof search5>>, TError = unknown>(
- searchRequest: SearchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof search5>>, TError, TData>> & Pick<
+export function useBatchControllerSearch<TData = Awaited<ReturnType<typeof batchControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerSearch>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof search5>>,
+          Awaited<ReturnType<typeof batchControllerSearch>>,
           TError,
-          Awaited<ReturnType<typeof search5>>
+          Awaited<ReturnType<typeof batchControllerSearch>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSearch5<TData = Awaited<ReturnType<typeof search5>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search5>>, TError, TData>> & Pick<
+export function useBatchControllerSearch<TData = Awaited<ReturnType<typeof batchControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerSearch>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof search5>>,
+          Awaited<ReturnType<typeof batchControllerSearch>>,
           TError,
-          Awaited<ReturnType<typeof search5>>
+          Awaited<ReturnType<typeof batchControllerSearch>>
         > , 'initialData'
       >, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useSearch5<TData = Awaited<ReturnType<typeof search5>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search5>>, TError, TData>>, }
+export function useBatchControllerSearch<TData = Awaited<ReturnType<typeof batchControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerSearch>>, TError, TData>>, }
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useSearch5<TData = Awaited<ReturnType<typeof search5>>, TError = unknown>(
- searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof search5>>, TError, TData>>, }
+export function useBatchControllerSearch<TData = Awaited<ReturnType<typeof batchControllerSearch>>, TError = unknown>(
+ searchRequest: SearchRequest, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof batchControllerSearch>>, TError, TData>>, }
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getSearch5QueryOptions(searchRequest,options)
+  const queryOptions = getBatchControllerSearchQueryOptions(searchRequest,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -379,7 +379,7 @@ export function useSearch5<TData = Awaited<ReturnType<typeof search5>>, TError =
 
 
 
-export const listClasses1 = (
+export const batchControllerListClasses = (
     batchId: string,
  signal?: AbortSignal
 ) => {
@@ -393,11 +393,11 @@ export const listClasses1 = (
 
 
 
-export const getListClasses1MutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof listClasses1>>, TError,{batchId: string}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof listClasses1>>, TError,{batchId: string}, TContext> => {
+export const getBatchControllerListClassesMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof batchControllerListClasses>>, TError,{batchId: string}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof batchControllerListClasses>>, TError,{batchId: string}, TContext> => {
 
-const mutationKey = ['listClasses1'];
+const mutationKey = ['batchControllerListClasses'];
 const {mutation: mutationOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -407,10 +407,10 @@ const {mutation: mutationOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof listClasses1>>, {batchId: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof batchControllerListClasses>>, {batchId: string}> = (props) => {
           const {batchId} = props ?? {};
 
-          return  listClasses1(batchId,)
+          return  batchControllerListClasses(batchId,)
         }
 
 
@@ -420,17 +420,17 @@ const {mutation: mutationOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type ListClasses1MutationResult = NonNullable<Awaited<ReturnType<typeof listClasses1>>>
+    export type BatchControllerListClassesMutationResult = NonNullable<Awaited<ReturnType<typeof batchControllerListClasses>>>
 
-    export type ListClasses1MutationError = unknown
+    export type BatchControllerListClassesMutationError = unknown
 
-    export const useListClasses1 = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof listClasses1>>, TError,{batchId: string}, TContext>, }
+    export const useBatchControllerListClasses = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof batchControllerListClasses>>, TError,{batchId: string}, TContext>, }
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof listClasses1>>,
+        Awaited<ReturnType<typeof batchControllerListClasses>>,
         TError,
         {batchId: string},
         TContext
       > => {
-      return useMutation(getListClasses1MutationOptions(options), queryClient);
+      return useMutation(getBatchControllerListClassesMutationOptions(options), queryClient);
     }

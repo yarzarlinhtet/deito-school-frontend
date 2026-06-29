@@ -7,8 +7,9 @@
 
 export type List1Params = {
 name?: string;
-frequency?: string;
+code?: string;
 status?: string;
+isCurrentYear?: boolean;
 page?: number;
 size?: number;
 };
