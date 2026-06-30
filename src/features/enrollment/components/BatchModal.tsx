@@ -165,6 +165,8 @@ export function BatchModal({ open, onOpenChange, editTarget }: BatchModalProps) 
                     <Calendar
                       mode="single"
                       captionLayout="dropdown"
+                      startMonth={new Date(1900, 0)}
+                      endMonth={new Date(new Date().getFullYear() + 10, 11)}
                       selected={selected}
                       onSelect={(date) =>
                         field.handleChange(date ? format(date, 'yyyy-MM-dd') : '')
@@ -204,6 +206,8 @@ export function BatchModal({ open, onOpenChange, editTarget }: BatchModalProps) 
                     <Calendar
                       mode="single"
                       captionLayout="dropdown"
+                      startMonth={new Date(1900, 0)}
+                      endMonth={new Date(new Date().getFullYear() + 10, 11)}
                       selected={selected}
                       onSelect={(date) =>
                         field.handleChange(date ? format(date, 'yyyy-MM-dd') : '')

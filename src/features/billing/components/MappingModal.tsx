@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
-import { Lightbulb } from 'lucide-react'
+import { format } from 'date-fns'
+import { CalendarIcon, Lightbulb } from 'lucide-react'
 import { FormDialog, LookupSelect } from '#/components/shared/form'
 import { Label } from '#/components/ui/label'
-import { Input } from '#/components/ui/input'
 import { Textarea } from '#/components/ui/textarea'
 import { Button } from '#/components/ui/button'
+import { Calendar } from '#/components/ui/calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '#/components/ui/popover'
 import {
   Select,
   SelectContent,
@@ -14,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '#/components/ui/select'
+import { cn } from '#/lib/utils'
 import {
   useCreateMapping,
   useUpdateMapping,
@@ -250,16 +253,30 @@ export function MappingModal({
         <form.Field name="effectiveDate">
           {(field) => (
             <div className="grid gap-1.5">
-              <Label htmlFor="mapping-effective-date">
+              <Label>
                 Effective Date <span className="text-destructive">*</span>
               </Label>
-              <Input
-                id="mapping-effective-date"
-                type="date"
-                value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-              />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn('w-full justify-start text-left font-normal', !field.state.value && 'text-muted-foreground')}
+                  >
+                    <CalendarIcon className="mr-2 size-4" />
+                    {field.state.value ? format(new Date(field.state.value), 'd MMM yyyy') : 'Pick a date'}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    captionLayout="dropdown"
+                    startMonth={new Date(1900, 0)}
+                    endMonth={new Date(new Date().getFullYear() + 10, 11)}
+                    selected={field.state.value ? new Date(field.state.value) : undefined}
+                    onSelect={(date) => field.handleChange(date ? format(date, 'yyyy-MM-dd') : '')}
+                  />
+                </PopoverContent>
+              </Popover>
               {field.state.meta.errors[0] && (
                 <p className="text-xs text-destructive">
                   {String(field.state.meta.errors[0])}

@@ -99,6 +99,7 @@ const NAV_ITEMS: NavItem[] = [
     icon: ShieldCheck,
     children: [
       { href: '/users-access/user-list', label: 'User List' },
+      { href: '/users-access/permission-matrix', label: 'Permission Matrix' },
     ],
   },
   {

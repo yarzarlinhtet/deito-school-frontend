@@ -1,10 +1,15 @@
 import { useEffect } from 'react'
 import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
+import { format } from 'date-fns'
+import { CalendarIcon } from 'lucide-react'
 import { FormDialog } from '#/components/shared/form'
 import { Input } from '#/components/ui/input'
 import { Label } from '#/components/ui/label'
 import { Textarea } from '#/components/ui/textarea'
+import { Button } from '#/components/ui/button'
+import { Calendar } from '#/components/ui/calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '#/components/ui/popover'
 import {
   Select,
   SelectContent,
@@ -12,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '#/components/ui/select'
+import { cn } from '#/lib/utils'
 import type { StudentVisaResponse } from '#/generated/model'
 import { useCreateVisa, useUpdateVisa } from '../hooks/useStudentVisa'
 
@@ -169,11 +175,27 @@ export function VisaModal({ open, onOpenChange, studentId, editTarget }: VisaMod
             {(f) => (
               <div className="space-y-1">
                 <Label>Issue Date</Label>
-                <Input
-                  type="date"
-                  value={f.state.value}
-                  onChange={(e) => f.handleChange(e.target.value)}
-                />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn('w-full justify-start text-left font-normal', !f.state.value && 'text-muted-foreground')}
+                    >
+                      <CalendarIcon className="mr-2 size-4" />
+                      {f.state.value ? format(new Date(f.state.value), 'd MMM yyyy') : 'Pick a date'}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      captionLayout="dropdown"
+                      startMonth={new Date(1900, 0)}
+                      endMonth={new Date(new Date().getFullYear() + 10, 11)}
+                      selected={f.state.value ? new Date(f.state.value) : undefined}
+                      onSelect={(date) => f.handleChange(date ? format(date, 'yyyy-MM-dd') : '')}
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
             )}
           </form.Field>
@@ -182,11 +204,27 @@ export function VisaModal({ open, onOpenChange, studentId, editTarget }: VisaMod
             {(f) => (
               <div className="space-y-1">
                 <Label>Expiry Date</Label>
-                <Input
-                  type="date"
-                  value={f.state.value}
-                  onChange={(e) => f.handleChange(e.target.value)}
-                />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn('w-full justify-start text-left font-normal', !f.state.value && 'text-muted-foreground')}
+                    >
+                      <CalendarIcon className="mr-2 size-4" />
+                      {f.state.value ? format(new Date(f.state.value), 'd MMM yyyy') : 'Pick a date'}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      captionLayout="dropdown"
+                      startMonth={new Date(1900, 0)}
+                      endMonth={new Date(new Date().getFullYear() + 10, 11)}
+                      selected={f.state.value ? new Date(f.state.value) : undefined}
+                      onSelect={(date) => f.handleChange(date ? format(date, 'yyyy-MM-dd') : '')}
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
             )}
           </form.Field>

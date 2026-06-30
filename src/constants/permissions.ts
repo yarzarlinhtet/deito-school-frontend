@@ -87,5 +87,9 @@ export const PERMISSIONS = {
     AUDIT: {
       VIEW: 'USER:AUDIT:VIEW',
     },
+    PERMISSION_MATRIX: {
+      VIEW: 'ROLE_PERMISSION:ROLE_PERMISSION:VIEW',
+      UPDATE: 'ROLE_PERMISSION:ROLE_PERMISSION:UPDATE',
+    },
   },
 } as const

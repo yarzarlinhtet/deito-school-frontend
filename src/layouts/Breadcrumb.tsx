@@ -25,6 +25,7 @@ const LABEL_MAP: Record<string, string> = {
   'audit-logs': 'Audit Logs',
   'users-access': 'Users & Access',
   'user-list': 'User List',
+  'permission-matrix': 'Permission Matrix',
 }
 
 function segmentLabel(segment: string): string {
