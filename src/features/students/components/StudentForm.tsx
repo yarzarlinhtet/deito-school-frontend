@@ -1,10 +1,14 @@
 import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
+import { format } from 'date-fns'
+import { CalendarIcon } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
 import { Input } from '#/components/ui/input'
 import { Label } from '#/components/ui/label'
 import { Textarea } from '#/components/ui/textarea'
 import { Button } from '#/components/ui/button'
+import { Calendar } from '#/components/ui/calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '#/components/ui/popover'
 import {
   Select,
   SelectContent,
@@ -12,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '#/components/ui/select'
+import { cn } from '#/lib/utils'
 import type { CreateStudentRequest, UpdateStudentRequest, StudentDetailResponse } from '#/generated/model'
 
 const schema = z.object({
@@ -147,12 +152,27 @@ export function StudentForm({ mode, defaultValues, onSubmit, onCancel, isLoading
               {(f) => (
                 <div>
                   <Label>Date of Birth <span className="text-destructive">*</span></Label>
-                  <Input
-                    className="mt-1"
-                    type="date"
-                    value={f.state.value}
-                    onChange={(e) => f.handleChange(e.target.value)}
-                  />
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn('mt-1 w-full justify-start text-left font-normal', !f.state.value && 'text-muted-foreground')}
+                      >
+                        <CalendarIcon className="mr-2 size-4" />
+                        {f.state.value ? format(new Date(f.state.value), 'd MMM yyyy') : 'Pick a date'}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        captionLayout="dropdown"
+                        startMonth={new Date(1900, 0)}
+                        endMonth={new Date(new Date().getFullYear() + 10, 11)}
+                        selected={f.state.value ? new Date(f.state.value) : undefined}
+                        onSelect={(date) => f.handleChange(date ? format(date, 'yyyy-MM-dd') : '')}
+                      />
+                    </PopoverContent>
+                  </Popover>
                   {f.state.meta.errors[0] && (
                     <p className="text-xs text-destructive mt-1">{String(f.state.meta.errors[0])}</p>
                   )}
@@ -262,12 +282,27 @@ export function StudentForm({ mode, defaultValues, onSubmit, onCancel, isLoading
               {(f) => (
                 <div>
                   <Label>Passport Expiry Date</Label>
-                  <Input
-                    className="mt-1"
-                    type="date"
-                    value={f.state.value}
-                    onChange={(e) => f.handleChange(e.target.value)}
-                  />
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn('mt-1 w-full justify-start text-left font-normal', !f.state.value && 'text-muted-foreground')}
+                      >
+                        <CalendarIcon className="mr-2 size-4" />
+                        {f.state.value ? format(new Date(f.state.value), 'd MMM yyyy') : 'Pick a date'}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        captionLayout="dropdown"
+                        startMonth={new Date(1900, 0)}
+                        endMonth={new Date(new Date().getFullYear() + 10, 11)}
+                        selected={f.state.value ? new Date(f.state.value) : undefined}
+                        onSelect={(date) => f.handleChange(date ? format(date, 'yyyy-MM-dd') : '')}
+                      />
+                    </PopoverContent>
+                  </Popover>
                 </div>
               )}
             </form.Field>

@@ -4,11 +4,13 @@ import {
   DollarSign,
   FileText,
   Percent,
+  Plus,
   Receipt,
   Tag,
   Trash2,
   TrendingDown,
 } from 'lucide-react'
+import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
 import {
@@ -36,6 +38,8 @@ import {
   useRemoveDiscount,
   useStudentFeeAccount,
 } from '../hooks/useStudentFeeAccount'
+import { useStudentInvoices } from '../hooks/useStudentInvoice'
+import { OpenInvoiceDialog } from './OpenInvoiceDialog'
 
 const DISCOUNT_TYPE_LABEL: Record<string, string> = {
   PERCENTAGE_DISCOUNT: 'Percentage',
@@ -51,12 +55,44 @@ function fmt(n?: number | null): string {
   return n.toLocaleString()
 }
 
+const INVOICE_STATUS_VARIANT: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
+  PAID: 'default',
+  PARTIAL: 'outline',
+  OVERDUE: 'destructive',
+  VOIDED: 'secondary',
+}
+
+const INVOICE_STATUS_CLASS: Record<string, string> = {
+  PAID: 'bg-green-100 text-green-700 border-green-200',
+  PARTIAL: 'bg-yellow-100 text-yellow-700 border-yellow-200',
+  SENT: 'bg-blue-100 text-blue-700 border-blue-200',
+  DRAFT: 'bg-muted text-muted-foreground',
+}
+
+function InvoiceStatusBadge({ status }: { status?: string | null }) {
+  const label = status ?? 'DRAFT'
+  const cls = INVOICE_STATUS_CLASS[label]
+  if (cls) {
+    return (
+      <Badge variant="outline" className={`text-xs ${cls}`}>
+        {label}
+      </Badge>
+    )
+  }
+  return (
+    <Badge variant={INVOICE_STATUS_VARIANT[label] ?? 'secondary'} className="text-xs">
+      {label}
+    </Badge>
+  )
+}
+
 interface StudentFinanceTabProps {
   studentId: string
 }
 
 export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
   const [applyOpen, setApplyOpen] = useState(false)
+  const [invoiceOpen, setInvoiceOpen] = useState(false)
   const [feeItemId, setFeeItemId] = useState('')
   const [discountId, setDiscountId] = useState('')
   const [overrideValue, setOverrideValue] = useState('')
@@ -65,6 +101,7 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
   const { data: account, isLoading } = useStudentFeeAccount(studentId)
   const { data: discounts = [] } = useFeeAccountDiscounts(account?.id)
   const { data: availableDiscounts = [] } = useActiveDiscounts()
+  const { data: invoicesPage } = useStudentInvoices(account?.id)
   const applyDiscount = useApplyDiscount(account?.id ?? '')
   const removeDiscount = useRemoveDiscount(account?.id ?? '')
 
@@ -331,20 +368,72 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
         </CardContent>
       </Card>
 
-      {/* Invoice Management — placeholder */}
-      {/* <Card>
+      {/* Invoice Management */}
+      <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-4">
           <CardTitle className="text-base">Invoice Management</CardTitle>
-          <Button size="sm" disabled>
-            Generate Invoice
+          <Button size="sm" onClick={() => setInvoiceOpen(true)}>
+            <Plus className="mr-1.5 size-3.5" />
+            Open Invoice
           </Button>
         </CardHeader>
-        <CardContent>
-          <p className="text-sm text-muted-foreground text-center py-6">
-            Invoice management coming soon.
-          </p>
+        <CardContent className="p-0">
+          {!invoicesPage?.items?.length ? (
+            <p className="px-6 pb-6 text-sm text-muted-foreground text-center py-8">
+              No invoices generated yet.
+            </p>
+          ) : (
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b bg-muted/50">
+                  <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">
+                    Invoice No.
+                  </th>
+                  <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">
+                    Invoice Date
+                  </th>
+                  <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">
+                    Due Date
+                  </th>
+                  <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">
+                    Status
+                  </th>
+                  <th className="px-4 py-2.5 text-right font-medium text-muted-foreground text-xs">
+                    Amount (MMK)
+                  </th>
+                  <th className="px-4 py-2.5 text-right font-medium text-muted-foreground text-xs">
+                    Items
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {invoicesPage.items.map((inv) => (
+                  <tr key={inv.id} className="hover:bg-muted/30 transition-colors">
+                    <td className="px-4 py-3 font-mono text-xs font-medium">
+                      {inv.invoiceNumber ?? '—'}
+                    </td>
+                    <td className="px-4 py-3 text-xs text-muted-foreground">
+                      {inv.invoiceDate ? new Date(inv.invoiceDate).toLocaleDateString() : '—'}
+                    </td>
+                    <td className="px-4 py-3 text-xs text-muted-foreground">
+                      {inv.dueDate ? new Date(inv.dueDate).toLocaleDateString() : '—'}
+                    </td>
+                    <td className="px-4 py-3">
+                      <InvoiceStatusBadge status={inv.status} />
+                    </td>
+                    <td className="px-4 py-3 text-right font-mono text-xs font-semibold">
+                      {fmt(inv.totalAmount)}
+                    </td>
+                    <td className="px-4 py-3 text-right text-xs text-muted-foreground">
+                      {inv.items?.length ?? 0}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </CardContent>
-      </Card> */}
+      </Card>
 
       {/* Payment Collection — placeholder */}
       {/* <Card>
@@ -400,6 +489,15 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
           </p>
         </CardContent>
       </Card> */} 
+
+      {/* Open Invoice Dialog */}
+      <OpenInvoiceDialog
+        open={invoiceOpen}
+        onOpenChange={setInvoiceOpen}
+        feeAccountId={account?.id ?? ''}
+        feeItems={account?.items ?? []}
+        existingInvoices={invoicesPage?.items ?? []}
+      />
 
       {/* Apply Discount Dialog */}
       <Dialog open={applyOpen} onOpenChange={setApplyOpen}>

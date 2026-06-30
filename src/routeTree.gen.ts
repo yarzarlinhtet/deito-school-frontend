@@ -26,6 +26,7 @@ import { Route as AppAcademicIndexRouteImport } from './routes/_app/academic/ind
 import { Route as AppStudentsNewRouteImport } from './routes/_app/students/new'
 import { Route as AppStudentsStudentIdRouteImport } from './routes/_app/students/$studentId'
 import { Route as AppUsersAccessUserListIndexRouteImport } from './routes/_app/users-access/user-list/index'
+import { Route as AppUsersAccessPermissionMatrixIndexRouteImport } from './routes/_app/users-access/permission-matrix/index'
 import { Route as AppFeesDiscountsIndexRouteImport } from './routes/_app/fees/discounts/index'
 import { Route as AppFeesCategoriesIndexRouteImport } from './routes/_app/fees/categories/index'
 import { Route as AppEnrollmentIntakesIndexRouteImport } from './routes/_app/enrollment/intakes/index'
@@ -126,6 +127,12 @@ const AppUsersAccessUserListIndexRoute =
   AppUsersAccessUserListIndexRouteImport.update({
     id: '/users-access/user-list/',
     path: '/users-access/user-list/',
+    getParentRoute: () => AppRoute,
+  } as any)
+const AppUsersAccessPermissionMatrixIndexRoute =
+  AppUsersAccessPermissionMatrixIndexRouteImport.update({
+    id: '/users-access/permission-matrix/',
+    path: '/users-access/permission-matrix/',
     getParentRoute: () => AppRoute,
   } as any)
 const AppFeesDiscountsIndexRoute = AppFeesDiscountsIndexRouteImport.update({
@@ -259,6 +266,7 @@ export interface FileRoutesByFullPath {
   '/enrollment/intakes/': typeof AppEnrollmentIntakesIndexRoute
   '/fees/categories/': typeof AppFeesCategoriesIndexRoute
   '/fees/discounts/': typeof AppFeesDiscountsIndexRoute
+  '/users-access/permission-matrix/': typeof AppUsersAccessPermissionMatrixIndexRoute
   '/users-access/user-list/': typeof AppUsersAccessUserListIndexRoute
 }
 export interface FileRoutesByTo {
@@ -293,6 +301,7 @@ export interface FileRoutesByTo {
   '/enrollment/intakes': typeof AppEnrollmentIntakesIndexRoute
   '/fees/categories': typeof AppFeesCategoriesIndexRoute
   '/fees/discounts': typeof AppFeesDiscountsIndexRoute
+  '/users-access/permission-matrix': typeof AppUsersAccessPermissionMatrixIndexRoute
   '/users-access/user-list': typeof AppUsersAccessUserListIndexRoute
 }
 export interface FileRoutesById {
@@ -330,6 +339,7 @@ export interface FileRoutesById {
   '/_app/enrollment/intakes/': typeof AppEnrollmentIntakesIndexRoute
   '/_app/fees/categories/': typeof AppFeesCategoriesIndexRoute
   '/_app/fees/discounts/': typeof AppFeesDiscountsIndexRoute
+  '/_app/users-access/permission-matrix/': typeof AppUsersAccessPermissionMatrixIndexRoute
   '/_app/users-access/user-list/': typeof AppUsersAccessUserListIndexRoute
 }
 export interface FileRouteTypes {
@@ -366,6 +376,7 @@ export interface FileRouteTypes {
     | '/enrollment/intakes/'
     | '/fees/categories/'
     | '/fees/discounts/'
+    | '/users-access/permission-matrix/'
     | '/users-access/user-list/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -400,6 +411,7 @@ export interface FileRouteTypes {
     | '/enrollment/intakes'
     | '/fees/categories'
     | '/fees/discounts'
+    | '/users-access/permission-matrix'
     | '/users-access/user-list'
   id:
     | '__root__'
@@ -436,6 +448,7 @@ export interface FileRouteTypes {
     | '/_app/enrollment/intakes/'
     | '/_app/fees/categories/'
     | '/_app/fees/discounts/'
+    | '/_app/users-access/permission-matrix/'
     | '/_app/users-access/user-list/'
   fileRoutesById: FileRoutesById
 }
@@ -565,6 +578,13 @@ declare module '@tanstack/react-router' {
       path: '/users-access/user-list'
       fullPath: '/users-access/user-list/'
       preLoaderRoute: typeof AppUsersAccessUserListIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/users-access/permission-matrix/': {
+      id: '/_app/users-access/permission-matrix/'
+      path: '/users-access/permission-matrix'
+      fullPath: '/users-access/permission-matrix/'
+      preLoaderRoute: typeof AppUsersAccessPermissionMatrixIndexRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/fees/discounts/': {
@@ -734,6 +754,7 @@ interface AppRouteChildren {
   AppEnrollmentIntakesIndexRoute: typeof AppEnrollmentIntakesIndexRoute
   AppFeesCategoriesIndexRoute: typeof AppFeesCategoriesIndexRoute
   AppFeesDiscountsIndexRoute: typeof AppFeesDiscountsIndexRoute
+  AppUsersAccessPermissionMatrixIndexRoute: typeof AppUsersAccessPermissionMatrixIndexRoute
   AppUsersAccessUserListIndexRoute: typeof AppUsersAccessUserListIndexRoute
 }
 
@@ -758,6 +779,8 @@ const AppRouteChildren: AppRouteChildren = {
   AppEnrollmentIntakesIndexRoute: AppEnrollmentIntakesIndexRoute,
   AppFeesCategoriesIndexRoute: AppFeesCategoriesIndexRoute,
   AppFeesDiscountsIndexRoute: AppFeesDiscountsIndexRoute,
+  AppUsersAccessPermissionMatrixIndexRoute:
+    AppUsersAccessPermissionMatrixIndexRoute,
   AppUsersAccessUserListIndexRoute: AppUsersAccessUserListIndexRoute,
 }
 

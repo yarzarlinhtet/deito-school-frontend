@@ -15,4 +15,6 @@ export interface StudentFeeItemResponse {
   isRecurring?: boolean;
   billingFrequency?: string;
   displayOrder?: number;
+  totalInvoicedAmount?: number;
+  remainingBillableAmount?: number;
 }
