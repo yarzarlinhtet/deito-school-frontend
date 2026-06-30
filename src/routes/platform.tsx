@@ -20,7 +20,7 @@ export const Route = createFileRoute('/platform')({
     let currentUser = useUserStore.getState().currentUser
     if (!currentUser) {
       try {
-        const meData = await customInstance<MeResponse>({ url: '/api/v1/auth/me', method: 'GET' })
+        const meData = await customInstance<MeResponse>({ url: '/api/v1/auth/platform/me', method: 'GET' })
         bootstrapFromMeResponse(meData)
         currentUser = useUserStore.getState().currentUser
       } catch {

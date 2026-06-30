@@ -170,12 +170,12 @@ export function LoginForm() {
               <div>
                 <div className="flex items-center justify-between">
                   <Label htmlFor="tenant-password">Password</Label>
-                  <button
+                  {/* <button
                     type="button"
                     className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                   >
                     Forgot password?
-                  </button>
+                  </button> */}
                 </div>
                 <Input
                   id="tenant-password"
@@ -193,7 +193,7 @@ export function LoginForm() {
             )}
           </tenantForm.Field>
 
-          <tenantForm.Field name="rememberMe">
+          {/* <tenantForm.Field name="rememberMe">
             {(field) => (
               <div className="flex items-center gap-2">
                 <Checkbox
@@ -207,7 +207,7 @@ export function LoginForm() {
                 </Label>
               </div>
             )}
-          </tenantForm.Field>
+          </tenantForm.Field> */}
 
           <Button
             type="submit"

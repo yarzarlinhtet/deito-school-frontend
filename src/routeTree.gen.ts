@@ -15,16 +15,17 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as PlatformDashboardIndexRouteImport } from './routes/platform/dashboard/index'
+import { Route as AppUsersAccessIndexRouteImport } from './routes/_app/users-access/index'
 import { Route as AppStudentsIndexRouteImport } from './routes/_app/students/index'
 import { Route as AppSettingsIndexRouteImport } from './routes/_app/settings/index'
 import { Route as AppFinanceIndexRouteImport } from './routes/_app/finance/index'
 import { Route as AppDashboardIndexRouteImport } from './routes/_app/dashboard/index'
 import { Route as AppBillingIndexRouteImport } from './routes/_app/billing/index'
 import { Route as AppAuditIndexRouteImport } from './routes/_app/audit/index'
-import { Route as AppAdministrationIndexRouteImport } from './routes/_app/administration/index'
 import { Route as AppAcademicIndexRouteImport } from './routes/_app/academic/index'
 import { Route as AppStudentsNewRouteImport } from './routes/_app/students/new'
 import { Route as AppStudentsStudentIdRouteImport } from './routes/_app/students/$studentId'
+import { Route as AppUsersAccessUserListIndexRouteImport } from './routes/_app/users-access/user-list/index'
 import { Route as AppFeesDiscountsIndexRouteImport } from './routes/_app/fees/discounts/index'
 import { Route as AppFeesCategoriesIndexRouteImport } from './routes/_app/fees/categories/index'
 import { Route as AppEnrollmentIntakesIndexRouteImport } from './routes/_app/enrollment/intakes/index'
@@ -71,6 +72,11 @@ const PlatformDashboardIndexRoute = PlatformDashboardIndexRouteImport.update({
   path: '/dashboard/',
   getParentRoute: () => PlatformRoute,
 } as any)
+const AppUsersAccessIndexRoute = AppUsersAccessIndexRouteImport.update({
+  id: '/users-access/',
+  path: '/users-access/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppStudentsIndexRoute = AppStudentsIndexRouteImport.update({
   id: '/students/',
   path: '/students/',
@@ -101,11 +107,6 @@ const AppAuditIndexRoute = AppAuditIndexRouteImport.update({
   path: '/audit/',
   getParentRoute: () => AppRoute,
 } as any)
-const AppAdministrationIndexRoute = AppAdministrationIndexRouteImport.update({
-  id: '/administration/',
-  path: '/administration/',
-  getParentRoute: () => AppRoute,
-} as any)
 const AppAcademicIndexRoute = AppAcademicIndexRouteImport.update({
   id: '/academic/',
   path: '/academic/',
@@ -121,6 +122,12 @@ const AppStudentsStudentIdRoute = AppStudentsStudentIdRouteImport.update({
   path: '/students/$studentId',
   getParentRoute: () => AppRoute,
 } as any)
+const AppUsersAccessUserListIndexRoute =
+  AppUsersAccessUserListIndexRouteImport.update({
+    id: '/users-access/user-list/',
+    path: '/users-access/user-list/',
+    getParentRoute: () => AppRoute,
+  } as any)
 const AppFeesDiscountsIndexRoute = AppFeesDiscountsIndexRouteImport.update({
   id: '/fees/discounts/',
   path: '/fees/discounts/',
@@ -227,13 +234,13 @@ export interface FileRoutesByFullPath {
   '/students/$studentId': typeof AppStudentsStudentIdRouteWithChildren
   '/students/new': typeof AppStudentsNewRoute
   '/academic/': typeof AppAcademicIndexRoute
-  '/administration/': typeof AppAdministrationIndexRoute
   '/audit/': typeof AppAuditIndexRoute
   '/billing/': typeof AppBillingIndexRoute
   '/dashboard/': typeof AppDashboardIndexRoute
   '/finance/': typeof AppFinanceIndexRoute
   '/settings/': typeof AppSettingsIndexRoute
   '/students/': typeof AppStudentsIndexRoute
+  '/users-access/': typeof AppUsersAccessIndexRoute
   '/platform/dashboard/': typeof PlatformDashboardIndexRoute
   '/students/$studentId/audit': typeof AppStudentsStudentIdAuditRoute
   '/students/$studentId/documents': typeof AppStudentsStudentIdDocumentsRoute
@@ -252,6 +259,7 @@ export interface FileRoutesByFullPath {
   '/enrollment/intakes/': typeof AppEnrollmentIntakesIndexRoute
   '/fees/categories/': typeof AppFeesCategoriesIndexRoute
   '/fees/discounts/': typeof AppFeesDiscountsIndexRoute
+  '/users-access/user-list/': typeof AppUsersAccessUserListIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -260,13 +268,13 @@ export interface FileRoutesByTo {
   '/students/$studentId': typeof AppStudentsStudentIdRouteWithChildren
   '/students/new': typeof AppStudentsNewRoute
   '/academic': typeof AppAcademicIndexRoute
-  '/administration': typeof AppAdministrationIndexRoute
   '/audit': typeof AppAuditIndexRoute
   '/billing': typeof AppBillingIndexRoute
   '/dashboard': typeof AppDashboardIndexRoute
   '/finance': typeof AppFinanceIndexRoute
   '/settings': typeof AppSettingsIndexRoute
   '/students': typeof AppStudentsIndexRoute
+  '/users-access': typeof AppUsersAccessIndexRoute
   '/platform/dashboard': typeof PlatformDashboardIndexRoute
   '/students/$studentId/audit': typeof AppStudentsStudentIdAuditRoute
   '/students/$studentId/documents': typeof AppStudentsStudentIdDocumentsRoute
@@ -285,6 +293,7 @@ export interface FileRoutesByTo {
   '/enrollment/intakes': typeof AppEnrollmentIntakesIndexRoute
   '/fees/categories': typeof AppFeesCategoriesIndexRoute
   '/fees/discounts': typeof AppFeesDiscountsIndexRoute
+  '/users-access/user-list': typeof AppUsersAccessUserListIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -296,13 +305,13 @@ export interface FileRoutesById {
   '/_app/students/$studentId': typeof AppStudentsStudentIdRouteWithChildren
   '/_app/students/new': typeof AppStudentsNewRoute
   '/_app/academic/': typeof AppAcademicIndexRoute
-  '/_app/administration/': typeof AppAdministrationIndexRoute
   '/_app/audit/': typeof AppAuditIndexRoute
   '/_app/billing/': typeof AppBillingIndexRoute
   '/_app/dashboard/': typeof AppDashboardIndexRoute
   '/_app/finance/': typeof AppFinanceIndexRoute
   '/_app/settings/': typeof AppSettingsIndexRoute
   '/_app/students/': typeof AppStudentsIndexRoute
+  '/_app/users-access/': typeof AppUsersAccessIndexRoute
   '/platform/dashboard/': typeof PlatformDashboardIndexRoute
   '/_app/students/$studentId/audit': typeof AppStudentsStudentIdAuditRoute
   '/_app/students/$studentId/documents': typeof AppStudentsStudentIdDocumentsRoute
@@ -321,6 +330,7 @@ export interface FileRoutesById {
   '/_app/enrollment/intakes/': typeof AppEnrollmentIntakesIndexRoute
   '/_app/fees/categories/': typeof AppFeesCategoriesIndexRoute
   '/_app/fees/discounts/': typeof AppFeesDiscountsIndexRoute
+  '/_app/users-access/user-list/': typeof AppUsersAccessUserListIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -331,13 +341,13 @@ export interface FileRouteTypes {
     | '/students/$studentId'
     | '/students/new'
     | '/academic/'
-    | '/administration/'
     | '/audit/'
     | '/billing/'
     | '/dashboard/'
     | '/finance/'
     | '/settings/'
     | '/students/'
+    | '/users-access/'
     | '/platform/dashboard/'
     | '/students/$studentId/audit'
     | '/students/$studentId/documents'
@@ -356,6 +366,7 @@ export interface FileRouteTypes {
     | '/enrollment/intakes/'
     | '/fees/categories/'
     | '/fees/discounts/'
+    | '/users-access/user-list/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -364,13 +375,13 @@ export interface FileRouteTypes {
     | '/students/$studentId'
     | '/students/new'
     | '/academic'
-    | '/administration'
     | '/audit'
     | '/billing'
     | '/dashboard'
     | '/finance'
     | '/settings'
     | '/students'
+    | '/users-access'
     | '/platform/dashboard'
     | '/students/$studentId/audit'
     | '/students/$studentId/documents'
@@ -389,6 +400,7 @@ export interface FileRouteTypes {
     | '/enrollment/intakes'
     | '/fees/categories'
     | '/fees/discounts'
+    | '/users-access/user-list'
   id:
     | '__root__'
     | '/'
@@ -399,13 +411,13 @@ export interface FileRouteTypes {
     | '/_app/students/$studentId'
     | '/_app/students/new'
     | '/_app/academic/'
-    | '/_app/administration/'
     | '/_app/audit/'
     | '/_app/billing/'
     | '/_app/dashboard/'
     | '/_app/finance/'
     | '/_app/settings/'
     | '/_app/students/'
+    | '/_app/users-access/'
     | '/platform/dashboard/'
     | '/_app/students/$studentId/audit'
     | '/_app/students/$studentId/documents'
@@ -424,6 +436,7 @@ export interface FileRouteTypes {
     | '/_app/enrollment/intakes/'
     | '/_app/fees/categories/'
     | '/_app/fees/discounts/'
+    | '/_app/users-access/user-list/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -477,6 +490,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformDashboardIndexRouteImport
       parentRoute: typeof PlatformRoute
     }
+    '/_app/users-access/': {
+      id: '/_app/users-access/'
+      path: '/users-access'
+      fullPath: '/users-access/'
+      preLoaderRoute: typeof AppUsersAccessIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/students/': {
       id: '/_app/students/'
       path: '/students'
@@ -519,13 +539,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAuditIndexRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/administration/': {
-      id: '/_app/administration/'
-      path: '/administration'
-      fullPath: '/administration/'
-      preLoaderRoute: typeof AppAdministrationIndexRouteImport
-      parentRoute: typeof AppRoute
-    }
     '/_app/academic/': {
       id: '/_app/academic/'
       path: '/academic'
@@ -545,6 +558,13 @@ declare module '@tanstack/react-router' {
       path: '/students/$studentId'
       fullPath: '/students/$studentId'
       preLoaderRoute: typeof AppStudentsStudentIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/users-access/user-list/': {
+      id: '/_app/users-access/user-list/'
+      path: '/users-access/user-list'
+      fullPath: '/users-access/user-list/'
+      preLoaderRoute: typeof AppUsersAccessUserListIndexRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/fees/discounts/': {
@@ -697,13 +717,13 @@ interface AppRouteChildren {
   AppStudentsStudentIdRoute: typeof AppStudentsStudentIdRouteWithChildren
   AppStudentsNewRoute: typeof AppStudentsNewRoute
   AppAcademicIndexRoute: typeof AppAcademicIndexRoute
-  AppAdministrationIndexRoute: typeof AppAdministrationIndexRoute
   AppAuditIndexRoute: typeof AppAuditIndexRoute
   AppBillingIndexRoute: typeof AppBillingIndexRoute
   AppDashboardIndexRoute: typeof AppDashboardIndexRoute
   AppFinanceIndexRoute: typeof AppFinanceIndexRoute
   AppSettingsIndexRoute: typeof AppSettingsIndexRoute
   AppStudentsIndexRoute: typeof AppStudentsIndexRoute
+  AppUsersAccessIndexRoute: typeof AppUsersAccessIndexRoute
   AppAcademicClassesIndexRoute: typeof AppAcademicClassesIndexRoute
   AppAcademicLevelsIndexRoute: typeof AppAcademicLevelsIndexRoute
   AppAcademicProgramsIndexRoute: typeof AppAcademicProgramsIndexRoute
@@ -714,19 +734,20 @@ interface AppRouteChildren {
   AppEnrollmentIntakesIndexRoute: typeof AppEnrollmentIntakesIndexRoute
   AppFeesCategoriesIndexRoute: typeof AppFeesCategoriesIndexRoute
   AppFeesDiscountsIndexRoute: typeof AppFeesDiscountsIndexRoute
+  AppUsersAccessUserListIndexRoute: typeof AppUsersAccessUserListIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppStudentsStudentIdRoute: AppStudentsStudentIdRouteWithChildren,
   AppStudentsNewRoute: AppStudentsNewRoute,
   AppAcademicIndexRoute: AppAcademicIndexRoute,
-  AppAdministrationIndexRoute: AppAdministrationIndexRoute,
   AppAuditIndexRoute: AppAuditIndexRoute,
   AppBillingIndexRoute: AppBillingIndexRoute,
   AppDashboardIndexRoute: AppDashboardIndexRoute,
   AppFinanceIndexRoute: AppFinanceIndexRoute,
   AppSettingsIndexRoute: AppSettingsIndexRoute,
   AppStudentsIndexRoute: AppStudentsIndexRoute,
+  AppUsersAccessIndexRoute: AppUsersAccessIndexRoute,
   AppAcademicClassesIndexRoute: AppAcademicClassesIndexRoute,
   AppAcademicLevelsIndexRoute: AppAcademicLevelsIndexRoute,
   AppAcademicProgramsIndexRoute: AppAcademicProgramsIndexRoute,
@@ -737,6 +758,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppEnrollmentIntakesIndexRoute: AppEnrollmentIntakesIndexRoute,
   AppFeesCategoriesIndexRoute: AppFeesCategoriesIndexRoute,
   AppFeesDiscountsIndexRoute: AppFeesDiscountsIndexRoute,
+  AppUsersAccessUserListIndexRoute: AppUsersAccessUserListIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

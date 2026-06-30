@@ -5,8 +5,7 @@
  * OpenAPI spec version: v0
  */
 
-export interface RoleInfo {
-  id?: string;
-  name?: string;
-  description?: string;
+export interface LockUserRequest {
+  /** @minLength 1 */
+  reason: string;
 }

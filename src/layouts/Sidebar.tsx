@@ -11,7 +11,7 @@ import {
   LogOut,
   FileText,
   ReceiptText,
-  Building2,
+  ShieldCheck,
   ChevronDown,
   GraduationCap,
   type LucideIcon,
@@ -94,9 +94,12 @@ const NAV_ITEMS: NavItem[] = [
     icon: DollarSign,
   },
   {
-    href: '/admin',
-    label: 'Administration',
-    icon: Building2,
+    href: '/users-access',
+    label: 'Users & Access',
+    icon: ShieldCheck,
+    children: [
+      { href: '/users-access/user-list', label: 'User List' },
+    ],
   },
   {
     href: '/settings',

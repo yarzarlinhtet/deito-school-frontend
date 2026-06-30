@@ -5,8 +5,6 @@
  * OpenAPI spec version: v0
  */
 
-export interface RoleInfo {
-  id?: string;
-  name?: string;
-  description?: string;
+export interface UpdateRolesRequest {
+  roleIds: string[];
 }
