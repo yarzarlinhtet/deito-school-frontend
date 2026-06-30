@@ -1,9 +1,9 @@
 import { GraduationCap, Users, Building2, Activity, BarChart3, TrendingUp } from 'lucide-react'
 
 const STATS = [
-  { icon: Users, label: 'Students', value: '10,000+' },
-  { icon: Building2, label: 'Schools', value: '500+' },
-  { icon: Activity, label: 'Uptime', value: '99.9%' },
+  // { icon: Users, label: 'Students', value: '10,000+' },
+  // { icon: Building2, label: 'Schools', value: '500+' },
+  // { icon: Activity, label: 'Uptime', value: '99.9%' },
 ]
 
 export function BrandingPanel() {
@@ -25,7 +25,7 @@ export function BrandingPanel() {
         {/* Hero text */}
         <div className="mt-auto mb-8">
           <h1 className="text-4xl font-bold leading-tight tracking-tight">
-            School Management ERP
+            School Management
           </h1>
           <p className="mt-4 text-base text-primary-foreground/75 leading-relaxed max-w-sm">
             Manage Students, Enrollment, Academic Operations, Billing and Finance from a single platform.

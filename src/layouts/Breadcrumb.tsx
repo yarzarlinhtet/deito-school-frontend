@@ -23,6 +23,8 @@ const LABEL_MAP: Record<string, string> = {
   users: 'Users',
   roles: 'Roles',
   'audit-logs': 'Audit Logs',
+  'users-access': 'Users & Access',
+  'user-list': 'User List',
 }
 
 function segmentLabel(segment: string): string {

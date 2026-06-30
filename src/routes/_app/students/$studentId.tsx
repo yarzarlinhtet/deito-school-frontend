@@ -17,7 +17,7 @@ const TABS = [
   { label: 'Overview',         path: 'profile' },
   { label: 'Academic',         path: 'enrollment-history' },
   { label: 'Finance',          path: 'finance' },
-  { label: 'Documents',        path: 'documents' },
+  // { label: 'Documents',        path: 'documents' },
   { label: 'Visa Information', path: 'visa' },
   { label: 'Activity',         path: 'audit' },
 ] as const
