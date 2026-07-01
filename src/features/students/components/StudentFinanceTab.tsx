@@ -39,7 +39,11 @@ import {
   useStudentFeeAccount,
 } from '../hooks/useStudentFeeAccount'
 import { useStudentInvoices } from '../hooks/useStudentInvoice'
+import { useCurrency } from '#/hooks/useCurrency'
+import { CollectPaymentDialog } from './CollectPaymentDialog'
+import { TransactionsCard } from './TransactionsCard'
 import { OpenInvoiceDialog } from './OpenInvoiceDialog'
+import type { InvoiceResponse } from '#/generated/model'
 
 const DISCOUNT_TYPE_LABEL: Record<string, string> = {
   PERCENTAGE_DISCOUNT: 'Percentage',
@@ -48,11 +52,6 @@ const DISCOUNT_TYPE_LABEL: Record<string, string> = {
   EARLY_PAYMENT: 'Early Payment',
   SIBLING_DISCOUNT: 'Sibling Discount',
   STAFF_DISCOUNT: 'Staff Discount',
-}
-
-function fmt(n?: number | null): string {
-  if (n == null) return '—'
-  return n.toLocaleString()
 }
 
 const INVOICE_STATUS_VARIANT: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
@@ -64,7 +63,9 @@ const INVOICE_STATUS_VARIANT: Record<string, 'default' | 'secondary' | 'destruct
 
 const INVOICE_STATUS_CLASS: Record<string, string> = {
   PAID: 'bg-green-100 text-green-700 border-green-200',
+  PARTIALLY_PAID: 'bg-yellow-100 text-yellow-700 border-yellow-200',
   PARTIAL: 'bg-yellow-100 text-yellow-700 border-yellow-200',
+  OPEN: 'bg-blue-100 text-blue-700 border-blue-200',
   SENT: 'bg-blue-100 text-blue-700 border-blue-200',
   DRAFT: 'bg-muted text-muted-foreground',
 }
@@ -93,10 +94,13 @@ interface StudentFinanceTabProps {
 export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
   const [applyOpen, setApplyOpen] = useState(false)
   const [invoiceOpen, setInvoiceOpen] = useState(false)
+  const [collectPaymentInvoice, setCollectPaymentInvoice] = useState<InvoiceResponse | null>(null)
   const [feeItemId, setFeeItemId] = useState('')
   const [discountId, setDiscountId] = useState('')
   const [overrideValue, setOverrideValue] = useState('')
   const [remarks, setRemarks] = useState('')
+
+  const { currencyCode, formatAmount } = useCurrency()
 
   const { data: account, isLoading } = useStudentFeeAccount(studentId)
   const { data: discounts = [] } = useFeeAccountDiscounts(account?.id)
@@ -167,7 +171,7 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
         <Card className="border-l-4 border-l-amber-500">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Outstanding (MMK)
+              Outstanding ({currencyCode})
             </CardTitle>
             <div className="flex size-9 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-900/30">
               <AlertTriangle className="size-4 text-amber-600" />
@@ -175,7 +179,7 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold tracking-tight">
-              {fmt(account.outstandingBalance)}
+              {formatAmount(account.outstandingBalance)}
             </div>
           </CardContent>
         </Card>
@@ -183,42 +187,42 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
         <Card className="border-l-4 border-l-blue-500">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Total Charges (MMK)
+              Total Charges ({currencyCode})
             </CardTitle>
             <div className="flex size-9 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/30">
               <FileText className="size-4 text-blue-600" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold tracking-tight">{fmt(account.totalAmount)}</div>
+            <div className="text-2xl font-bold tracking-tight">{formatAmount(account.totalAmount)}</div>
           </CardContent>
         </Card>
 
         <Card className="border-l-4 border-l-green-500">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Total Paid (MMK)
+              Total Paid ({currencyCode})
             </CardTitle>
             <div className="flex size-9 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
               <Receipt className="size-4 text-green-600" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold tracking-tight">{fmt(totalPaid)}</div>
+            <div className="text-2xl font-bold tracking-tight">{formatAmount(totalPaid)}</div>
           </CardContent>
         </Card>
 
         <Card className="border-l-4 border-l-purple-500">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Discounts (MMK)
+              Discounts ({currencyCode})
             </CardTitle>
             <div className="flex size-9 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900/30">
               <TrendingDown className="size-4 text-purple-600" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold tracking-tight">{fmt(account.totalDiscount)}</div>
+            <div className="text-2xl font-bold tracking-tight">{formatAmount(account.totalDiscount)}</div>
           </CardContent>
         </Card>
       </div>
@@ -234,7 +238,7 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
               <CardTitle className="text-base">Fee Breakdown</CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
                 Net total:{' '}
-                <span className="font-semibold text-foreground">{fmt(account.netAmount)} MMK</span>
+                <span className="font-semibold text-foreground">{formatAmount(account.netAmount)} {currencyCode}</span>
               </p>
             </div>
           </div>
@@ -252,13 +256,13 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
                     Fee Category
                   </th>
                   <th className="px-4 py-2.5 text-right font-medium text-muted-foreground text-xs">
-                    Amount (MMK)
+                    Amount ({currencyCode})
                   </th>
                   <th className="px-4 py-2.5 text-right font-medium text-muted-foreground text-xs">
-                    Discount (MMK)
+                    Discount ({currencyCode})
                   </th>
                   <th className="px-4 py-2.5 text-right font-medium text-muted-foreground text-xs">
-                    Final (MMK)
+                    Final ({currencyCode})
                   </th>
                   <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">
                     Frequency
@@ -272,13 +276,13 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
                     <tr key={item.id} className="hover:bg-muted/30 transition-colors">
                       <td className="px-4 py-3 font-medium">{item.feeCategoryName ?? '—'}</td>
                       <td className="px-4 py-3 text-right font-mono text-xs">
-                        {fmt(item.amount)}
+                        {formatAmount(item.amount)}
                       </td>
                       <td className="px-4 py-3 text-right font-mono text-xs text-purple-600">
-                        {item.discountAmount ? `-${fmt(item.discountAmount)}` : '—'}
+                        {item.discountAmount ? `-${formatAmount(item.discountAmount)}` : '—'}
                       </td>
                       <td className="px-4 py-3 text-right font-mono text-xs font-semibold">
-                        {fmt(item.finalAmount)}
+                        {formatAmount(item.finalAmount)}
                       </td>
                       <td className="px-4 py-3 text-muted-foreground text-xs">
                         {item.billingFrequency ?? '—'}
@@ -318,7 +322,7 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
                     Type
                   </th>
                   <th className="px-4 py-2.5 text-right font-medium text-muted-foreground text-xs">
-                    Amount (MMK)
+                    Amount ({currencyCode})
                   </th>
                   <th className="px-4 py-2.5 text-left font-medium text-muted-foreground text-xs">
                     Fee Item
@@ -339,7 +343,7 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
                       {DISCOUNT_TYPE_LABEL[d.discountType ?? ''] ?? d.discountType ?? '—'}
                     </td>
                     <td className="px-4 py-3 text-right font-mono text-xs text-purple-600">
-                      {fmt(d.discountAmount)}
+                      {formatAmount(d.discountAmount)}
                     </td>
                     <td className="px-4 py-3 text-xs text-muted-foreground">
                       {feeItemMap[d.feeItemId ?? ''] ?? d.feeItemId ?? '—'}
@@ -399,10 +403,13 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
                     Status
                   </th>
                   <th className="px-4 py-2.5 text-right font-medium text-muted-foreground text-xs">
-                    Amount (MMK)
+                    Amount ({currencyCode})
                   </th>
                   <th className="px-4 py-2.5 text-right font-medium text-muted-foreground text-xs">
                     Items
+                  </th>
+                  <th className="px-4 py-2.5 text-right font-medium text-muted-foreground text-xs">
+                    Actions
                   </th>
                 </tr>
               </thead>
@@ -422,10 +429,21 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
                       <InvoiceStatusBadge status={inv.status} />
                     </td>
                     <td className="px-4 py-3 text-right font-mono text-xs font-semibold">
-                      {fmt(inv.totalAmount)}
+                      {formatAmount(inv.totalAmount)}
                     </td>
                     <td className="px-4 py-3 text-right text-xs text-muted-foreground">
                       {inv.items?.length ?? 0}
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-7 text-xs"
+                        disabled={inv.status === 'PAID'}
+                        onClick={() => setCollectPaymentInvoice(inv)}
+                      >
+                        Collect Payment
+                      </Button>
                     </td>
                   </tr>
                 ))}
@@ -435,21 +453,14 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
         </CardContent>
       </Card>
 
-      {/* Payment Collection — placeholder */}
-      {/* <Card>
-        <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-          <div>
-            <CardTitle className="text-base">Payment Collection</CardTitle>
-            <p className="text-xs text-muted-foreground mt-1">
-              Record a payment against any outstanding invoice and generate a receipt instantly.
-            </p>
-          </div>
-          <Button disabled>
-            <DollarSign className="size-4 mr-1.5" />
-            Collect Payment
-          </Button>
-        </CardHeader>
-      </Card> */}
+      <TransactionsCard feeAccountId={account?.id} />
+
+      {/* Collect Payment Dialog */}
+      <CollectPaymentDialog
+        open={!!collectPaymentInvoice}
+        onOpenChange={(open) => { if (!open) setCollectPaymentInvoice(null) }}
+        invoice={collectPaymentInvoice}
+      />
 
       {/* Installment Plans — placeholder */}
       {/* <Card>
@@ -516,7 +527,7 @@ export function StudentFinanceTab({ studentId }: StudentFinanceTabProps) {
                 <SelectContent>
                   {(account.items ?? []).map((item) => (
                     <SelectItem key={item.id} value={item.id!}>
-                      {item.feeCategoryName ?? item.id} — {fmt(item.finalAmount)} MMK
+                      {item.feeCategoryName ?? item.id} — {formatAmount(item.finalAmount)} {currencyCode}
                     </SelectItem>
                   ))}
                 </SelectContent>

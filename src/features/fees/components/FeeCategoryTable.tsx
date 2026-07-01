@@ -26,6 +26,7 @@ import {
   useActivateFeeCategory,
   useDeactivateFeeCategory,
 } from '../hooks/useFeeCategories'
+import { useCurrency } from '#/hooks/useCurrency'
 import { FeeCategoryModal } from './FeeCategoryModal'
 import type { FeeCategoryResponse } from '#/generated/model'
 import { cn } from '#/lib/utils'
@@ -74,6 +75,7 @@ export function FeeCategoryTable() {
 
   const activate = useActivateFeeCategory()
   const deactivate = useDeactivateFeeCategory()
+  const { formatAmount } = useCurrency()
 
   const columns: ColumnDef<FeeCategoryResponse>[] = [
     {
@@ -120,7 +122,7 @@ export function FeeCategoryTable() {
       cell: ({ getValue }) => {
         const v = getValue<number | undefined>()
         return v != null ? (
-          <span className="font-mono text-sm">{v.toLocaleString()}</span>
+          <span className="font-mono text-sm">{formatAmount(v)}</span>
         ) : (
           <span className="text-muted-foreground">—</span>
         )

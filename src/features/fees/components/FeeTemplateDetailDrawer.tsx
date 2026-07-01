@@ -2,6 +2,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '#/components/ui/sh
 import { StatusBadge } from '#/components/shared/status-badge/StatusBadge'
 import { Badge } from '#/components/ui/badge'
 import { Separator } from '#/components/ui/separator'
+import { useCurrency } from '#/hooks/useCurrency'
 import { useFeeTemplateDetail } from '../hooks/useFeeTemplates'
 import { useAcademicYears } from '#/features/enrollment/hooks/useAcademicYears'
 
@@ -41,6 +42,7 @@ export function FeeTemplateDetailDrawer({
   onOpenChange,
   templateId,
 }: FeeTemplateDetailDrawerProps) {
+  const { formatAmount } = useCurrency()
   const { data: detail, isLoading } = useFeeTemplateDetail(open ? templateId : null)
   const { data: academicYears } = useAcademicYears({ size: 100 })
 
@@ -139,7 +141,7 @@ export function FeeTemplateDetailDrawer({
                             {item.feeCategoryName ?? item.feeCategoryId ?? '—'}
                           </td>
                           <td className="px-3 py-2 text-right font-mono">
-                            {item.amount != null ? item.amount.toLocaleString() : '—'}
+                            {formatAmount(item.amount)}
                           </td>
                           <td className="px-3 py-2 text-center text-muted-foreground">
                             {item.isRecurring ? '✓' : '—'}
@@ -169,7 +171,7 @@ export function FeeTemplateDetailDrawer({
                   <span className="ml-2 text-xs">({detail?.items?.length ?? 0} items)</span>
                 </div>
                 <span className="font-mono text-base font-bold">
-                  {totalAmount.toLocaleString()}
+                  {formatAmount(totalAmount)}
                 </span>
               </div>
             </section>

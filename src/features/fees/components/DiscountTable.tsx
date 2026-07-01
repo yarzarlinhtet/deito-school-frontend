@@ -34,6 +34,7 @@ import {
   useDeactivateDiscount,
 } from '../hooks/useDiscounts'
 import { useFeeCategories } from '../hooks/useFeeCategories'
+import { useCurrency } from '#/hooks/useCurrency'
 import { DiscountModal } from './DiscountModal'
 import type { DiscountResponse, FilterCriteria } from '#/generated/model'
 
@@ -102,6 +103,7 @@ export function DiscountTable() {
 
   const activate = useActivateDiscount()
   const deactivate = useDeactivateDiscount()
+  const { formatAmount } = useCurrency()
 
   const columns: ColumnDef<DiscountResponse>[] = [
     {
@@ -150,7 +152,7 @@ export function DiscountTable() {
         const isPercent = discountType === 'PERCENTAGE_DISCOUNT'
         return (
           <span className="text-base font-bold">
-            {isPercent ? `${value}%` : value.toLocaleString()}
+            {isPercent ? `${value}%` : formatAmount(value)}
           </span>
         )
       },

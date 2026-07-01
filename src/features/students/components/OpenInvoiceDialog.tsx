@@ -17,15 +17,11 @@ import { Popover, PopoverContent, PopoverTrigger } from '#/components/ui/popover
 import { Textarea } from '#/components/ui/textarea'
 import { cn } from '#/lib/utils'
 import type { InvoiceResponse, StudentFeeItemResponse } from '#/generated/model'
+import { useCurrency } from '#/hooks/useCurrency'
 import { useGenerateInvoice } from '../hooks/useStudentInvoice'
 
 function todayISO(): string {
   return new Date().toISOString().split('T')[0]!
-}
-
-function fmt(n?: number | null): string {
-  if (n == null) return '—'
-  return n.toLocaleString()
 }
 
 interface ItemState {
@@ -48,6 +44,7 @@ export function OpenInvoiceDialog({
   feeItems,
   existingInvoices,
 }: OpenInvoiceDialogProps) {
+  const { currencyCode, formatAmount } = useCurrency()
   const generate = useGenerateInvoice(feeAccountId)
 
   const [invoiceDate, setInvoiceDate] = useState(todayISO)
@@ -118,7 +115,7 @@ export function OpenInvoiceDialog({
       itemErrors[item.id!] = 'Amount must be greater than 0'
       isValid = false
     } else if (amount > remaining) {
-      itemErrors[item.id!] = `Cannot exceed remaining billable (${fmt(remaining)})`
+      itemErrors[item.id!] = `Cannot exceed remaining billable (${formatAmount(remaining)})`
       isValid = false
     }
   }
@@ -272,13 +269,13 @@ export function OpenInvoiceDialog({
                             )}
                           </td>
                           <td className="px-3 py-3 text-right font-mono text-xs">
-                            {fmt(item.finalAmount)}
+                            {formatAmount(item.finalAmount)}
                           </td>
                           <td className="px-3 py-3 text-right font-mono text-xs text-muted-foreground">
-                            {fmt(totalInvoiced)}
+                            {formatAmount(totalInvoiced)}
                           </td>
                           <td className={`px-3 py-3 text-right font-mono text-xs font-semibold ${remaining > 0 ? 'text-green-600' : 'text-muted-foreground'}`}>
-                            {fmt(remaining)}
+                            {formatAmount(remaining)}
                           </td>
                           <td className="px-3 py-3 text-right">
                             <div className="flex flex-col items-end gap-1">
@@ -314,7 +311,7 @@ export function OpenInvoiceDialog({
             <div className="flex justify-end">
               <p className="text-sm text-muted-foreground">
                 Subtotal:{' '}
-                <span className="font-semibold text-foreground">{fmt(subtotal)} MMK</span>
+                <span className="font-semibold text-foreground">{formatAmount(subtotal)} {currencyCode}</span>
               </p>
             </div>
           )}
