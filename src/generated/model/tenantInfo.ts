@@ -4,9 +4,11 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
+import type { SchoolConfigInfo } from './schoolConfigInfo.ts';
 
 export interface TenantInfo {
   tenantId?: string;
   tenantCode?: string;
   tenantName?: string;
+  schoolConfig?: SchoolConfigInfo;
 }
