@@ -8,10 +8,10 @@
   "scripts": {
     "dev": "dotenv -e .env.local -- sh -c \"NODE_OPTIONS='--import ./instrument.server.mjs' vite dev --port 3000\"",
     "generate-routes": "tsr generate",
-    "build": "vite build && mkdir -p .output/server && cp instrument.server.mjs .output/server/",
+    "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run --passWithNoTests",
-    "start": "node --import ./.output/server/instrument.server.mjs .output/server/index.mjs",
+    "start": "NODE_OPTIONS='--import ./instrument.server.mjs' node server.mjs",
     "generate:api": "dotenv -e .env.local -- orval --config ./orval.config.ts",
     "typecheck": "tsc --noEmit"
   },

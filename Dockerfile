@@ -20,9 +20,20 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Copy only the build output — no source code or node_modules
-COPY --from=builder /app/.output ./.output
+# Production deps only — @sentry/tanstackstart-react is resolved at runtime by instrument.server.mjs
+COPY --from=builder /app/package*.json ./
+RUN npm ci --omit=dev --ignore-scripts
+
+# Sentry preload (loaded via NODE_OPTIONS before the server starts)
+COPY --from=builder /app/instrument.server.mjs ./
+
+# Custom server + built app
+COPY --from=builder /app/server.mjs ./
+COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
 
-CMD ["node", "--import", "./.output/server/instrument.server.mjs", ".output/server/index.mjs"]
+# Preloads Sentry instrumentation into every Node.js process in this container
+ENV NODE_OPTIONS="--import ./instrument.server.mjs"
+
+CMD ["node", "server.mjs"]
