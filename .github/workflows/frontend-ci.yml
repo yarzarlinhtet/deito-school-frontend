@@ -46,7 +46,7 @@ jobs:
           if [ -z "$VITE_API_BASE_URL" ]; then
             echo "::error::VITE_API_BASE_URL_UAT secret is not set — build will use fallback http://localhost:8000"
           else
-            echo "VITE_API_BASE_URL is set (length: ${#VITE_API_BASE_URL}, starts with: ${VITE_API_BASE_URL:0:8}...)"
+            echo "VITE_API_BASE_URL is set (length: ${#VITE_API_BASE_URL}, starts with: ${VITE_API_BASE_URL})"
           fi
         env:
           VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL_UAT }}
