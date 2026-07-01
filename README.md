@@ -227,3 +227,64 @@ Files prefixed with `demo` can be safely deleted. They are there to provide a st
 You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
 
 For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+
+---
+
+## CI/CD
+
+### Build Process
+
+The GitHub Actions workflow at `.github/workflows/frontend-ci.yml` runs on every push to `develop`, every pull request targeting `develop`, and on manual dispatch.
+
+**Stages (in order):**
+1. **Install** — `npm ci` (frozen lock file, reproducible)
+2. **Type Check** — `tsc --noEmit` (strict mode, fails on any type error)
+3. **Test** — Vitest unit tests (`npm test`)
+4. **Build** — `vite build` → `.output/` (fails fast — Docker never runs if build fails)
+5. **Docker Build** — multi-stage image: `node:22-alpine` builder + lean alpine runner
+6. **Docker Push** — pushes to GHCR on `develop` pushes only; **skipped for PRs**
+
+### Image Naming
+
+Images are published to GitHub Container Registry:
+
+```
+ghcr.io/<owner>/<repo>:frontend-uat         # latest develop push (mutable)
+ghcr.io/<owner>/<repo>:frontend-<short-sha>  # immutable per-commit tag
+```
+
+Example:
+```
+ghcr.io/yarzarlinhtet/deito-school-frontend:frontend-uat
+ghcr.io/yarzarlinhtet/deito-school-frontend:frontend-a1b2c3d
+```
+
+### Versioning
+
+| Tag | Behaviour |
+|-----|-----------|
+| `frontend-uat` | Mutable — always points to the latest successful build on `develop` |
+| `frontend-<sha>` | Immutable — 7-character commit SHA, safe for pinned deployments |
+
+### Required GitHub Settings
+
+| Setting | Where | Value |
+|---------|-------|-------|
+| `VITE_API_BASE_URL` | Repository → Settings → Secrets → Actions | UAT backend base URL |
+| Workflow permissions | Repository → Settings → Actions → General | **Read and write permissions** |
+| GHCR package visibility | Packages → Package settings | Public or Private as needed |
+
+### Adding ESLint (optional)
+
+ESLint is not currently installed. To add a lint step:
+
+```bash
+npm install -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react-hooks
+```
+
+Then add to `package.json` scripts:
+```json
+"lint": "eslint src --ext .ts,.tsx --max-warnings 0"
+```
+
+And uncomment the lint step in the workflow.
