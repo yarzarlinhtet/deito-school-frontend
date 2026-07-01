@@ -1,6 +1,7 @@
-import { GraduationCap, Users, Building2, Activity, BarChart3, TrendingUp } from 'lucide-react'
+import type { ComponentType } from 'react'
+import { GraduationCap, BarChart3, TrendingUp } from 'lucide-react'
 
-const STATS = [
+const STATS: { icon: ComponentType<{ className?: string }>; label: string; value: string }[] = [
   // { icon: Users, label: 'Students', value: '10,000+' },
   // { icon: Building2, label: 'Schools', value: '500+' },
   // { icon: Activity, label: 'Uptime', value: '99.9%' },

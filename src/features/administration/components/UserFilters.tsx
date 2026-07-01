@@ -1,14 +1,6 @@
 import { Search, X } from 'lucide-react'
 import { Input } from '#/components/ui/input'
 import { Button } from '#/components/ui/button'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '#/components/ui/select'
-import { useAvailableRoles } from '../hooks/useUsers'
 import type { UserFilterValues } from '../types'
 
 interface UserFiltersProps {
@@ -19,8 +11,6 @@ interface UserFiltersProps {
 }
 
 export function UserFilters({ values, onChange, onApply, onReset }: UserFiltersProps) {
-  const { data: roles, isLoading: isLoadingRoles } = useAvailableRoles()
-
   const set = (key: keyof UserFilterValues) => (val: string) =>
     onChange({ ...values, [key]: val })
 
