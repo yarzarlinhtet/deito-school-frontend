@@ -10,7 +10,7 @@
     "generate-routes": "tsr generate",
     "build": "vite build && cp instrument.server.mjs .output/server",
     "preview": "vite preview",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "start": "node --import ./.output/server/instrument.server.mjs .output/server/index.mjs",
     "generate:api": "dotenv -e .env.local -- orval --config ./orval.config.ts",
     "typecheck": "tsc --noEmit"
