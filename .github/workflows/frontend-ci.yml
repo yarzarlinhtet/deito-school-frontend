@@ -41,20 +41,8 @@ jobs:
         run: npm test
 
       # ── Application build ────────────────────────────────────────────────────
-      - name: Check VITE_API_BASE_URL_UAT secret
-        run: |
-          if [ -z "$VITE_API_BASE_URL" ]; then
-            echo "::error::VITE_API_BASE_URL_UAT secret is not set — build will use fallback http://localhost:8000"
-          else
-            echo "VITE_API_BASE_URL is set (length: ${#VITE_API_BASE_URL}, starts with: ${VITE_API_BASE_URL})"
-          fi
-        env:
-          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL_UAT }}
-
       - name: Build
         run: npm run build
-        env:
-          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL_UAT }}
 
       # ── Docker ───────────────────────────────────────────────────────────────
       - name: Set up Docker Buildx
@@ -84,7 +72,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL_UAT }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

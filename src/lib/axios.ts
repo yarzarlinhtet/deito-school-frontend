@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios'
-import { env } from '#/env'
+import { getApiBaseUrl } from '#/lib/runtime-config'
 import { useAuthStore } from '#/stores/authStore'
 
 interface RetryableRequest extends InternalAxiosRequestConfig {
@@ -8,7 +8,7 @@ interface RetryableRequest extends InternalAxiosRequestConfig {
 }
 
 export const axiosInstance: AxiosInstance = axios.create({
-  baseURL: env.VITE_API_BASE_URL,
+  baseURL: getApiBaseUrl(),
   headers: {
     'Content-Type': 'application/json',
   },
@@ -77,7 +77,7 @@ axiosInstance.interceptors.response.use(
       const { data } = await axios.post<{
         accessToken: string
         refreshToken: string
-      }>(`${env.VITE_API_BASE_URL}/api/v1/auth/refresh`, { refreshToken })
+      }>(`${axiosInstance.defaults.baseURL}/api/v1/auth/refresh`, { refreshToken })
 
       const newAccessToken = data.accessToken
       useAuthStore.getState().setAccessToken(newAccessToken)

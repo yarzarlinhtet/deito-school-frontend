@@ -270,9 +270,18 @@ ghcr.io/yarzarlinhtet/deito-school-frontend:frontend-a1b2c3d
 
 | Setting | Where | Value |
 |---------|-------|-------|
-| `VITE_API_BASE_URL` | Repository → Settings → Secrets → Actions | UAT backend base URL |
 | Workflow permissions | Repository → Settings → Actions → General | **Read and write permissions** |
 | GHCR package visibility | Packages → Package settings | Public or Private as needed |
+
+### Runtime configuration
+
+`VITE_API_BASE_URL` is no longer baked into the image at build time — the same image can be promoted across environments. Set it as a normal environment variable wherever the container runs:
+
+```bash
+docker run -e VITE_API_BASE_URL=https://api.example.com -p 3000:3000 <image>
+```
+
+If unset, the app falls back to `http://localhost:8000`.
 
 ### Adding ESLint (optional)
 

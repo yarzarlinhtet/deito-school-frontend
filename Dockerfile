@@ -8,10 +8,6 @@ RUN npm ci --ignore-scripts
 
 COPY . .
 
-# VITE_API_BASE_URL is embedded at build time by Vite
-ARG VITE_API_BASE_URL
-ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
-
 RUN npm run build
 
 # ── Stage 2: production runner ────────────────────────────────────────────────
