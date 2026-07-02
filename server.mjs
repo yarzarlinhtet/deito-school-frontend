@@ -88,4 +88,7 @@ createServer(async (req, res) => {
     res.writeHead(500)
     res.end('Internal Server Error')
   }
-}).listen(PORT, () => console.log(`Listening on :${PORT}`))
+}).listen(PORT, () => {
+  console.log(`Listening on :${PORT}`)
+  console.log(`VITE_API_BASE_URL=${process.env.VITE_API_BASE_URL || '(not set, client falls back to build-time default)'}`)
+})
