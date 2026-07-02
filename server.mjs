@@ -53,6 +53,14 @@ async function pipeResponse(webRes, res) {
 
 createServer(async (req, res) => {
   const pathname = new URL(req.url, 'http://localhost').pathname
+
+  if (pathname === '/runtime-config.js') {
+    const body = `window.__RUNTIME_CONFIG__ = ${JSON.stringify({ VITE_API_BASE_URL: process.env.VITE_API_BASE_URL || '' })};`
+    res.writeHead(200, { 'Content-Type': 'application/javascript; charset=utf-8', 'Cache-Control': 'no-cache' })
+    res.end(body)
+    return
+  }
+
   const filePath = join(staticDir, pathname)
 
   if (existsSync(filePath)) {
